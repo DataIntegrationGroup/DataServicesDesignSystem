@@ -11,6 +11,7 @@ import { Badge } from "@/components/ui/badge"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Separator } from "@/components/ui/separator"
+import { ModeToggle } from "@/components/mode-toggle"
 
 type Swatch = { name: string; hex: string; fg?: string }
 
@@ -54,7 +55,10 @@ function App() {
               Ocotillo / NM_WDI palette · Roboto Condensed + Open Sans
             </p>
           </div>
-          <Badge variant="secondary">v0.1.0</Badge>
+          <div className="flex items-center gap-3">
+            <Badge variant="secondary">v0.1.0</Badge>
+            <ModeToggle />
+          </div>
         </div>
       </header>
 
