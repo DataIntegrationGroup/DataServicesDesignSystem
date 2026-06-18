@@ -87,6 +87,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
+import { Map, Marker } from "@/components/ui/map"
 
 type Swatch = { name: string; hex: string; fg?: string }
 
@@ -156,6 +157,7 @@ function App() {
             <TabsTrigger value="feedback">Feedback</TabsTrigger>
             <TabsTrigger value="data">Data</TabsTrigger>
             <TabsTrigger value="overlays">Overlays</TabsTrigger>
+            <TabsTrigger value="map">Map</TabsTrigger>
           </TabsList>
 
           <TabsContent value="foundations" className="space-y-10">
@@ -613,6 +615,23 @@ function App() {
                 </TooltipTrigger>
                 <TooltipContent>Connection healthy</TooltipContent>
               </Tooltip>
+            </section>
+          </TabsContent>
+
+          <TabsContent value="map" className="space-y-10">
+            <section className="space-y-4">
+              <h2>Map</h2>
+              <p className="text-muted-foreground">
+                MapLibre primitive with a token-free CARTO basemap, New Mexico
+                default extent, and nav/scale controls.
+              </p>
+              <Card className="overflow-hidden p-0">
+                <div className="h-[480px]">
+                  <Map>
+                    <Marker longitude={-106.65} latitude={35.08} />
+                  </Map>
+                </div>
+              </Card>
             </section>
           </TabsContent>
         </Tabs>
