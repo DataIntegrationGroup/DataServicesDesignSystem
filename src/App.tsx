@@ -91,29 +91,38 @@ import { Map, Marker } from "@/components/ui/map"
 
 type Swatch = { name: string; hex: string; fg?: string }
 
+// OcotilloUI (NMBGMRDataManager) production palette — tailwind color scales.
 const palette: { group: string; swatches: Swatch[] }[] = [
   {
-    group: "Primary",
+    group: "Primary — Blue",
     swatches: [
-      { name: "Soft Aqua", hex: "#A6CCD6", fg: "#004153" },
-      { name: "Deep Cyan", hex: "#006E7B", fg: "#ffffff" },
-      { name: "Deep Teal", hex: "#004153", fg: "#ffffff" },
+      { name: "blue-300", hex: "#93c5fd", fg: "#1e3a8a" },
+      { name: "blue-700", hex: "#1d4ed8", fg: "#ffffff" },
+      { name: "blue-900", hex: "#1e3a8a", fg: "#ffffff" },
     ],
   },
   {
-    group: "Secondary",
+    group: "Secondary — Amber",
     swatches: [
-      { name: "Beige Sand", hex: "#E1E4C6", fg: "#3C410C" },
-      { name: "Citron Green", hex: "#86911A", fg: "#ffffff" },
-      { name: "Olive Green", hex: "#3C410C", fg: "#E1E4C6" },
+      { name: "amber-300", hex: "#fcd34d", fg: "#78350f" },
+      { name: "amber-600", hex: "#d97706", fg: "#ffffff" },
+      { name: "amber-800", hex: "#92400e", fg: "#fcd34d" },
     ],
   },
   {
-    group: "Warning",
+    group: "Error — Red",
     swatches: [
-      { name: "Muted Rose", hex: "#F5B9B4", fg: "#5B1610" },
-      { name: "Burnt Sienna", hex: "#C04034", fg: "#ffffff" },
-      { name: "Crimson Red", hex: "#5B1610", fg: "#F5B9B4" },
+      { name: "red-300", hex: "#fca5a5", fg: "#7f1d1d" },
+      { name: "red-600", hex: "#dc2626", fg: "#ffffff" },
+      { name: "red-800", hex: "#991b1b", fg: "#fca5a5" },
+    ],
+  },
+  {
+    group: "Status",
+    swatches: [
+      { name: "warning · orange-500", hex: "#f97316", fg: "#ffffff" },
+      { name: "success · emerald-700", hex: "#047857", fg: "#ffffff" },
+      { name: "info · cyan-600", hex: "#0891b2", fg: "#ffffff" },
     ],
   },
 ]
@@ -138,7 +147,7 @@ function App() {
               DataServices Design System
             </h1>
             <p className="text-muted-foreground mt-2">
-              Ocotillo / NM_WDI palette · Roboto Condensed + Open Sans
+              OcotilloUI production palette · Outfit + Public Sans
             </p>
           </div>
           <div className="flex items-center gap-3">
@@ -165,12 +174,12 @@ function App() {
               <h2>Typography</h2>
               <Card>
                 <CardContent className="space-y-3 pt-6">
-                  <h1>Heading 1 — Roboto Condensed 700</h1>
-                  <h2>Heading 2 — Roboto Condensed 600</h2>
-                  <h3>Heading 3 — Roboto Condensed 500</h3>
-                  <h4>Heading 4 — Roboto Condensed 500</h4>
+                  <h1>Heading 1 — Outfit 700</h1>
+                  <h2>Heading 2 — Outfit 600</h2>
+                  <h3>Heading 3 — Outfit 500</h3>
+                  <h4>Heading 4 — Outfit 500</h4>
                   <p>
-                    Body — Open Sans 400. Lorem ipsum dolor sit amet,
+                    Body — Public Sans 400. Lorem ipsum dolor sit amet,
                     consectetur adipiscing elit.
                   </p>
                 </CardContent>
@@ -535,8 +544,8 @@ function App() {
                     What is the DataServices Design System?
                   </AccordionTrigger>
                   <AccordionContent>
-                    Shared UI primitives for all DataServices projects, derived
-                    from the OcotilloUI NM_WDI theme.
+                    Shared UI primitives for all DataServices projects, themed
+                    to match the OcotilloUI (NMBGMRDataManager) production theme.
                   </AccordionContent>
                 </AccordionItem>
                 <AccordionItem value="b">
@@ -639,7 +648,7 @@ function App() {
 
       <footer className="border-t mt-12">
         <div className="mx-auto max-w-6xl px-6 py-6 text-sm text-muted-foreground">
-          DataServices · derived from OcotilloUI:production NM_WDI theme
+          DataServices · themed to match OcotilloUI:production (NMBGMRDataManager)
         </div>
       </footer>
     </div>
