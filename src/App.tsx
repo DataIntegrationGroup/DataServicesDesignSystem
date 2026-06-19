@@ -88,6 +88,13 @@ import {
   TableRow,
 } from "@/components/ui/table"
 import { Map, Marker } from "@/components/ui/map"
+import { DataTable, DataTableColumnHeader } from "@/components/ui/data-table"
+import type { ColumnDef } from "@tanstack/react-table"
+import { DataGrid, type DataGridColumn } from "@/components/ui/data-grid"
+import { Toggle } from "@/components/ui/toggle"
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group"
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+import { Bold, Italic, Underline } from "lucide-react"
 
 type Swatch = { name: string; hex: string; fg?: string }
 
@@ -134,9 +141,57 @@ const sources = [
   { name: "events-kafka", host: "kafka.internal:9092", status: "offline" },
 ]
 
+type Source = (typeof sources)[number]
+
+const sourceColumns: ColumnDef<Source>[] = [
+  {
+    accessorKey: "name",
+    header: ({ column }) => <DataTableColumnHeader column={column} title="Name" />,
+    cell: ({ row }) => (
+      <span className="font-medium">{row.getValue("name")}</span>
+    ),
+  },
+  {
+    accessorKey: "host",
+    header: ({ column }) => <DataTableColumnHeader column={column} title="Host" />,
+    cell: ({ row }) => (
+      <span className="font-mono text-sm">{row.getValue("host")}</span>
+    ),
+  },
+  {
+    accessorKey: "status",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Status" />
+    ),
+    cell: ({ row }) => {
+      const status = row.getValue<string>("status")
+      return (
+        <Badge
+          variant={
+            status === "online"
+              ? "default"
+              : status === "degraded"
+              ? "secondary"
+              : "destructive"
+          }
+        >
+          {status}
+        </Badge>
+      )
+    },
+  },
+]
+
+const gridColumns: DataGridColumn<Source>[] = [
+  { id: "name", title: "Name", width: 200 },
+  { id: "host", title: "Host", width: 240 },
+  { id: "status", title: "Status", width: 140 },
+]
+
 function App() {
   const [progress, setProgress] = useState(62)
   const [volume, setVolume] = useState([40])
+  const [gridRows, setGridRows] = useState<Source[]>(sources)
 
   return (
     <div className="min-h-svh bg-background text-foreground">
@@ -359,6 +414,106 @@ function App() {
                 </CardContent>
               </Card>
             </section>
+
+            <Separator />
+
+            <section className="space-y-6">
+              <h2>Toggles &amp; selection</h2>
+              <div className="grid gap-6 md:grid-cols-2">
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Switches</CardTitle>
+                    <CardDescription>Sizes & state.</CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <div className="flex items-center justify-between">
+                      <Label>Default</Label>
+                      <Switch defaultChecked />
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <Label>Small</Label>
+                      <Switch size="sm" defaultChecked />
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <Label className="text-muted-foreground">Disabled</Label>
+                      <Switch disabled />
+                    </div>
+                    <Separator />
+                    <div className="flex items-center justify-between">
+                      <Label>Square</Label>
+                      <Switch shape="square" defaultChecked />
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <Label>Square · small</Label>
+                      <Switch shape="square" size="sm" defaultChecked />
+                    </div>
+                  </CardContent>
+                </Card>
+
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Toggles</CardTitle>
+                    <CardDescription>
+                      Single toggle + segmented group.
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <Toggle aria-label="Bold">
+                        <Bold />
+                      </Toggle>
+                      <Toggle variant="outline" aria-label="Italic">
+                        <Italic />
+                      </Toggle>
+                      <Toggle defaultPressed aria-label="Underline">
+                        <Underline /> Pressed
+                      </Toggle>
+                    </div>
+                    <div className="space-y-2">
+                      <Label>Text style</Label>
+                      <ToggleGroup
+                        type="multiple"
+                        variant="outline"
+                        defaultValue={["bold"]}
+                      >
+                        <ToggleGroupItem value="bold" aria-label="Bold">
+                          <Bold />
+                        </ToggleGroupItem>
+                        <ToggleGroupItem value="italic" aria-label="Italic">
+                          <Italic />
+                        </ToggleGroupItem>
+                        <ToggleGroupItem value="underline" aria-label="Underline">
+                          <Underline />
+                        </ToggleGroupItem>
+                      </ToggleGroup>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Radio group</CardTitle>
+                    <CardDescription>Pick one sync mode.</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <RadioGroup defaultValue="incremental">
+                      <div className="flex items-center gap-2">
+                        <RadioGroupItem value="full" id="r-full" />
+                        <Label htmlFor="r-full">Full resync</Label>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <RadioGroupItem value="incremental" id="r-inc" />
+                        <Label htmlFor="r-inc">Incremental</Label>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <RadioGroupItem value="manual" id="r-man" />
+                        <Label htmlFor="r-man">Manual only</Label>
+                      </div>
+                    </RadioGroup>
+                  </CardContent>
+                </Card>
+              </div>
+            </section>
           </TabsContent>
 
           <TabsContent value="feedback" className="space-y-10">
@@ -512,6 +667,42 @@ function App() {
                   </TableBody>
                 </Table>
               </Card>
+            </section>
+
+            <Separator />
+
+            <section className="space-y-4">
+              <h2>Data table</h2>
+              <p className="text-muted-foreground">
+                TanStack-powered <code>DataTable</code> — sortable headers,
+                column filter, column visibility, and pagination.
+              </p>
+              <Card className="p-4">
+                <DataTable
+                  columns={sourceColumns}
+                  data={sources}
+                  filterColumn="name"
+                  filterPlaceholder="Filter by name…"
+                  pageSize={5}
+                />
+              </Card>
+            </section>
+
+            <Separator />
+
+            <section className="space-y-4">
+              <h2>Data grid (editable)</h2>
+              <p className="text-muted-foreground">
+                Glide Data Grid — canvas-rendered, editable spreadsheet for
+                large datasets. Double-click a cell to edit; themed to
+                OcotilloUI.
+              </p>
+              <DataGrid
+                columns={gridColumns}
+                rows={gridRows}
+                onRowsChange={setGridRows}
+                height={240}
+              />
             </section>
 
             <Separator />

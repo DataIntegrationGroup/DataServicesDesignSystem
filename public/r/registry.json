@@ -128,6 +128,87 @@
       ]
     },
     {
+      "name": "data-table",
+      "type": "registry:ui",
+      "title": "Data Table",
+      "description": "Generic client-side table over @tanstack/react-table — sortable headers (DataTableColumnHeader), column filter, column visibility, and pagination built in.",
+      "dependencies": ["@tanstack/react-table", "lucide-react"],
+      "registryDependencies": ["table", "button", "input", "dropdown-menu"],
+      "files": [
+        {
+          "path": "src/components/ui/data-table.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "data-grid",
+      "type": "registry:ui",
+      "title": "Data Grid (editable)",
+      "description": "Canvas-based editable spreadsheet grid (Glide Data Grid) with a row-object API and OcotilloUI light/dark theming. Pass columns keyed to row fields plus rows; provide onRowsChange for editing.",
+      "dependencies": ["@glideapps/glide-data-grid"],
+      "registryDependencies": ["@dataservices/theme-provider"],
+      "files": [
+        {
+          "path": "src/components/ui/data-grid.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "switch",
+      "type": "registry:ui",
+      "title": "Switch",
+      "description": "On/off switch (Radix Switch) with sm/default sizes and pill/square shapes, themed to OcotilloUI.",
+      "dependencies": ["radix-ui"],
+      "files": [
+        {
+          "path": "src/components/ui/switch.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "toggle",
+      "type": "registry:ui",
+      "title": "Toggle",
+      "description": "Two-state pressable toggle button (Radix Toggle) with default/outline variants and sm/default/lg sizes.",
+      "dependencies": ["radix-ui"],
+      "files": [
+        {
+          "path": "src/components/ui/toggle.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "toggle-group",
+      "type": "registry:ui",
+      "title": "Toggle Group",
+      "description": "Segmented set of toggles (Radix ToggleGroup) sharing variant/size; single or multiple selection.",
+      "dependencies": ["radix-ui"],
+      "registryDependencies": ["@dataservices/toggle"],
+      "files": [
+        {
+          "path": "src/components/ui/toggle-group.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "radio-group",
+      "type": "registry:ui",
+      "title": "Radio Group",
+      "description": "Single-select radio options (Radix RadioGroup) themed to OcotilloUI.",
+      "dependencies": ["radix-ui", "lucide-react"],
+      "files": [
+        {
+          "path": "src/components/ui/radio-group.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "navbar",
       "type": "registry:ui",
       "title": "NavBar",
