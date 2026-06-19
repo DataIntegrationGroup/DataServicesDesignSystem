@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useMemo, useState } from "react"
 import { toast } from "sonner"
 import {
   Bell,
@@ -176,6 +176,8 @@ import {
   CartesianGrid,
   XAxis,
 } from "recharts"
+import { EChart } from "@/components/ui/echart"
+import type { EChartsOption } from "echarts"
 
 type Swatch = { name: string; hex: string; fg?: string }
 
@@ -374,6 +376,36 @@ function App() {
   const [gridRows, setGridRows] = useState<Source[]>(sources)
   const [date, setDate] = useState<Date | undefined>()
   const [range, setRange] = useState<DateRange | undefined>()
+
+  const echartOption = useMemo<EChartsOption>(() => {
+    const days = Array.from({ length: 30 }, (_, i) => `D${i + 1}`)
+    const ingested = days.map((_, i) =>
+      Math.round(1800 + Math.sin(i / 3) * 600 + i * 25)
+    )
+    const failed = days.map((_, i) => Math.round(60 + Math.cos(i / 2) * 40 + 30))
+    return {
+      tooltip: { trigger: "axis" },
+      legend: { data: ["Ingested", "Failed"], top: 0 },
+      grid: { left: 48, right: 16, top: 36, bottom: 56 },
+      xAxis: { type: "category", boundaryGap: false, data: days },
+      yAxis: { type: "value" },
+      dataZoom: [
+        { type: "inside", start: 40, end: 100 },
+        { type: "slider", start: 40, end: 100, height: 18, bottom: 12 },
+      ],
+      series: [
+        {
+          name: "Ingested",
+          type: "line",
+          smooth: true,
+          showSymbol: false,
+          areaStyle: { opacity: 0.15 },
+          data: ingested,
+        },
+        { name: "Failed", type: "bar", data: failed },
+      ],
+    }
+  }, [])
 
   return (
     <div className="min-h-svh bg-background text-foreground">
@@ -917,6 +949,28 @@ function App() {
                   </CardContent>
                 </Card>
               </div>
+            </section>
+
+            <Separator />
+
+            <section className="space-y-4">
+              <h2>ECharts (advanced)</h2>
+              <p className="text-muted-foreground">
+                Apache ECharts wrapper for heavier, interactive charting — drag
+                the zoom slider or scroll to zoom. Line + bar combo over 30
+                days, themed to OcotilloUI and dark-mode aware.
+              </p>
+              <Card>
+                <CardHeader>
+                  <CardTitle>Ingestion vs failures</CardTitle>
+                  <CardDescription>
+                    Interactive dataZoom · 30-day window
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <EChart option={echartOption} height={320} />
+                </CardContent>
+              </Card>
             </section>
 
             <Separator />

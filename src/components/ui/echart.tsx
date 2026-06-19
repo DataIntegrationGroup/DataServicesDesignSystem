@@ -1,0 +1,168 @@
+"use client"
+
+import * as React from "react"
+import * as echarts from "echarts"
+import type { EChartsOption, ECharts, SetOptionOpts } from "echarts"
+
+import { cn } from "@/lib/utils"
+import { useTheme } from "@/components/theme-provider"
+
+/** Resolve current dark state from theme-provider + system preference. */
+function useResolvedDark() {
+  const { theme } = useTheme()
+  const systemDark = React.useSyncExternalStore(
+    (cb) => {
+      const mq = window.matchMedia("(prefers-color-scheme: dark)")
+      mq.addEventListener("change", cb)
+      return () => mq.removeEventListener("change", cb)
+    },
+    () => window.matchMedia("(prefers-color-scheme: dark)").matches,
+    () => false
+  )
+  return theme === "dark" || (theme === "system" && systemDark)
+}
+
+/** Read the OcotilloUI token values off the document root. */
+function readTokens(el: HTMLElement) {
+  const cs = getComputedStyle(el)
+  const v = (name: string) => cs.getPropertyValue(name).trim()
+  return {
+    palette: [
+      v("--chart-1"),
+      v("--chart-2"),
+      v("--chart-3"),
+      v("--chart-4"),
+      v("--chart-5"),
+    ].filter(Boolean),
+    foreground: v("--foreground"),
+    muted: v("--muted-foreground"),
+    border: v("--border"),
+    popover: v("--popover"),
+    popoverForeground: v("--popover-foreground"),
+    fontFamily: "'Public Sans Variable', system-ui, sans-serif",
+  }
+}
+
+/** Build an ECharts theme object from OcotilloUI tokens. */
+function buildTheme(t: ReturnType<typeof readTokens>) {
+  const axisCommon = {
+    axisLine: { lineStyle: { color: t.border } },
+    axisTick: { lineStyle: { color: t.border } },
+    axisLabel: { color: t.muted },
+    splitLine: { lineStyle: { color: t.border, opacity: 0.5 } },
+    splitArea: { areaStyle: { color: ["transparent"] } },
+  }
+  return {
+    color: t.palette,
+    backgroundColor: "transparent",
+    textStyle: { fontFamily: t.fontFamily, color: t.foreground },
+    title: { textStyle: { color: t.foreground } },
+    legend: { textStyle: { color: t.muted } },
+    categoryAxis: axisCommon,
+    valueAxis: axisCommon,
+    logAxis: axisCommon,
+    timeAxis: axisCommon,
+    tooltip: {
+      backgroundColor: t.popover,
+      borderColor: t.border,
+      textStyle: { color: t.popoverForeground, fontFamily: t.fontFamily },
+    },
+    line: { itemStyle: { borderWidth: 2 }, lineStyle: { width: 2 } },
+  }
+}
+
+let themeSeq = 0
+
+export interface EChartProps {
+  /** ECharts option object. */
+  option: EChartsOption
+  /** Chart height in px (default: 360). */
+  height?: number
+  /** Options forwarded to setOption (default: { notMerge: true }). */
+  setOptionOpts?: SetOptionOpts
+  /** Show the built-in loading spinner. */
+  loading?: boolean
+  /** Map of ECharts event name → handler, e.g. { click: (p) => ... }. */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  onEvents?: Record<string, (params: any) => void>
+  className?: string
+  /** Called with the chart instance after init. */
+  onInit?: (chart: ECharts) => void
+}
+
+/**
+ * EChart — Apache ECharts wrapper for serious/interactive charting (large
+ * series, zoom, brushing, geo/heatmap, etc.). Themed to OcotilloUI from the
+ * --chart-1..5 tokens and re-themed on dark-mode change. Pass a raw ECharts
+ * `option`; everything else (resize, dispose) is handled.
+ */
+export function EChart({
+  option,
+  height = 360,
+  setOptionOpts = { notMerge: true },
+  loading = false,
+  onEvents,
+  className,
+  onInit,
+}: EChartProps) {
+  const containerRef = React.useRef<HTMLDivElement>(null)
+  const chartRef = React.useRef<ECharts | null>(null)
+  const dark = useResolvedDark()
+
+  // Init / dispose. Re-init when dark changes so the registered theme updates.
+  React.useEffect(() => {
+    const el = containerRef.current
+    if (!el) return
+
+    const themeName = `ocotillo-${themeSeq++}`
+    echarts.registerTheme(themeName, buildTheme(readTokens(el)))
+    const chart = echarts.init(el, themeName, { renderer: "canvas" })
+    chartRef.current = chart
+    onInit?.(chart)
+
+    const ro = new ResizeObserver(() => chart.resize())
+    ro.observe(el)
+
+    return () => {
+      ro.disconnect()
+      chart.dispose()
+      chartRef.current = null
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dark])
+
+  // Apply option.
+  React.useEffect(() => {
+    chartRef.current?.setOption(option, setOptionOpts)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [option, dark])
+
+  // Loading state.
+  React.useEffect(() => {
+    const chart = chartRef.current
+    if (!chart) return
+    if (loading) chart.showLoading()
+    else chart.hideLoading()
+  }, [loading])
+
+  // Events.
+  React.useEffect(() => {
+    const chart = chartRef.current
+    if (!chart || !onEvents) return
+    for (const [name, handler] of Object.entries(onEvents)) {
+      chart.on(name, handler)
+    }
+    return () => {
+      for (const name of Object.keys(onEvents)) chart.off(name)
+    }
+  }, [onEvents])
+
+  return (
+    <div
+      ref={containerRef}
+      data-slot="echart"
+      style={{ height }}
+      className={cn("w-full", className)}
+    />
+  )
+}

@@ -292,6 +292,17 @@
       ]
     },
     {
+      "name": "echart",
+      "type": "registry:ui",
+      "title": "EChart",
+      "description": "Apache ECharts React wrapper for heavy/interactive charting (large series, dataZoom, brush, geo, heatmap). Auto resize/dispose, an OcotilloUI theme built from the --chart-1..5 tokens, and dark-mode re-theming. Pass a raw ECharts option.",
+      "dependencies": ["echarts"],
+      "registryDependencies": ["@dataservices/theme-provider"],
+      "files": [
+        { "path": "src/components/ui/echart.tsx", "type": "registry:ui" }
+      ]
+    },
+    {
       "name": "breadcrumb",
       "type": "registry:ui",
       "title": "Breadcrumb",

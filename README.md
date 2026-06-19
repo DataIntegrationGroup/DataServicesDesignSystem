@@ -67,4 +67,5 @@ consumers fetch.
 predate React 19 — `@glideapps/glide-data-grid` (data-grid), `cmdk`
 (command/combobox), `react-resizable-panels` (resizable),
 `react-day-picker` (calendar/date-picker), and `recharts` (chart). All are
-verified working on React 19; the warnings are safe to ignore.
+verified working on React 19; the warnings are safe to ignore. (`echart` uses
+Apache ECharts, which is framework-agnostic and has no React peer.)
