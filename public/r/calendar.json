@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "calendar",
+  "title": "Calendar",
+  "description": "Date calendar built on react-day-picker v10, themed to OcotilloUI. Supports single, multiple, and range selection.",
+  "dependencies": [
+    "react-day-picker",
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "button"
+  ],
+  "files": [
+    {
+      "path": "src/components/ui/calendar.tsx",
+      "content": "\"use client\"\n\nimport { ChevronLeft, ChevronRight } from \"lucide-react\"\nimport {\n  DayPicker,\n  getDefaultClassNames,\n  type DayPickerProps,\n} from \"react-day-picker\"\n\nimport { cn } from \"@/lib/utils\"\nimport { buttonVariants } from \"@/components/ui/button\"\n\nfunction Calendar({\n  className,\n  classNames,\n  showOutsideDays = true,\n  ...props\n}: DayPickerProps) {\n  const defaultClassNames = getDefaultClassNames()\n\n  return (\n    <DayPicker\n      showOutsideDays={showOutsideDays}\n      className={cn(\"p-3\", className)}\n      classNames={{\n        root: cn(\"w-fit\", defaultClassNames.root),\n        months: cn(\n          \"relative flex flex-col gap-4 sm:flex-row\",\n          defaultClassNames.months\n        ),\n        month: cn(\"flex w-full flex-col gap-4\", defaultClassNames.month),\n        nav: cn(\n          \"absolute inset-x-0 top-0 flex items-center justify-between\",\n          defaultClassNames.nav\n        ),\n        button_previous: cn(\n          buttonVariants({ variant: \"ghost\", size: \"icon\" }),\n          \"size-7 p-0 opacity-50 hover:opacity-100\",\n          defaultClassNames.button_previous\n        ),\n        button_next: cn(\n          buttonVariants({ variant: \"ghost\", size: \"icon\" }),\n          \"size-7 p-0 opacity-50 hover:opacity-100\",\n          defaultClassNames.button_next\n        ),\n        month_caption: cn(\n          \"flex h-7 items-center justify-center\",\n          defaultClassNames.month_caption\n        ),\n        caption_label: cn(\"text-sm font-medium\", defaultClassNames.caption_label),\n        weekdays: cn(\"flex\", defaultClassNames.weekdays),\n        weekday: cn(\n          \"w-9 text-[0.8rem] font-normal text-muted-foreground\",\n          defaultClassNames.weekday\n        ),\n        week: cn(\"mt-2 flex w-full\", defaultClassNames.week),\n        day: cn(\n          \"relative size-9 p-0 text-center text-sm [&:has([aria-selected])]:rounded-md [&:has([aria-selected])]:bg-accent\",\n          defaultClassNames.day\n        ),\n        day_button: cn(\n          buttonVariants({ variant: \"ghost\" }),\n          \"size-9 rounded-md p-0 font-normal aria-selected:opacity-100\",\n          defaultClassNames.day_button\n        ),\n        today: cn(\n          \"rounded-md bg-accent text-accent-foreground\",\n          defaultClassNames.today\n        ),\n        selected: cn(\n          \"[&>button]:bg-primary [&>button]:text-primary-foreground [&>button:hover]:bg-primary [&>button:hover]:text-primary-foreground\",\n          defaultClassNames.selected\n        ),\n        outside: cn(\"text-muted-foreground\", defaultClassNames.outside),\n        disabled: cn(\"text-muted-foreground opacity-50\", defaultClassNames.disabled),\n        range_start: cn(\n          \"rounded-l-md rounded-r-none\",\n          defaultClassNames.range_start\n        ),\n        range_middle: cn(\n          \"rounded-none [&>button]:bg-transparent [&>button]:text-foreground\",\n          defaultClassNames.range_middle\n        ),\n        range_end: cn(\"rounded-l-none rounded-r-md\", defaultClassNames.range_end),\n        hidden: cn(\"invisible\", defaultClassNames.hidden),\n        ...classNames,\n      }}\n      components={{\n        Chevron: ({ orientation, className: chevronClassName, ...chevronProps }) => {\n          const Icon = orientation === \"left\" ? ChevronLeft : ChevronRight\n          return (\n            <Icon className={cn(\"size-4\", chevronClassName)} {...chevronProps} />\n          )\n        },\n      }}\n      {...props}\n    />\n  )\n}\n\nexport { Calendar }\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

@@ -135,6 +135,31 @@ import {
   ResizableHandle,
 } from "@/components/ui/resizable"
 import { StatusIndicator } from "@/components/ui/status-indicator"
+import {
+  Breadcrumb,
+  BreadcrumbEllipsis,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb"
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarGroup,
+  SidebarGroupContent,
+  SidebarGroupLabel,
+  SidebarHeader,
+  SidebarMenu,
+  SidebarMenuBadge,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  SidebarProvider,
+} from "@/components/ui/sidebar"
+import { DatePicker, DateRangePicker } from "@/components/ui/date-picker"
+import { Database as DatabaseIcon, Map as MapIcon, Settings, Activity } from "lucide-react"
+import type { DateRange } from "react-day-picker"
 
 type Swatch = { name: string; hex: string; fg?: string }
 
@@ -316,6 +341,8 @@ function App() {
   const [progress, setProgress] = useState(62)
   const [volume, setVolume] = useState([40])
   const [gridRows, setGridRows] = useState<Source[]>(sources)
+  const [date, setDate] = useState<Date | undefined>()
+  const [range, setRange] = useState<DateRange | undefined>()
 
   return (
     <div className="min-h-svh bg-background text-foreground">
@@ -346,6 +373,7 @@ function App() {
             <TabsTrigger value="data">Data</TabsTrigger>
             <TabsTrigger value="overlays">Overlays</TabsTrigger>
             <TabsTrigger value="map">Map</TabsTrigger>
+            <TabsTrigger value="layout">Layout</TabsTrigger>
           </TabsList>
 
           <TabsContent value="foundations" className="space-y-10">
@@ -658,6 +686,25 @@ function App() {
                   <SourceForm />
                 </CardContent>
               </Card>
+            </section>
+
+            <Separator />
+
+            <section className="space-y-4">
+              <h2>Date picker</h2>
+              <p className="text-muted-foreground">
+                Single date and start/end range, built on Popover + Calendar.
+              </p>
+              <div className="flex flex-wrap gap-4">
+                <div className="space-y-2">
+                  <Label>Snapshot date</Label>
+                  <DatePicker value={date} onValueChange={setDate} />
+                </div>
+                <div className="space-y-2">
+                  <Label>Reporting period</Label>
+                  <DateRangePicker value={range} onValueChange={setRange} />
+                </div>
+              </div>
             </section>
           </TabsContent>
 
@@ -1091,6 +1138,97 @@ function App() {
                     </div>
                   </ResizablePanel>
                 </ResizablePanelGroup>
+              </Card>
+            </section>
+          </TabsContent>
+
+          <TabsContent value="layout" className="space-y-10">
+            <section className="space-y-4">
+              <h2>Breadcrumb</h2>
+              <Breadcrumb>
+                <BreadcrumbList>
+                  <BreadcrumbItem>
+                    <BreadcrumbLink href="#">Home</BreadcrumbLink>
+                  </BreadcrumbItem>
+                  <BreadcrumbSeparator />
+                  <BreadcrumbItem>
+                    <BreadcrumbEllipsis />
+                  </BreadcrumbItem>
+                  <BreadcrumbSeparator />
+                  <BreadcrumbItem>
+                    <BreadcrumbLink href="#">Sources</BreadcrumbLink>
+                  </BreadcrumbItem>
+                  <BreadcrumbSeparator />
+                  <BreadcrumbItem>
+                    <BreadcrumbPage>warehouse-prod</BreadcrumbPage>
+                  </BreadcrumbItem>
+                </BreadcrumbList>
+              </Breadcrumb>
+            </section>
+
+            <Separator />
+
+            <section className="space-y-4">
+              <h2>Sidebar</h2>
+              <p className="text-muted-foreground">
+                App sidebar with grouped menu, active state, and badges. Full
+                component is collapsible with a Cmd/Ctrl+B shortcut in a real
+                app shell.
+              </p>
+              <Card className="h-[360px] overflow-hidden p-0">
+                <SidebarProvider className="min-h-0! h-full">
+                  <Sidebar collapsible="none" className="border-r">
+                    <SidebarHeader>
+                      <div className="flex items-center gap-2 px-2 py-1 font-heading text-lg font-bold text-sidebar-primary">
+                        <DatabaseIcon className="size-5" /> DataServices
+                      </div>
+                    </SidebarHeader>
+                    <SidebarContent>
+                      <SidebarGroup>
+                        <SidebarGroupLabel>Platform</SidebarGroupLabel>
+                        <SidebarGroupContent>
+                          <SidebarMenu>
+                            <SidebarMenuItem>
+                              <SidebarMenuButton isActive>
+                                <DatabaseIcon /> Sources
+                              </SidebarMenuButton>
+                              <SidebarMenuBadge>4</SidebarMenuBadge>
+                            </SidebarMenuItem>
+                            <SidebarMenuItem>
+                              <SidebarMenuButton>
+                                <MapIcon /> Map
+                              </SidebarMenuButton>
+                            </SidebarMenuItem>
+                            <SidebarMenuItem>
+                              <SidebarMenuButton>
+                                <Activity /> Monitoring
+                              </SidebarMenuButton>
+                              <SidebarMenuBadge>2</SidebarMenuBadge>
+                            </SidebarMenuItem>
+                          </SidebarMenu>
+                        </SidebarGroupContent>
+                      </SidebarGroup>
+                      <SidebarGroup>
+                        <SidebarGroupLabel>System</SidebarGroupLabel>
+                        <SidebarGroupContent>
+                          <SidebarMenu>
+                            <SidebarMenuItem>
+                              <SidebarMenuButton>
+                                <Settings /> Settings
+                              </SidebarMenuButton>
+                            </SidebarMenuItem>
+                          </SidebarMenu>
+                        </SidebarGroupContent>
+                      </SidebarGroup>
+                    </SidebarContent>
+                  </Sidebar>
+                  <div className="flex flex-1 flex-col gap-2 p-6">
+                    <h3 className="!text-xl">Sources</h3>
+                    <p className="text-muted-foreground">
+                      Main content area beside the sidebar.
+                    </p>
+                  </div>
+                </SidebarProvider>
               </Card>
             </section>
           </TabsContent>

@@ -282,6 +282,66 @@
       ]
     },
     {
+      "name": "breadcrumb",
+      "type": "registry:ui",
+      "title": "Breadcrumb",
+      "description": "Breadcrumb navigation trail with separators and an ellipsis for collapsed paths. Links accept the app router via asChild.",
+      "dependencies": ["radix-ui", "lucide-react"],
+      "files": [
+        { "path": "src/components/ui/breadcrumb.tsx", "type": "registry:ui" }
+      ]
+    },
+    {
+      "name": "use-mobile",
+      "type": "registry:hook",
+      "title": "useIsMobile",
+      "description": "Hook returning whether the viewport is below the mobile breakpoint (768px), via useSyncExternalStore.",
+      "files": [
+        { "path": "src/hooks/use-mobile.ts", "type": "registry:hook" }
+      ]
+    },
+    {
+      "name": "sidebar",
+      "type": "registry:ui",
+      "title": "Sidebar",
+      "description": "Collapsible app sidebar (offcanvas/icon), with provider, keyboard shortcut, cookie-persisted state, mobile Sheet fallback, and a full set of menu/group primitives. Themed via the OcotilloUI --sidebar tokens.",
+      "dependencies": ["radix-ui", "lucide-react"],
+      "registryDependencies": [
+        "button",
+        "input",
+        "separator",
+        "skeleton",
+        "tooltip",
+        "@dataservices/sheet",
+        "@dataservices/use-mobile"
+      ],
+      "files": [
+        { "path": "src/components/ui/sidebar.tsx", "type": "registry:ui" }
+      ]
+    },
+    {
+      "name": "calendar",
+      "type": "registry:ui",
+      "title": "Calendar",
+      "description": "Date calendar built on react-day-picker v10, themed to OcotilloUI. Supports single, multiple, and range selection.",
+      "dependencies": ["react-day-picker", "lucide-react"],
+      "registryDependencies": ["button"],
+      "files": [
+        { "path": "src/components/ui/calendar.tsx", "type": "registry:ui" }
+      ]
+    },
+    {
+      "name": "date-picker",
+      "type": "registry:ui",
+      "title": "Date Picker",
+      "description": "DatePicker (single) and DateRangePicker (start/end) built on Popover + Calendar, with date-fns formatting.",
+      "dependencies": ["date-fns", "react-day-picker", "lucide-react"],
+      "registryDependencies": ["button", "popover", "@dataservices/calendar"],
+      "files": [
+        { "path": "src/components/ui/date-picker.tsx", "type": "registry:ui" }
+      ]
+    },
+    {
       "name": "navbar",
       "type": "registry:ui",
       "title": "NavBar",
