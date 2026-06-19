@@ -12,6 +12,10 @@ dist
 dist-ssr
 *.local
 
+# Lockfiles — this repo uses pnpm only
+package-lock.json
+yarn.lock
+
 # Editor directories and files
 .claude
 .vscode/*
