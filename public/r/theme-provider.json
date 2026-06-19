@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "theme-provider",
+  "title": "Theme Provider",
+  "description": "Light/dark/system theme context with localStorage persistence (storageKey 'dsds-theme'). Exposes useTheme().",
+  "files": [
+    {
+      "path": "src/components/theme-provider.tsx",
+      "content": "import { createContext, useContext, useEffect, useState } from \"react\"\n\ntype Theme = \"dark\" | \"light\" | \"system\"\n\ntype ThemeProviderProps = {\n  children: React.ReactNode\n  defaultTheme?: Theme\n  storageKey?: string\n}\n\ntype ThemeProviderState = {\n  theme: Theme\n  setTheme: (theme: Theme) => void\n}\n\nconst initialState: ThemeProviderState = {\n  theme: \"system\",\n  setTheme: () => null,\n}\n\nconst ThemeProviderContext = createContext<ThemeProviderState>(initialState)\n\nexport function ThemeProvider({\n  children,\n  defaultTheme = \"system\",\n  storageKey = \"dsds-theme\",\n}: ThemeProviderProps) {\n  const [theme, setTheme] = useState<Theme>(\n    () => (localStorage.getItem(storageKey) as Theme) || defaultTheme\n  )\n\n  useEffect(() => {\n    const root = window.document.documentElement\n    root.classList.remove(\"light\", \"dark\")\n\n    if (theme === \"system\") {\n      const systemTheme = window.matchMedia(\"(prefers-color-scheme: dark)\")\n        .matches\n        ? \"dark\"\n        : \"light\"\n      root.classList.add(systemTheme)\n      return\n    }\n\n    root.classList.add(theme)\n  }, [theme])\n\n  const value = {\n    theme,\n    setTheme: (theme: Theme) => {\n      localStorage.setItem(storageKey, theme)\n      setTheme(theme)\n    },\n  }\n\n  return (\n    <ThemeProviderContext.Provider value={value}>\n      {children}\n    </ThemeProviderContext.Provider>\n  )\n}\n\n// eslint-disable-next-line react-refresh/only-export-components\nexport const useTheme = () => {\n  const context = useContext(ThemeProviderContext)\n  if (context === undefined)\n    throw new Error(\"useTheme must be used within a ThemeProvider\")\n  return context\n}\n",
+      "type": "registry:component",
+      "target": "components/theme-provider.tsx"
+    }
+  ],
+  "type": "registry:component"
+}
