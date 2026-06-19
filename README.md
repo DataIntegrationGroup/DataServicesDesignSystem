@@ -65,5 +65,6 @@ consumers fetch.
 
 `pnpm install` logs unmet-peer warnings for a few libraries whose peer ranges
 predate React 19 — `@glideapps/glide-data-grid` (data-grid), `cmdk`
-(command/combobox), and `react-resizable-panels` (resizable). All three are
-verified working on React 19; the warnings are safe to ignore.
+(command/combobox), `react-resizable-panels` (resizable), and
+`react-day-picker` (calendar/date-picker). All are verified working on
+React 19; the warnings are safe to ignore.
