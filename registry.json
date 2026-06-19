@@ -209,6 +209,79 @@
       ]
     },
     {
+      "name": "form",
+      "type": "registry:ui",
+      "title": "Form",
+      "description": "react-hook-form + zod form primitives: Form, FormField, FormItem, FormLabel, FormControl, FormDescription, FormMessage, useFormField. Accessible labels, descriptions, and validation messages wired automatically.",
+      "dependencies": ["react-hook-form", "@hookform/resolvers", "zod", "radix-ui"],
+      "registryDependencies": ["label"],
+      "files": [
+        { "path": "src/components/ui/form.tsx", "type": "registry:ui" }
+      ]
+    },
+    {
+      "name": "command",
+      "type": "registry:ui",
+      "title": "Command",
+      "description": "Command palette / list primitives over cmdk: Command, CommandInput, CommandList, CommandEmpty, CommandGroup, CommandItem, CommandSeparator.",
+      "dependencies": ["cmdk", "lucide-react"],
+      "files": [
+        { "path": "src/components/ui/command.tsx", "type": "registry:ui" }
+      ]
+    },
+    {
+      "name": "combobox",
+      "type": "registry:ui",
+      "title": "Combobox",
+      "description": "Searchable single-select built on Popover + Command. Scales to long option lists where a plain Select doesn't.",
+      "dependencies": ["lucide-react"],
+      "registryDependencies": ["button", "popover", "@dataservices/command"],
+      "files": [
+        { "path": "src/components/ui/combobox.tsx", "type": "registry:ui" }
+      ]
+    },
+    {
+      "name": "sheet",
+      "type": "registry:ui",
+      "title": "Sheet",
+      "description": "Side drawer (Radix Dialog) sliding from any edge — for filter panels and detail views.",
+      "dependencies": ["radix-ui", "lucide-react"],
+      "registryDependencies": ["button"],
+      "files": [
+        { "path": "src/components/ui/sheet.tsx", "type": "registry:ui" }
+      ]
+    },
+    {
+      "name": "alert-dialog",
+      "type": "registry:ui",
+      "title": "Alert Dialog",
+      "description": "Accessible confirm dialog (Radix AlertDialog) for destructive actions, with themed Action/Cancel buttons.",
+      "dependencies": ["radix-ui"],
+      "registryDependencies": ["button"],
+      "files": [
+        { "path": "src/components/ui/alert-dialog.tsx", "type": "registry:ui" }
+      ]
+    },
+    {
+      "name": "resizable",
+      "type": "registry:ui",
+      "title": "Resizable",
+      "description": "Resizable split panes (react-resizable-panels) — pair with Map for split map/table layouts.",
+      "dependencies": ["react-resizable-panels", "lucide-react"],
+      "files": [
+        { "path": "src/components/ui/resizable.tsx", "type": "registry:ui" }
+      ]
+    },
+    {
+      "name": "status-indicator",
+      "type": "registry:ui",
+      "title": "Status Indicator",
+      "description": "Colored dot + label for resource health: online / degraded / offline / error / info / pending, with optional pulse.",
+      "files": [
+        { "path": "src/components/ui/status-indicator.tsx", "type": "registry:ui" }
+      ]
+    },
+    {
       "name": "navbar",
       "type": "registry:ui",
       "title": "NavBar",

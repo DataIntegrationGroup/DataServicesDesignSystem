@@ -95,6 +95,46 @@ import { Toggle } from "@/components/ui/toggle"
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Bold, Italic, Underline } from "lucide-react"
+import { useForm } from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { z } from "zod"
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form"
+import { Combobox } from "@/components/ui/combobox"
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetDescription,
+  SheetFooter,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet"
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
+import {
+  ResizablePanelGroup,
+  ResizablePanel,
+  ResizableHandle,
+} from "@/components/ui/resizable"
+import { StatusIndicator } from "@/components/ui/status-indicator"
 
 type Swatch = { name: string; hex: string; fg?: string }
 
@@ -187,6 +227,90 @@ const gridColumns: DataGridColumn<Source>[] = [
   { id: "host", title: "Host", width: 240 },
   { id: "status", title: "Status", width: 140 },
 ]
+
+const sourceKinds = [
+  { value: "postgres", label: "PostgreSQL" },
+  { value: "oracle", label: "Oracle" },
+  { value: "kafka", label: "Kafka" },
+  { value: "s3", label: "Amazon S3" },
+  { value: "snowflake", label: "Snowflake" },
+  { value: "bigquery", label: "BigQuery" },
+]
+
+const sourceSchema = z.object({
+  name: z.string().min(2, "Name must be at least 2 characters."),
+  host: z.string().min(1, "Host is required."),
+  kind: z.string().min(1, "Pick a source type."),
+})
+
+function SourceForm() {
+  const form = useForm<z.infer<typeof sourceSchema>>({
+    resolver: zodResolver(sourceSchema),
+    defaultValues: { name: "", host: "", kind: "" },
+  })
+
+  return (
+    <Form {...form}>
+      <form
+        onSubmit={form.handleSubmit((values) =>
+          toast.success("Source validated", {
+            description: `${values.name} · ${values.kind}`,
+          })
+        )}
+        className="space-y-4"
+      >
+        <FormField
+          control={form.control}
+          name="name"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Name</FormLabel>
+              <FormControl>
+                <Input placeholder="warehouse-prod" {...field} />
+              </FormControl>
+              <FormDescription>Unique identifier for the source.</FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="host"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Host</FormLabel>
+              <FormControl>
+                <Input placeholder="db.internal:5432" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="kind"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Kind</FormLabel>
+              <FormControl>
+                <Combobox
+                  options={sourceKinds}
+                  value={field.value}
+                  onValueChange={field.onChange}
+                  placeholder="Select source type"
+                  searchPlaceholder="Search types…"
+                  className="w-full"
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <Button type="submit">Validate &amp; connect</Button>
+      </form>
+    </Form>
+  )
+}
 
 function App() {
   const [progress, setProgress] = useState(62)
@@ -514,6 +638,27 @@ function App() {
                 </Card>
               </div>
             </section>
+
+            <Separator />
+
+            <section className="space-y-4">
+              <h2>Validated form &amp; combobox</h2>
+              <p className="text-muted-foreground">
+                react-hook-form + zod with accessible error messages, and a
+                searchable <code>Combobox</code> for the source type.
+              </p>
+              <Card className="max-w-md">
+                <CardHeader>
+                  <CardTitle>Connect a data source</CardTitle>
+                  <CardDescription>
+                    Submit empty to see validation.
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <SourceForm />
+                </CardContent>
+              </Card>
+            </section>
           </TabsContent>
 
           <TabsContent value="feedback" className="space-y-10">
@@ -816,6 +961,71 @@ function App() {
                 <TooltipContent>Connection healthy</TooltipContent>
               </Tooltip>
             </section>
+
+            <Separator />
+
+            <section className="space-y-4">
+              <h2>Sheet</h2>
+              <Sheet>
+                <SheetTrigger asChild>
+                  <Button variant="outline">Open filters</Button>
+                </SheetTrigger>
+                <SheetContent>
+                  <SheetHeader>
+                    <SheetTitle>Filter sources</SheetTitle>
+                    <SheetDescription>
+                      Narrow the source list. Changes apply on close.
+                    </SheetDescription>
+                  </SheetHeader>
+                  <div className="flex flex-col gap-4 p-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="f-name">Name contains</Label>
+                      <Input id="f-name" placeholder="prod" />
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Checkbox id="f-online" defaultChecked />
+                      <Label htmlFor="f-online">Online only</Label>
+                    </div>
+                  </div>
+                  <SheetFooter>
+                    <SheetClose asChild>
+                      <Button>Apply</Button>
+                    </SheetClose>
+                  </SheetFooter>
+                </SheetContent>
+              </Sheet>
+            </section>
+
+            <Separator />
+
+            <section className="space-y-4">
+              <h2>Alert dialog</h2>
+              <p className="text-muted-foreground">
+                Accessible confirm for destructive actions.
+              </p>
+              <AlertDialog>
+                <AlertDialogTrigger asChild>
+                  <Button variant="destructive">Delete source</Button>
+                </AlertDialogTrigger>
+                <AlertDialogContent>
+                  <AlertDialogHeader>
+                    <AlertDialogTitle>Delete data source?</AlertDialogTitle>
+                    <AlertDialogDescription>
+                      This disconnects <b>warehouse-prod</b> and removes cached
+                      metadata. This cannot be undone.
+                    </AlertDialogDescription>
+                  </AlertDialogHeader>
+                  <AlertDialogFooter>
+                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                    <AlertDialogAction
+                      onClick={() => toast.error("Source deleted")}
+                    >
+                      Delete
+                    </AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
+            </section>
           </TabsContent>
 
           <TabsContent value="map" className="space-y-10">
@@ -831,6 +1041,56 @@ function App() {
                     <Marker longitude={-106.65} latitude={35.08} />
                   </Map>
                 </div>
+              </Card>
+            </section>
+
+            <Separator />
+
+            <section className="space-y-4">
+              <h2>Resizable split &amp; status</h2>
+              <p className="text-muted-foreground">
+                Drag the divider to resize the map against a source panel.
+                Health uses <code>StatusIndicator</code>.
+              </p>
+              <Card className="overflow-hidden p-0">
+                <ResizablePanelGroup
+                  orientation="horizontal"
+                  className="h-[360px]"
+                >
+                  <ResizablePanel defaultSize={65} minSize={30}>
+                    <Map>
+                      <Marker longitude={-106.65} latitude={35.08} />
+                    </Map>
+                  </ResizablePanel>
+                  <ResizableHandle withHandle />
+                  <ResizablePanel defaultSize={35} minSize={20}>
+                    <div className="flex h-full flex-col gap-3 overflow-y-auto bg-card p-4">
+                      <h4 className="!text-sm !font-semibold text-muted-foreground uppercase tracking-wide">
+                        Sources
+                      </h4>
+                      {sources.map((s) => (
+                        <div
+                          key={s.name}
+                          className="flex items-center justify-between gap-2 text-sm"
+                        >
+                          <span className="font-medium">{s.name}</span>
+                          <StatusIndicator
+                            status={
+                              s.status === "online"
+                                ? "online"
+                                : s.status === "degraded"
+                                ? "degraded"
+                                : "offline"
+                            }
+                            pulse={s.status === "degraded"}
+                          >
+                            {s.status}
+                          </StatusIndicator>
+                        </div>
+                      ))}
+                    </div>
+                  </ResizablePanel>
+                </ResizablePanelGroup>
               </Card>
             </section>
           </TabsContent>

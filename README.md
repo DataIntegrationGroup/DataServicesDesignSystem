@@ -60,3 +60,10 @@ pnpm registry:build # regenerate public/r/*.json from registry.json
 After editing any registered component or `registry.json`, run
 `pnpm registry:build` and commit the regenerated `public/r/` JSON — that is what
 consumers fetch.
+
+### React 19 note
+
+`pnpm install` logs unmet-peer warnings for a few libraries whose peer ranges
+predate React 19 — `@glideapps/glide-data-grid` (data-grid), `cmdk`
+(command/combobox), and `react-resizable-panels` (resizable). All three are
+verified working on React 19; the warnings are safe to ignore.
