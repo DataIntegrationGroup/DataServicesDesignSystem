@@ -160,6 +160,22 @@ import {
 import { DatePicker, DateRangePicker } from "@/components/ui/date-picker"
 import { Database as DatabaseIcon, Map as MapIcon, Settings, Activity } from "lucide-react"
 import type { DateRange } from "react-day-picker"
+import {
+  ChartContainer,
+  ChartLegend,
+  ChartLegendContent,
+  ChartTooltip,
+  ChartTooltipContent,
+  type ChartConfig,
+} from "@/components/ui/chart"
+import {
+  Area,
+  AreaChart,
+  Bar,
+  BarChart,
+  CartesianGrid,
+  XAxis,
+} from "recharts"
 
 type Swatch = { name: string; hex: string; fg?: string }
 
@@ -252,6 +268,21 @@ const gridColumns: DataGridColumn<Source>[] = [
   { id: "host", title: "Host", width: 240 },
   { id: "status", title: "Status", width: 140 },
 ]
+
+const throughput = [
+  { day: "Mon", ingested: 1820, failed: 80 },
+  { day: "Tue", ingested: 2150, failed: 40 },
+  { day: "Wed", ingested: 1990, failed: 120 },
+  { day: "Thu", ingested: 2480, failed: 60 },
+  { day: "Fri", ingested: 2710, failed: 30 },
+  { day: "Sat", ingested: 1240, failed: 20 },
+  { day: "Sun", ingested: 980, failed: 10 },
+]
+
+const chartConfig = {
+  ingested: { label: "Ingested", color: "var(--chart-1)" },
+  failed: { label: "Failed", color: "var(--chart-5)" },
+} satisfies ChartConfig
 
 const sourceKinds = [
   { value: "postgres", label: "PostgreSQL" },
@@ -816,6 +847,80 @@ function App() {
           </TabsContent>
 
           <TabsContent value="data" className="space-y-10">
+            <section className="space-y-4">
+              <h2>Charts</h2>
+              <p className="text-muted-foreground">
+                Recharts wrapper using the <code>--chart-1..5</code> theme
+                tokens — themed tooltip and legend included.
+              </p>
+              <div className="grid gap-6 md:grid-cols-2">
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Ingestion throughput</CardTitle>
+                    <CardDescription>Records/day · this week</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <ChartContainer config={chartConfig} className="h-[240px] w-full">
+                      <AreaChart data={throughput} accessibilityLayer>
+                        <CartesianGrid vertical={false} />
+                        <XAxis
+                          dataKey="day"
+                          tickLine={false}
+                          axisLine={false}
+                          tickMargin={8}
+                        />
+                        <ChartTooltip content={<ChartTooltipContent />} />
+                        <ChartLegend content={<ChartLegendContent />} />
+                        <Area
+                          dataKey="ingested"
+                          type="monotone"
+                          fill="var(--color-ingested)"
+                          fillOpacity={0.3}
+                          stroke="var(--color-ingested)"
+                          stackId="a"
+                        />
+                        <Area
+                          dataKey="failed"
+                          type="monotone"
+                          fill="var(--color-failed)"
+                          fillOpacity={0.3}
+                          stroke="var(--color-failed)"
+                          stackId="a"
+                        />
+                      </AreaChart>
+                    </ChartContainer>
+                  </CardContent>
+                </Card>
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Failures by day</CardTitle>
+                    <CardDescription>Bar variant</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <ChartContainer config={chartConfig} className="h-[240px] w-full">
+                      <BarChart data={throughput} accessibilityLayer>
+                        <CartesianGrid vertical={false} />
+                        <XAxis
+                          dataKey="day"
+                          tickLine={false}
+                          axisLine={false}
+                          tickMargin={8}
+                        />
+                        <ChartTooltip content={<ChartTooltipContent hideLabel />} />
+                        <Bar
+                          dataKey="failed"
+                          fill="var(--color-failed)"
+                          radius={4}
+                        />
+                      </BarChart>
+                    </ChartContainer>
+                  </CardContent>
+                </Card>
+              </div>
+            </section>
+
+            <Separator />
+
             <section className="space-y-4">
               <h2>Table</h2>
               <Card>

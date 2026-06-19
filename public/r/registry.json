@@ -282,6 +282,16 @@
       ]
     },
     {
+      "name": "chart",
+      "type": "registry:ui",
+      "title": "Chart",
+      "description": "Recharts wrapper: ChartContainer (injects the --chart-1..5 theme tokens as --color-* vars), plus themed ChartTooltip/ChartTooltipContent and ChartLegend/ChartLegendContent. Pass a ChartConfig and recharts chart children.",
+      "dependencies": ["recharts"],
+      "files": [
+        { "path": "src/components/ui/chart.tsx", "type": "registry:ui" }
+      ]
+    },
+    {
       "name": "breadcrumb",
       "type": "registry:ui",
       "title": "Breadcrumb",
