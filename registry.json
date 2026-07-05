@@ -406,7 +406,7 @@
       "title": "Layer Selector",
       "description": "Checkable list of map layers, each with a legend swatch, opacity slider, and a settings popover for attribute filters, categorical facet chips, no-data and clustering toggles, and color overrides. Presentational — the consumer owns the catalog and visibility state. Exports LayerSelector and PointSwatch.",
       "dependencies": ["lucide-react"],
-      "registryDependencies": ["switch", "input", "tooltip", "popover"],
+      "registryDependencies": ["switch", "slider", "input", "tooltip", "popover"],
       "files": [
         {
           "path": "src/components/ui/layer-selector.tsx",
