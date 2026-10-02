@@ -24,6 +24,8 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Separator } from "@/components/ui/separator"
 import { ModeToggle } from "@/components/mode-toggle"
+import { useTheme } from "@/components/theme-provider"
+import { useCssVars } from "@/hooks/use-css-vars"
 import {
   Tabs,
   TabsContent,
@@ -179,43 +181,92 @@ import {
 import { EChart } from "@/components/ui/echart"
 import type { EChartsOption } from "echarts"
 
-type Swatch = { name: string; hex: string; fg?: string }
-
-// OcotilloUI (NMBGMRDataManager) production palette — tailwind color scales.
-const palette: { group: string; swatches: Swatch[] }[] = [
+/** The color tokens in the theme contract (THEMING.md), by group. A swatch
+ *  with a matching `-foreground` token previews text in that color. */
+const TOKEN_GROUPS = [
   {
-    group: "Primary — Blue",
-    swatches: [
-      { name: "blue-300", hex: "#93c5fd", fg: "#1e3a8a" },
-      { name: "blue-700", hex: "#1d4ed8", fg: "#ffffff" },
-      { name: "blue-900", hex: "#1e3a8a", fg: "#ffffff" },
+    group: "Surfaces",
+    tokens: ["background", "card", "popover"],
+  },
+  {
+    group: "Brand",
+    tokens: [
+      "primary",
+      "primary-light",
+      "primary-dark",
+      "secondary",
+      "secondary-strong",
+      "secondary-dark",
     ],
   },
   {
-    group: "Secondary — Amber",
-    swatches: [
-      { name: "amber-300", hex: "#fcd34d", fg: "#78350f" },
-      { name: "amber-600", hex: "#d97706", fg: "#ffffff" },
-      { name: "amber-800", hex: "#92400e", fg: "#fcd34d" },
-    ],
-  },
-  {
-    group: "Error — Red",
-    swatches: [
-      { name: "red-300", hex: "#fca5a5", fg: "#7f1d1d" },
-      { name: "red-600", hex: "#dc2626", fg: "#ffffff" },
-      { name: "red-800", hex: "#991b1b", fg: "#fca5a5" },
-    ],
+    group: "Neutral",
+    tokens: ["muted", "accent", "border", "input", "ring"],
   },
   {
     group: "Status",
-    swatches: [
-      { name: "warning · orange-500", hex: "#f97316", fg: "#ffffff" },
-      { name: "success · emerald-700", hex: "#047857", fg: "#ffffff" },
-      { name: "info · cyan-600", hex: "#0891b2", fg: "#ffffff" },
-    ],
+    tokens: ["destructive", "warning-light", "warning-dark"],
   },
-]
+  {
+    group: "Data",
+    tokens: ["chart-1", "chart-2", "chart-3", "chart-4", "chart-5"],
+  },
+  {
+    group: "Sidebar",
+    tokens: ["sidebar", "sidebar-primary", "sidebar-accent", "sidebar-border"],
+  },
+] as const
+
+const FOREGROUND_PAIRS = new Set<string>([
+  "background",
+  "card",
+  "popover",
+  "primary",
+  "secondary",
+  "muted",
+  "accent",
+  "sidebar",
+  "sidebar-primary",
+  "sidebar-accent",
+])
+
+const SWATCH_TOKENS = TOKEN_GROUPS.flatMap((g) => g.tokens)
+
+function TokenSwatches() {
+  const values = useCssVars(SWATCH_TOKENS)
+  return (
+    <div className="space-y-6">
+      {TOKEN_GROUPS.map((group) => (
+        <div key={group.group} className="space-y-2">
+          <h4 className="!text-base !font-semibold text-muted-foreground uppercase tracking-wide">
+            {group.group}
+          </h4>
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+            {group.tokens.map((token) => (
+              <div key={token} className="space-y-1.5">
+                <div
+                  className="flex h-14 items-center justify-center rounded-lg border text-lg font-semibold"
+                  style={{
+                    background: `var(--${token})`,
+                    color: FOREGROUND_PAIRS.has(token)
+                      ? `var(--${token}-foreground)`
+                      : undefined,
+                  }}
+                >
+                  {FOREGROUND_PAIRS.has(token) ? "Aa" : null}
+                </div>
+                <div className="text-sm font-medium">{token}</div>
+                <div className="text-xs text-muted-foreground font-mono">
+                  {values[token]}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  )
+}
 
 const sources = [
   { name: "warehouse-prod", host: "db.internal:5432", status: "online" },
@@ -370,6 +421,14 @@ function SourceForm() {
   )
 }
 
+/** Themes in src/themes, for the showcase switcher. */
+const PALETTES = [
+  { value: "ocotillo", label: "Ocotillo" },
+  { value: "nmwdi", label: "NMWDI" },
+] as const
+
+export const PALETTE_STORAGE_KEY = "dsds-palette"
+
 function App() {
   const [progress, setProgress] = useState(62)
   const [volume, setVolume] = useState([40])
@@ -407,6 +466,10 @@ function App() {
     }
   }, [])
 
+  const { palette: themePalette, setPalette } = useTheme()
+  const activePalette =
+    PALETTES.find((p) => p.value === themePalette) ?? PALETTES[0]
+
   return (
     <div className="min-h-svh bg-background text-foreground">
       <header className="border-b bg-card">
@@ -416,11 +479,29 @@ function App() {
               DataServices Design System
             </h1>
             <p className="text-muted-foreground mt-2">
-              OcotilloUI production palette · Outfit + Public Sans
+              {activePalette.label} theme · Outfit + Public Sans
             </p>
           </div>
           <div className="flex items-center gap-3">
             <Badge variant="secondary">v0.1.0</Badge>
+            <Select
+              value={activePalette.value}
+              onValueChange={(value) => {
+                localStorage.setItem(PALETTE_STORAGE_KEY, value)
+                setPalette(value)
+              }}
+            >
+              <SelectTrigger aria-label="Theme" className="w-36">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                {PALETTES.map((p) => (
+                  <SelectItem key={p.value} value={p.value}>
+                    {p.label}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
             <ModeToggle />
           </div>
         </div>
@@ -459,30 +540,8 @@ function App() {
             <Separator />
 
             <section className="space-y-4">
-              <h2>Palette</h2>
-              <div className="space-y-6">
-                {palette.map((group) => (
-                  <div key={group.group} className="space-y-2">
-                    <h4 className="!text-base !font-semibold text-muted-foreground uppercase tracking-wide">
-                      {group.group}
-                    </h4>
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                      {group.swatches.map((s) => (
-                        <div
-                          key={s.hex}
-                          className="rounded-lg p-4 border shadow-sm"
-                          style={{ background: s.hex, color: s.fg }}
-                        >
-                          <div className="font-semibold">{s.name}</div>
-                          <div className="text-sm opacity-80 font-mono">
-                            {s.hex}
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                ))}
-              </div>
+              <h2>Tokens</h2>
+              <TokenSwatches />
             </section>
           </TabsContent>
 

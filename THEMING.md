@@ -141,4 +141,13 @@ Raw colors still in components, and why:
 2. Change the selectors to `:root[data-theme="<name>"]` and
    `:root[data-theme="<name>"].dark`.
 3. Set every token in the contract.
-4. Import it in `src/index.css` so it appears in the showcase.
+4. Import it in `src/index.css`, and add it to `PALETTES` in `src/App.tsx`
+   so it appears in the showcase switcher.
+5. Add a `theme-<name>` item to `registry.json`, copying `theme-nmwdi`.
+6. Run `pnpm check:themes`. It fails on a missing token and warns on any
+   key text/background pair below WCAG AA (4.5:1). `--strict` makes those
+   warnings fail too.
+
+If you add a token to the contract, update this file, the lists at the top
+of `scripts/check-themes.mjs`, the `@theme inline` block in
+`src/styles/base.css`, and every theme.
