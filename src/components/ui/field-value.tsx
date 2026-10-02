@@ -9,8 +9,8 @@ const CODE_RE = /^([A-Z][A-Z0-9]{1,5}): (.+)$/
 
 // USGS observation approval states → a colored status chip.
 const APPROVAL: Record<string, string> = {
-  Approved: "bg-emerald-500/15 text-emerald-700 dark:text-emerald-400",
-  Provisional: "bg-amber-500/15 text-amber-700 dark:text-amber-400",
+  Approved: "bg-success-soft text-success-strong",
+  Provisional: "bg-warning-soft text-warning-strong",
 }
 
 export function FieldValue({ value }: { value: string }) {

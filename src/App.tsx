@@ -137,6 +137,7 @@ import {
   ResizableHandle,
 } from "@/components/ui/resizable"
 import { StatusIndicator } from "@/components/ui/status-indicator"
+import { FieldValue } from "@/components/ui/field-value"
 import {
   Breadcrumb,
   BreadcrumbEllipsis,
@@ -182,7 +183,8 @@ import { EChart } from "@/components/ui/echart"
 import type { EChartsOption } from "echarts"
 
 /** The color tokens in the theme contract (THEMING.md), by group. A swatch
- *  with a matching `-foreground` token previews text in that color. */
+ *  previews its text color: `-foreground` on a fill, `-strong` on a `-soft`
+ *  tint. */
 const TOKEN_GROUPS = [
   {
     group: "Surfaces",
@@ -205,7 +207,33 @@ const TOKEN_GROUPS = [
   },
   {
     group: "Status",
-    tokens: ["destructive", "warning-light", "warning-dark"],
+    tokens: [
+      "destructive",
+      "success",
+      "warning",
+      "info",
+      "destructive-soft",
+      "success-soft",
+      "warning-soft",
+      "info-soft",
+    ],
+  },
+  {
+    group: "Category tones",
+    tokens: [
+      "tone-1",
+      "tone-2",
+      "tone-3",
+      "tone-4",
+      "tone-5",
+      "tone-6",
+      "tone-1-soft",
+      "tone-2-soft",
+      "tone-3-soft",
+      "tone-4-soft",
+      "tone-5-soft",
+      "tone-6-soft",
+    ],
   },
   {
     group: "Data",
@@ -228,7 +256,19 @@ const FOREGROUND_PAIRS = new Set<string>([
   "sidebar",
   "sidebar-primary",
   "sidebar-accent",
+  "destructive",
+  "success",
+  "warning",
+  "info",
+  ...[1, 2, 3, 4, 5, 6].map((n) => `tone-${n}`),
 ])
+
+/** The text color a swatch previews, if any. */
+function swatchText(token: string) {
+  if (token.endsWith("-soft")) return `var(--${token.slice(0, -5)}-strong)`
+  if (FOREGROUND_PAIRS.has(token)) return `var(--${token}-foreground)`
+  return undefined
+}
 
 const SWATCH_TOKENS = TOKEN_GROUPS.flatMap((g) => g.tokens)
 
@@ -248,12 +288,10 @@ function TokenSwatches() {
                   className="flex h-14 items-center justify-center rounded-lg border text-lg font-semibold"
                   style={{
                     background: `var(--${token})`,
-                    color: FOREGROUND_PAIRS.has(token)
-                      ? `var(--${token}-foreground)`
-                      : undefined,
+                    color: swatchText(token),
                   }}
                 >
-                  {FOREGROUND_PAIRS.has(token) ? "Aa" : null}
+                  {swatchText(token) ? "Aa" : null}
                 </div>
                 <div className="text-sm font-medium">{token}</div>
                 <div className="text-xs text-muted-foreground font-mono">
@@ -264,6 +302,26 @@ function TokenSwatches() {
           </div>
         </div>
       ))}
+      <div className="space-y-2">
+        <h4 className="!text-base !font-semibold text-muted-foreground uppercase tracking-wide">
+          On image
+        </h4>
+        <div className="rounded-lg bg-primary-dark p-6 space-y-3">
+          <div className="font-heading text-2xl font-semibold text-accent-on-dark">
+            accent-on-dark heading
+          </div>
+          <p className="text-on-image">on-image text on a dark brand band</p>
+          <p className="text-on-image-muted">on-image-muted secondary text</p>
+          <div className="flex gap-2">
+            <button
+              type="button"
+              className="rounded-full border border-on-image-border bg-on-image-surface px-3 py-1 text-sm text-on-image outline-none focus-visible:ring-2 focus-visible:ring-on-image-ring"
+            >
+              on-image-surface chip
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   )
 }
@@ -831,6 +889,32 @@ function App() {
           </TabsContent>
 
           <TabsContent value="feedback" className="space-y-10">
+            <section className="space-y-4">
+              <h2>Status</h2>
+              <div className="flex flex-wrap gap-6">
+                {(
+                  [
+                    "online",
+                    "degraded",
+                    "offline",
+                    "error",
+                    "info",
+                    "pending",
+                  ] as const
+                ).map((status) => (
+                  <StatusIndicator key={status} status={status}>
+                    {status}
+                  </StatusIndicator>
+                ))}
+              </div>
+              <div className="flex flex-wrap gap-3">
+                <FieldValue value="Approved" />
+                <FieldValue value="Provisional" />
+              </div>
+            </section>
+
+            <Separator />
+
             <section className="space-y-4">
               <h2>Alerts</h2>
               <Alert>

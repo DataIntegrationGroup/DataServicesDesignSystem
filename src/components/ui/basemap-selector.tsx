@@ -71,7 +71,7 @@ function BasemapSelector({
                   <Check className="size-3.5" />
                 </span>
               )}
-              <span className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/65 to-transparent px-2 py-1 text-xs font-semibold text-white">
+              <span className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/65 to-transparent px-2 py-1 text-xs font-semibold text-on-image">
                 {option.title}
               </span>
             </div>

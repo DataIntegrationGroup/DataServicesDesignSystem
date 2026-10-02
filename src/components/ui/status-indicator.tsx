@@ -6,12 +6,12 @@ import { cn } from "@/lib/utils"
 const dotVariants = cva("size-2 shrink-0 rounded-full", {
   variants: {
     status: {
-      online: "bg-emerald-600 dark:bg-emerald-400",
-      degraded: "bg-amber-500 dark:bg-amber-400",
-      offline: "bg-slate-400 dark:bg-slate-500",
-      error: "bg-red-600 dark:bg-red-400",
-      info: "bg-cyan-600 dark:bg-cyan-400",
-      pending: "bg-blue-500 dark:bg-blue-400",
+      online: "bg-success",
+      degraded: "bg-warning",
+      offline: "bg-muted-foreground",
+      error: "bg-destructive",
+      info: "bg-info",
+      pending: "bg-primary",
     },
   },
   defaultVariants: { status: "offline" },
