@@ -14,7 +14,8 @@ interface TopLoadingBarProps {
  * still register, then hides. Presentational — the consumer owns what
  * "active" means (a fetch count, a route transition, etc.).
  *
- * Requires an `animate-loadingbar` keyframe in your CSS.
+ * Uses the `animate-loadingbar` utility. The registry item adds it to your
+ * CSS, and theme-base ships it too.
  */
 export function TopLoadingBar({ active, lingerMs = 400 }: TopLoadingBarProps) {
   const [visible, setVisible] = useState(false)
