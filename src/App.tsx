@@ -182,66 +182,54 @@ import {
 import { EChart } from "@/components/ui/echart"
 import type { EChartsOption } from "echarts"
 
-/** The color tokens in the theme contract (THEMING.md), by group. A swatch
+/** The color tokens in the theme contract (THEMING.md), by group and row;
+ *  a `-soft` row sits under its solid colors. A swatch
  *  previews its text color: `-foreground` on a fill, `-strong` on a `-soft`
  *  tint. */
 const TOKEN_GROUPS = [
-  {
-    group: "Surfaces",
-    tokens: ["background", "card", "popover"],
-  },
+  { group: "Surfaces", rows: [["background", "card", "popover"]] },
   {
     group: "Brand",
-    tokens: [
-      "primary",
-      "primary-light",
-      "primary-dark",
-      "secondary",
-      "secondary-strong",
-      "secondary-dark",
+    rows: [
+      [
+        "primary",
+        "primary-light",
+        "primary-dark",
+        "secondary",
+        "secondary-strong",
+        "secondary-dark",
+      ],
     ],
   },
-  {
-    group: "Neutral",
-    tokens: ["muted", "accent", "border", "input", "ring"],
-  },
+  { group: "Neutral", rows: [["muted", "accent", "border", "input", "ring"]] },
   {
     group: "Status",
-    tokens: [
-      "destructive",
-      "success",
-      "warning",
-      "info",
-      "destructive-soft",
-      "success-soft",
-      "warning-soft",
-      "info-soft",
+    rows: [
+      ["destructive", "success", "warning", "info"],
+      ["destructive-soft", "success-soft", "warning-soft", "info-soft"],
     ],
   },
   {
     group: "Category tones",
-    tokens: [
-      "tone-1",
-      "tone-2",
-      "tone-3",
-      "tone-4",
-      "tone-5",
-      "tone-6",
-      "tone-1-soft",
-      "tone-2-soft",
-      "tone-3-soft",
-      "tone-4-soft",
-      "tone-5-soft",
-      "tone-6-soft",
+    rows: [
+      ["tone-1", "tone-2", "tone-3", "tone-4", "tone-5", "tone-6"],
+      [
+        "tone-1-soft",
+        "tone-2-soft",
+        "tone-3-soft",
+        "tone-4-soft",
+        "tone-5-soft",
+        "tone-6-soft",
+      ],
     ],
   },
   {
     group: "Data",
-    tokens: ["chart-1", "chart-2", "chart-3", "chart-4", "chart-5"],
+    rows: [["chart-1", "chart-2", "chart-3", "chart-4", "chart-5"]],
   },
   {
     group: "Sidebar",
-    tokens: ["sidebar", "sidebar-primary", "sidebar-accent", "sidebar-border"],
+    rows: [["sidebar", "sidebar-primary", "sidebar-accent", "sidebar-border"]],
   },
 ] as const
 
@@ -270,7 +258,7 @@ function swatchText(token: string) {
   return undefined
 }
 
-const SWATCH_TOKENS = TOKEN_GROUPS.flatMap((g) => g.tokens)
+const SWATCH_TOKENS = TOKEN_GROUPS.flatMap((g) => g.rows.flat())
 
 function TokenSwatches() {
   const values = useCssVars(SWATCH_TOKENS)
@@ -281,25 +269,30 @@ function TokenSwatches() {
           <h4 className="!text-base !font-semibold text-muted-foreground uppercase tracking-wide">
             {group.group}
           </h4>
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
-            {group.tokens.map((token) => (
-              <div key={token} className="space-y-1.5">
-                <div
-                  className="flex h-14 items-center justify-center rounded-lg border text-lg font-semibold"
-                  style={{
-                    background: `var(--${token})`,
-                    color: swatchText(token),
-                  }}
-                >
-                  {swatchText(token) ? "Aa" : null}
+          {group.rows.map((row) => (
+            <div
+              key={row[0]}
+              className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3"
+            >
+              {row.map((token) => (
+                <div key={token} className="space-y-1.5">
+                  <div
+                    className="flex h-14 items-center justify-center rounded-lg border text-lg font-semibold"
+                    style={{
+                      background: `var(--${token})`,
+                      color: swatchText(token),
+                    }}
+                  >
+                    {swatchText(token) ? "Aa" : null}
+                  </div>
+                  <div className="text-sm font-medium">{token}</div>
+                  <div className="text-xs text-muted-foreground font-mono">
+                    {values[token]}
+                  </div>
                 </div>
-                <div className="text-sm font-medium">{token}</div>
-                <div className="text-xs text-muted-foreground font-mono">
-                  {values[token]}
-                </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          ))}
         </div>
       ))}
       <div className="space-y-2">
