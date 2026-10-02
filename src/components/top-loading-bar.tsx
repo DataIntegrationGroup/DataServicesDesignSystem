@@ -15,7 +15,8 @@ interface TopLoadingBarProps {
  * "active" means (a fetch count, a route transition, etc.).
  *
  * Uses the `animate-loadingbar` utility. The registry item adds it to your
- * CSS, and theme-base ships it too.
+ * CSS, and theme-base ships it too. With prefers-reduced-motion it shows a
+ * static bar instead.
  */
 export function TopLoadingBar({ active, lingerMs = 400 }: TopLoadingBarProps) {
   const [visible, setVisible] = useState(false)
@@ -39,7 +40,8 @@ export function TopLoadingBar({ active, lingerMs = 400 }: TopLoadingBarProps) {
       aria-hidden
       className="pointer-events-none fixed inset-x-0 top-0 z-[100] h-0.5 overflow-hidden"
     >
-      <div className="animate-loadingbar h-full w-2/5 bg-primary" />
+      {/* With reduced motion, a static full-width bar still signals loading. */}
+      <div className="animate-loadingbar h-full w-2/5 bg-primary motion-reduce:w-full motion-reduce:animate-none motion-reduce:opacity-60" />
     </div>
   )
 }
