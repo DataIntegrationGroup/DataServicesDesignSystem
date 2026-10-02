@@ -306,6 +306,25 @@
       ]
     },
     {
+      "name": "input-group",
+      "type": "registry:ui",
+      "title": "Input Group",
+      "description": "Input or textarea with addons, buttons and text (upstream shadcn input-group). Adds size=\"lg\" (taller row, 18px text, larger icons) and variant=\"prominent\" (primary border, card fill, wider focus ring) for hero and page search.",
+      "registryDependencies": ["button", "input", "textarea"],
+      "files": [
+        { "path": "src/components/ui/input-group.tsx", "type": "registry:ui" }
+      ]
+    },
+    {
+      "name": "kbd",
+      "type": "registry:ui",
+      "title": "Kbd",
+      "description": "Keyboard key and key group (upstream shadcn kbd), e.g. a ⌘K hint inside an input group.",
+      "files": [
+        { "path": "src/components/ui/kbd.tsx", "type": "registry:ui" }
+      ]
+    },
+    {
       "name": "status-indicator",
       "type": "registry:ui",
       "title": "Status Indicator",

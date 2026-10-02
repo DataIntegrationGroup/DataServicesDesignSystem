@@ -7,6 +7,7 @@ import {
   Database,
   Info,
   MoreHorizontal,
+  Search,
   TriangleAlert,
 } from "lucide-react"
 
@@ -138,6 +139,15 @@ import {
 } from "@/components/ui/resizable"
 import { StatusIndicator } from "@/components/ui/status-indicator"
 import { FieldValue } from "@/components/ui/field-value"
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupButton,
+  InputGroupInput,
+  InputGroupText,
+  InputGroupTextarea,
+} from "@/components/ui/input-group"
+import { Kbd, KbdGroup } from "@/components/ui/kbd"
 import {
   Breadcrumb,
   BreadcrumbEllipsis,
@@ -661,6 +671,52 @@ function App() {
           </TabsContent>
 
           <TabsContent value="forms" className="space-y-10">
+            <section className="space-y-4">
+              <h2>Input group</h2>
+              <div className="grid gap-4 md:grid-cols-2">
+                <InputGroup>
+                  <InputGroupAddon>
+                    <Search />
+                  </InputGroupAddon>
+                  <InputGroupInput placeholder="Search sources…" />
+                  <InputGroupAddon align="inline-end">
+                    <KbdGroup>
+                      <Kbd>⌘</Kbd>
+                      <Kbd>K</Kbd>
+                    </KbdGroup>
+                  </InputGroupAddon>
+                </InputGroup>
+                <InputGroup>
+                  <InputGroupAddon>
+                    <InputGroupText>https://</InputGroupText>
+                  </InputGroupAddon>
+                  <InputGroupInput placeholder="example.org" />
+                  <InputGroupAddon align="inline-end">
+                    <InputGroupButton>Check</InputGroupButton>
+                  </InputGroupAddon>
+                </InputGroup>
+              </div>
+              <InputGroup size="lg" variant="prominent">
+                <InputGroupAddon>
+                  <Search />
+                </InputGroupAddon>
+                <InputGroupInput placeholder='size="lg" variant="prominent": hero search' />
+                <InputGroupAddon align="inline-end">
+                  <InputGroupButton variant="default" size="sm">
+                    Search
+                  </InputGroupButton>
+                </InputGroupAddon>
+              </InputGroup>
+              <InputGroup>
+                <InputGroupTextarea placeholder="Notes…" />
+                <InputGroupAddon align="block-end">
+                  <InputGroupText>0 / 280</InputGroupText>
+                </InputGroupAddon>
+              </InputGroup>
+            </section>
+
+            <Separator />
+
             <section className="grid gap-6 md:grid-cols-2">
               <Card>
                 <CardHeader>
