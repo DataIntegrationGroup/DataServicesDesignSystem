@@ -5,46 +5,43 @@ import * as echarts from "echarts"
 import type { EChartsOption, ECharts, SetOptionOpts } from "echarts"
 
 import { cn } from "@/lib/utils"
-import { useTheme } from "@/components/theme-provider"
+import { useCssVars } from "@/hooks/use-css-vars"
 
-/** Resolve current dark state from theme-provider + system preference. */
-function useResolvedDark() {
-  const { theme } = useTheme()
-  const systemDark = React.useSyncExternalStore(
-    (cb) => {
-      const mq = window.matchMedia("(prefers-color-scheme: dark)")
-      mq.addEventListener("change", cb)
-      return () => mq.removeEventListener("change", cb)
-    },
-    () => window.matchMedia("(prefers-color-scheme: dark)").matches,
-    () => false
-  )
-  return theme === "dark" || (theme === "system" && systemDark)
-}
+const TOKENS = [
+  "chart-1",
+  "chart-2",
+  "chart-3",
+  "chart-4",
+  "chart-5",
+  "foreground",
+  "muted-foreground",
+  "border",
+  "popover",
+  "popover-foreground",
+  "font-sans",
+] as const
 
-/** Read the OcotilloUI token values off the document root. */
-function readTokens(el: HTMLElement) {
-  const cs = getComputedStyle(el)
-  const v = (name: string) => cs.getPropertyValue(name).trim()
+/** Shape the current token values for buildTheme. */
+function toThemeTokens(v: Record<(typeof TOKENS)[number], string>) {
   return {
     palette: [
-      v("--chart-1"),
-      v("--chart-2"),
-      v("--chart-3"),
-      v("--chart-4"),
-      v("--chart-5"),
+      v["chart-1"],
+      v["chart-2"],
+      v["chart-3"],
+      v["chart-4"],
+      v["chart-5"],
     ].filter(Boolean),
-    foreground: v("--foreground"),
-    muted: v("--muted-foreground"),
-    border: v("--border"),
-    popover: v("--popover"),
-    popoverForeground: v("--popover-foreground"),
-    fontFamily: "'Public Sans Variable', system-ui, sans-serif",
+    foreground: v.foreground,
+    muted: v["muted-foreground"],
+    border: v.border,
+    popover: v.popover,
+    popoverForeground: v["popover-foreground"],
+    fontFamily: v["font-sans"] || "system-ui, sans-serif",
   }
 }
 
-/** Build an ECharts theme object from OcotilloUI tokens. */
-function buildTheme(t: ReturnType<typeof readTokens>) {
+/** Build an ECharts theme object from the theme's tokens. */
+function buildTheme(t: ReturnType<typeof toThemeTokens>) {
   const axisCommon = {
     axisLine: { lineStyle: { color: t.border } },
     axisTick: { lineStyle: { color: t.border } },
@@ -92,8 +89,8 @@ export interface EChartProps {
 
 /**
  * EChart — Apache ECharts wrapper for serious/interactive charting (large
- * series, zoom, brushing, geo/heatmap, etc.). Themed to OcotilloUI from the
- * --chart-1..5 tokens and re-themed on dark-mode change. Pass a raw ECharts
+ * series, zoom, brushing, geo/heatmap, etc.). Themed from the --chart-1..5
+ * and surface tokens, and re-themed when the mode or data-theme changes. Pass a raw ECharts
  * `option`; everything else (resize, dispose) is handled.
  */
 export function EChart({
@@ -107,15 +104,16 @@ export function EChart({
 }: EChartProps) {
   const containerRef = React.useRef<HTMLDivElement>(null)
   const chartRef = React.useRef<ECharts | null>(null)
-  const dark = useResolvedDark()
+  const tokens = useCssVars(TOKENS)
 
-  // Init / dispose. Re-init when dark changes so the registered theme updates.
+  // Init / dispose. Re-init when the tokens change so the registered theme
+  // updates.
   React.useEffect(() => {
     const el = containerRef.current
     if (!el) return
 
-    const themeName = `ocotillo-${themeSeq++}`
-    echarts.registerTheme(themeName, buildTheme(readTokens(el)))
+    const themeName = `dataservices-${themeSeq++}`
+    echarts.registerTheme(themeName, buildTheme(toThemeTokens(tokens)))
     const chart = echarts.init(el, themeName, { renderer: "canvas" })
     chartRef.current = chart
     onInit?.(chart)
@@ -129,13 +127,13 @@ export function EChart({
       chartRef.current = null
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dark])
+  }, [tokens])
 
   // Apply option.
   React.useEffect(() => {
     chartRef.current?.setOption(option, setOptionOpts)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [option, dark])
+  }, [option, tokens])
 
   // Loading state.
   React.useEffect(() => {

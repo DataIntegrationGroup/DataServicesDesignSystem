@@ -13,64 +13,89 @@ import {
 import "@glideapps/glide-data-grid/dist/index.css"
 
 import { cn } from "@/lib/utils"
-import { useTheme } from "@/components/theme-provider"
+import { useCssVars } from "@/hooks/use-css-vars"
+
+const TOKENS = [
+  "primary",
+  "primary-foreground",
+  "foreground",
+  "muted",
+  "muted-foreground",
+  "card",
+  "background",
+  "border",
+  "font-sans",
+] as const
+
+type Rgba = [number, number, number, number]
+
+let colorCtx: CanvasRenderingContext2D | null | undefined
+
+/** Resolve any CSS color (hex, rgb, oklch…) to sRGB via a 1px canvas. */
+function toRgba(color: string): Rgba {
+  colorCtx ??= document.createElement("canvas").getContext("2d", {
+    willReadFrequently: true,
+  })
+  if (!colorCtx || !color) return [0, 0, 0, 0]
+  colorCtx.clearRect(0, 0, 1, 1)
+  colorCtx.fillStyle = color
+  colorCtx.fillRect(0, 0, 1, 1)
+  const [r, g, b, a] = colorCtx.getImageData(0, 0, 1, 1).data
+  return [r, g, b, a / 255]
+}
+
+const css = ([r, g, b, a]: Rgba) => `rgba(${r}, ${g}, ${b}, ${+a.toFixed(3)})`
+
+/** `amount` of `b` mixed into `a`. */
+function mix(a: string, b: string, amount: number) {
+  const x = toRgba(a)
+  const y = toRgba(b)
+  return css(x.map((v, i) => Math.round(v + (y[i] - v) * amount)) as Rgba)
+}
+
+function withAlpha(color: string, alpha: number) {
+  const [r, g, b] = toRgba(color)
+  return css([r, g, b, alpha])
+}
 
 /**
- * Glide themes are concrete color strings (canvas-rendered — CSS vars don't
- * apply), so the OcotilloUI palette is mirrored here for light and dark.
+ * Glide renders on a canvas, so CSS variables don't apply. Build its theme
+ * from the current token values instead; useCssVars re-reads them when the
+ * mode or data-theme changes.
  */
-const lightTheme: Partial<GlideTheme> = {
-  accentColor: "#1d4ed8",
-  accentLight: "#dbeafe",
-  textDark: "#0f172a",
-  textMedium: "#475569",
-  textLight: "#94a3b8",
-  textBubble: "#0f172a",
-  bgCell: "#ffffff",
-  bgCellMedium: "#f5f5f4",
-  bgHeader: "#f5f5f4",
-  bgHeaderHasFocus: "#e7e5e4",
-  bgHeaderHovered: "#e7e5e4",
-  borderColor: "#d6d3d1",
-  headerFontStyle: "600 13px",
-  baseFontStyle: "13px",
-  fontFamily: "'Public Sans Variable', system-ui, sans-serif",
-}
-
-const darkTheme: Partial<GlideTheme> = {
-  accentColor: "#2563eb",
-  accentLight: "#1e3a8a",
-  textDark: "#f1f5f9",
-  textMedium: "#cbd5e1",
-  textLight: "#94a3b8",
-  textBubble: "#f1f5f9",
-  bgCell: "#3f3f46",
-  bgCellMedium: "#27272a",
-  bgHeader: "#27272a",
-  bgHeaderHasFocus: "#3f3f46",
-  bgHeaderHovered: "#3f3f46",
-  borderColor: "#52525b",
-  headerFontStyle: "600 13px",
-  baseFontStyle: "13px",
-  fontFamily: "'Public Sans Variable', system-ui, sans-serif",
-}
-
-function useSystemDark() {
-  return React.useSyncExternalStore(
-    (cb) => {
-      const mq = window.matchMedia("(prefers-color-scheme: dark)")
-      mq.addEventListener("change", cb)
-      return () => mq.removeEventListener("change", cb)
-    },
-    () => window.matchMedia("(prefers-color-scheme: dark)").matches,
-    () => false
+function useGlideTheme(): Partial<GlideTheme> {
+  const t = useCssVars(TOKENS)
+  const dark =
+    typeof document !== "undefined" &&
+    document.documentElement.classList.contains("dark")
+  return React.useMemo(
+    () => ({
+      accentColor: t.primary,
+      accentLight: withAlpha(t.primary, dark ? 0.35 : 0.15),
+      textDark: t.foreground,
+      textMedium: t["muted-foreground"],
+      textLight: t["muted-foreground"],
+      textBubble: t.foreground,
+      textHeader: t.foreground,
+      textHeaderSelected: t["primary-foreground"],
+      textGroupHeader: t["muted-foreground"],
+      bgIconHeader: t["muted-foreground"],
+      fgIconHeader: t.card,
+      linkColor: t.primary,
+      bgCell: t.card,
+      bgCellMedium: t.muted,
+      bgHeader: t.muted,
+      bgHeaderHasFocus: mix(t.muted, t.foreground, 0.08),
+      bgHeaderHovered: mix(t.muted, t.foreground, 0.08),
+      // Dark themes often set --border close to --card; lift grid lines a
+      // step so cells stay separated.
+      borderColor: dark ? mix(t.border, t.foreground, 0.12) : t.border,
+      headerFontStyle: "600 13px",
+      baseFontStyle: "13px",
+      fontFamily: t["font-sans"] || "system-ui, sans-serif",
+    }),
+    [t, dark]
   )
-}
-
-function useResolvedDark() {
-  const { theme } = useTheme()
-  const systemDark = useSystemDark()
-  return theme === "dark" || (theme === "system" && systemDark)
 }
 
 /** Glide renders overlay editors into a portal element with id "portal". */
@@ -128,7 +153,7 @@ export function DataGrid<T extends Record<string, unknown>>({
   ...props
 }: DataGridProps<T>) {
   useGridPortal()
-  const dark = useResolvedDark()
+  const theme = useGlideTheme()
 
   const gridColumns = React.useMemo<GridColumn[]>(
     () => columns.map((c) => ({ title: c.title, id: c.id, width: c.width ?? 150 })),
@@ -170,7 +195,7 @@ export function DataGrid<T extends Record<string, unknown>>({
       style={{ height }}
     >
       <DataEditor
-        theme={dark ? darkTheme : lightTheme}
+        theme={theme}
         columns={gridColumns}
         rows={rows.length}
         getCellContent={getCellContent}

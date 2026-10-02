@@ -178,9 +178,9 @@
       "name": "data-grid",
       "type": "registry:ui",
       "title": "Data Grid (editable)",
-      "description": "Canvas-based editable spreadsheet grid (Glide Data Grid) with a row-object API and OcotilloUI light/dark theming. Pass columns keyed to row fields plus rows; provide onRowsChange for editing.",
+      "description": "Canvas-based editable spreadsheet grid (Glide Data Grid) with a row-object API and light/dark theming built from the current theme's tokens. Pass columns keyed to row fields plus rows; provide onRowsChange for editing.",
       "dependencies": ["@glideapps/glide-data-grid"],
-      "registryDependencies": ["@dataservices/theme-provider"],
+      "registryDependencies": ["@dataservices/use-css-vars"],
       "files": [
         {
           "path": "src/components/ui/data-grid.tsx",
@@ -328,9 +328,9 @@
       "name": "echart",
       "type": "registry:ui",
       "title": "EChart",
-      "description": "Apache ECharts React wrapper for heavy/interactive charting (large series, dataZoom, brush, geo, heatmap). Auto resize/dispose, an OcotilloUI theme built from the --chart-1..5 tokens, and dark-mode re-theming. Pass a raw ECharts option.",
+      "description": "Apache ECharts React wrapper for heavy/interactive charting (large series, dataZoom, brush, geo, heatmap). Auto resize/dispose, a theme built from the --chart-1..5 and surface tokens, re-themed when the mode or data-theme changes. Pass a raw ECharts option.",
       "dependencies": ["echarts"],
-      "registryDependencies": ["@dataservices/theme-provider"],
+      "registryDependencies": ["@dataservices/use-css-vars"],
       "files": [
         { "path": "src/components/ui/echart.tsx", "type": "registry:ui" }
       ]
@@ -352,6 +352,15 @@
       "description": "Hook returning whether the viewport is below the mobile breakpoint (768px), via useSyncExternalStore.",
       "files": [
         { "path": "src/hooks/use-mobile.ts", "type": "registry:hook" }
+      ]
+    },
+    {
+      "name": "use-css-vars",
+      "type": "registry:hook",
+      "title": "useCssVars",
+      "description": "Hook that reads design-token values (CSS custom properties) off <html> and re-reads them when the light/dark class or data-theme changes. For canvas renderers that can't use CSS variables.",
+      "files": [
+        { "path": "src/hooks/use-css-vars.ts", "type": "registry:hook" }
       ]
     },
     {

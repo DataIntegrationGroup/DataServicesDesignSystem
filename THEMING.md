@@ -114,6 +114,27 @@ it's easier to read, and a theme never silently depends on another file.
 Fonts listed in a theme must be loaded by the app. Base imports Outfit and
 Public Sans, which both current themes use.
 
+## Canvas components
+
+`data-grid` (Glide) and `echart` draw on a canvas, where CSS variables don't
+apply. They read token values with the `useCssVars` hook, which re-reads
+them when the `class` or `data-theme` attribute on `<html>` changes. They
+work with any provider that sets those attributes, not only the DS
+ThemeProvider. `chart` (Recharts) uses `var(--chart-N)` directly and needs
+nothing extra.
+
+## Known exceptions
+
+Raw colors still in components, and why:
+
+| Where | Colors | Status |
+| --- | --- | --- |
+| `status-indicator`, `field-value` | emerald, amber, slate, red, cyan, blue | Become status tokens in Step 2 |
+| `dialog`, `sheet`, `alert-dialog`, `onboarding-tour` | `bg-black/10`, `bg-black/50` scrims | Kept: same as upstream shadcn |
+| `basemap-selector` | `from-black/65`, `text-white` caption on map thumbnails | Becomes `on-image` tokens in Step 2 |
+| `slider` | `bg-white` thumb | Kept: same as upstream shadcn |
+| `layer-selector` | `#ffffff` marker stroke, `#6b7280` color-input fallback | Kept: map data colors, not UI; `<input type="color">` needs hex |
+
 ## Adding a theme
 
 1. Copy `src/themes/ocotillo.css` to `src/themes/<name>.css`.
