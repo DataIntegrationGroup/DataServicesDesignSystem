@@ -673,46 +673,91 @@ function App() {
           <TabsContent value="forms" className="space-y-10">
             <section className="space-y-4">
               <h2>Input group</h2>
-              <div className="grid gap-4 md:grid-cols-2">
-                <InputGroup>
-                  <InputGroupAddon>
-                    <Search />
-                  </InputGroupAddon>
-                  <InputGroupInput placeholder="Search sources…" />
-                  <InputGroupAddon align="inline-end">
-                    <KbdGroup>
-                      <Kbd>⌘</Kbd>
-                      <Kbd>K</Kbd>
-                    </KbdGroup>
-                  </InputGroupAddon>
-                </InputGroup>
-                <InputGroup>
-                  <InputGroupAddon>
-                    <InputGroupText>https://</InputGroupText>
-                  </InputGroupAddon>
-                  <InputGroupInput placeholder="example.org" />
-                  <InputGroupAddon align="inline-end">
-                    <InputGroupButton>Check</InputGroupButton>
-                  </InputGroupAddon>
-                </InputGroup>
+              <div className="space-y-5">
+                {(
+                  [
+                    { label: "default", size: "default", variant: "default" },
+                    { label: 'size="lg"', size: "lg", variant: "default" },
+                    {
+                      label: 'variant="prominent"',
+                      size: "default",
+                      variant: "prominent",
+                    },
+                    {
+                      label: 'size="lg" variant="prominent"',
+                      size: "lg",
+                      variant: "prominent",
+                    },
+                  ] as const
+                ).map((example) => (
+                  <div key={example.label} className="space-y-1.5">
+                    <div className="font-mono text-xs text-muted-foreground">
+                      {example.label}
+                    </div>
+                    <InputGroup size={example.size} variant={example.variant}>
+                      <InputGroupAddon>
+                        <Search />
+                      </InputGroupAddon>
+                      <InputGroupInput
+                        placeholder="Search sources…"
+                        aria-label={`Search sources (${example.label})`}
+                      />
+                      <InputGroupAddon align="inline-end">
+                        <InputGroupButton variant="default" size="sm">
+                          Search
+                        </InputGroupButton>
+                      </InputGroupAddon>
+                    </InputGroup>
+                  </div>
+                ))}
               </div>
-              <InputGroup size="lg" variant="prominent">
-                <InputGroupAddon>
-                  <Search />
-                </InputGroupAddon>
-                <InputGroupInput placeholder='size="lg" variant="prominent": hero search' />
-                <InputGroupAddon align="inline-end">
-                  <InputGroupButton variant="default" size="sm">
-                    Search
-                  </InputGroupButton>
-                </InputGroupAddon>
-              </InputGroup>
-              <InputGroup>
-                <InputGroupTextarea placeholder="Notes…" />
-                <InputGroupAddon align="block-end">
-                  <InputGroupText>0 / 280</InputGroupText>
-                </InputGroupAddon>
-              </InputGroup>
+              <h4 className="!text-base !font-semibold text-muted-foreground uppercase tracking-wide">
+                Addons
+              </h4>
+              <div className="grid gap-5 md:grid-cols-3">
+                <div className="space-y-1.5">
+                  <div className="font-mono text-xs text-muted-foreground">
+                    Kbd hint
+                  </div>
+                  <InputGroup>
+                    <InputGroupAddon>
+                      <Search />
+                    </InputGroupAddon>
+                    <InputGroupInput placeholder="Jump to…" />
+                    <InputGroupAddon align="inline-end">
+                      <KbdGroup>
+                        <Kbd>⌘</Kbd>
+                        <Kbd>K</Kbd>
+                      </KbdGroup>
+                    </InputGroupAddon>
+                  </InputGroup>
+                </div>
+                <div className="space-y-1.5">
+                  <div className="font-mono text-xs text-muted-foreground">
+                    Text prefix + button
+                  </div>
+                  <InputGroup>
+                    <InputGroupAddon>
+                      <InputGroupText>https://</InputGroupText>
+                    </InputGroupAddon>
+                    <InputGroupInput placeholder="example.org" />
+                    <InputGroupAddon align="inline-end">
+                      <InputGroupButton>Check</InputGroupButton>
+                    </InputGroupAddon>
+                  </InputGroup>
+                </div>
+                <div className="space-y-1.5">
+                  <div className="font-mono text-xs text-muted-foreground">
+                    Textarea + block-end text
+                  </div>
+                  <InputGroup>
+                    <InputGroupTextarea placeholder="Notes…" />
+                    <InputGroupAddon align="block-end">
+                      <InputGroupText>0 / 280</InputGroupText>
+                    </InputGroupAddon>
+                  </InputGroup>
+                </div>
+              </div>
             </section>
 
             <Separator />
