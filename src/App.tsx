@@ -1163,20 +1163,31 @@ function App() {
             <section className="space-y-6">
               <h2>Pickers</h2>
               <ExampleGroup title="Command">
-                <Example label="Command (inline, searchable list)" className="w-72 items-stretch">
-                  <Command className="rounded-lg border">
-                    <CommandInput placeholder="Search sources…" />
-                    <CommandList>
-                      <CommandEmpty>No sources found.</CommandEmpty>
-                      <CommandGroup heading="Sources">
-                        {sources.map((s) => (
-                          <CommandItem key={s.name} value={s.name}>
-                            <DatabaseIcon /> {s.name}
-                          </CommandItem>
-                        ))}
-                      </CommandGroup>
-                    </CommandList>
-                  </Command>
+                {/* Mounted only when open: cmdk scrolls its first item into
+                    view on mount, which would jump the page if it sat inline. */}
+                <Example label="Command in a Popover (searchable list)">
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <Button variant="outline">
+                        <Search /> Find a source
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent align="start" className="w-72 p-0">
+                      <Command>
+                        <CommandInput placeholder="Search sources…" />
+                        <CommandList>
+                          <CommandEmpty>No sources found.</CommandEmpty>
+                          <CommandGroup heading="Sources">
+                            {sources.map((s) => (
+                              <CommandItem key={s.name} value={s.name}>
+                                <DatabaseIcon /> {s.name}
+                              </CommandItem>
+                            ))}
+                          </CommandGroup>
+                        </CommandList>
+                      </Command>
+                    </PopoverContent>
+                  </Popover>
                 </Example>
               </ExampleGroup>
               <ExampleGroup title="Date picker">
