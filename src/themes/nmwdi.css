@@ -29,6 +29,22 @@
     --warning-light: #fdba74; /* orange-300 */
     --warning-dark: #c2410c; /* orange-700 */
 
+    --success: #2f7a4a; /* forest green */
+    --success-foreground: #ffffff;
+    --success-soft: #dcefe2;
+    --success-strong: #1f5534;
+    --warning: #c2410c; /* orange-700 */
+    --warning-foreground: #ffffff;
+    --warning-soft: #ffedd5; /* orange-100 */
+    --warning-strong: #9a3412; /* orange-800 */
+    --info: #2f6690; /* river blue */
+    --info-foreground: #ffffff;
+    --info-soft: #dde8f1;
+    --info-strong: #1f4766;
+    --destructive-foreground: #ffffff;
+    --destructive-soft: #f8e1dc;
+    --destructive-strong: #8f3526;
+
     --border: #cdd9dc; /* cool teal-gray */
     --input: #cdd9dc;
     --ring: #006d8b;
@@ -38,6 +54,31 @@
     --chart-3: #4a98ab; /* mid teal */
     --chart-4: #e0a458; /* sand */
     --chart-5: #6f8a93; /* slate-teal */
+
+    --tone-1: #006d8b; /* teal */
+    --tone-1-foreground: #ffffff;
+    --tone-1-soft: #e7f0f2;
+    --tone-1-strong: #004153;
+    --tone-2: #b1422f; /* terracotta */
+    --tone-2-foreground: #ffffff;
+    --tone-2-soft: #f5b9b4;
+    --tone-2-strong: #5b1610;
+    --tone-3: #5f6812; /* olive */
+    --tone-3-foreground: #ffffff;
+    --tone-3-soft: #e1e4c6;
+    --tone-3-strong: #3c410c;
+    --tone-4: #4b6470; /* slate-teal */
+    --tone-4-foreground: #ffffff;
+    --tone-4-soft: #f1f5f6;
+    --tone-4-strong: #0f172a;
+    --tone-5: #8a5a12; /* sand */
+    --tone-5-foreground: #ffffff;
+    --tone-5-soft: #f8ead6;
+    --tone-5-strong: #6b450c;
+    --tone-6: #4f5490; /* slate-blue */
+    --tone-6-foreground: #ffffff;
+    --tone-6-soft: #e6e7f3;
+    --tone-6-strong: #2f3266;
 
     --radius: 0.5rem;
 
@@ -52,6 +93,14 @@
 
     --font-heading: 'Outfit Variable', system-ui, sans-serif;
     --font-sans: 'Public Sans Variable', system-ui, sans-serif;
+
+    /* Content on photos and dark bands. Same in light and dark. */
+    --on-image: #ffffff;
+    --on-image-muted: #dbe9ec; /* Weaver on-photo-muted */
+    --on-image-surface: rgb(255 255 255 / 0.12);
+    --on-image-border: rgb(255 255 255 / 0.5);
+    --on-image-ring: rgb(255 255 255 / 0.7);
+    --accent-on-dark: #fdba74; /* what Weaver uses today */
 }
 
 :root[data-theme="nmwdi"].dark {
@@ -82,6 +131,22 @@
     --warning-light: #fdba74; /* orange-300 */
     --warning-dark: #c2410c; /* orange-700 */
 
+    --success: #5fb47e;
+    --success-foreground: #0c2416;
+    --success-soft: #183a26;
+    --success-strong: #9fd8b2;
+    --warning: #fb923c; /* orange-400 */
+    --warning-foreground: #431407; /* orange-950 */
+    --warning-soft: #7c2d12; /* orange-900 */
+    --warning-strong: #fdba74; /* orange-300 */
+    --info: #7aa9d1;
+    --info-foreground: #0d2236;
+    --info-soft: #1c3249;
+    --info-strong: #b5d0e8;
+    --destructive-foreground: #2a0f0a;
+    --destructive-soft: #4a1c18;
+    --destructive-strong: #f5b9b4;
+
     --border: #3a4348; /* cool teal-gray divider */
     --input: #3a4348;
     --ring: #3aa3c0;
@@ -91,6 +156,31 @@
     --chart-3: #a6ccd6; /* light teal */
     --chart-4: #e8bd86; /* sand */
     --chart-5: #9aafb6; /* slate-teal */
+
+    --tone-1: #5cb8d4;
+    --tone-1-foreground: #04222b;
+    --tone-1-soft: #1d3238;
+    --tone-1-strong: #a6ccd6;
+    --tone-2: #e08a78;
+    --tone-2-foreground: #2a0f0a;
+    --tone-2-soft: #4a1c18;
+    --tone-2-strong: #f5b9b4;
+    --tone-3: #c5cc8a;
+    --tone-3-foreground: #23260a;
+    --tone-3-soft: #3c410c;
+    --tone-3-strong: #e1e4c6;
+    --tone-4: #9aafb6;
+    --tone-4-foreground: #0f1a1e;
+    --tone-4-soft: #303a3e;
+    --tone-4-strong: #e7f0f2;
+    --tone-5: #e8bd86;
+    --tone-5-foreground: #3b2606;
+    --tone-5-soft: #4a3414;
+    --tone-5-strong: #f0d2a8;
+    --tone-6: #a3a6d6;
+    --tone-6-foreground: #1a1c3d;
+    --tone-6-soft: #2b2d4d;
+    --tone-6-strong: #d3d5ef;
 
     --sidebar: #1f2a2e; /* dark teal-slate */
     --sidebar-foreground: #e7f0f2;

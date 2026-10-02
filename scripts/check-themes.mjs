@@ -24,15 +24,28 @@ const COLOR_TOKENS = [
   // Neutral
   "muted", "muted-foreground", "accent", "accent-foreground", "border", "input", "ring",
   // Status
-  "destructive", "warning-light", "warning-dark",
+  "destructive", "destructive-foreground", "destructive-soft", "destructive-strong",
+  "success", "success-foreground", "success-soft", "success-strong",
+  "warning", "warning-foreground", "warning-soft", "warning-strong",
+  "info", "info-foreground", "info-soft", "info-strong",
+  "warning-light", "warning-dark",
+  // Category tones
+  ...[1, 2, 3, 4, 5, 6].flatMap((n) =>
+    ["", "-foreground", "-soft", "-strong"].map((s) => `tone-${n}${s}`)
+  ),
   // Data
   "chart-1", "chart-2", "chart-3", "chart-4", "chart-5",
   // Sidebar
   "sidebar", "sidebar-foreground", "sidebar-primary", "sidebar-primary-foreground",
   "sidebar-accent", "sidebar-accent-foreground", "sidebar-border", "sidebar-ring",
 ]
-// Shape and type don't vary by mode: required in the light block only.
-const LIGHT_ONLY_TOKENS = ["radius", "font-heading", "font-sans"]
+// Shape, type and on-image tokens don't vary by mode: required in the light
+// block only.
+const LIGHT_ONLY_TOKENS = [
+  "radius", "font-heading", "font-sans",
+  "on-image", "on-image-muted", "on-image-surface", "on-image-border",
+  "on-image-ring", "accent-on-dark",
+]
 
 // [text, background] pairs that must meet AA for normal text.
 const CONTRAST_PAIRS = [
@@ -45,6 +58,19 @@ const CONTRAST_PAIRS = [
   ["muted-foreground", "card"],
   ["accent-foreground", "accent"],
   ["destructive", "card"],
+  ...["destructive", "success", "warning", "info"].flatMap((s) => [
+    [`${s}-foreground`, s],
+    [`${s}-strong`, `${s}-soft`],
+    [`${s}-strong`, "card"],
+  ]),
+  ...[1, 2, 3, 4, 5, 6].flatMap((n) => [
+    [`tone-${n}-foreground`, `tone-${n}`],
+    [`tone-${n}-strong`, `tone-${n}-soft`],
+  ]),
+  // Dark brand bands
+  ["on-image", "primary-dark"],
+  ["on-image-muted", "primary-dark"],
+  ["accent-on-dark", "primary-dark"],
   ["sidebar-foreground", "sidebar"],
   ["sidebar-primary-foreground", "sidebar-primary"],
   ["sidebar-accent-foreground", "sidebar-accent"],

@@ -36,6 +36,22 @@
     --warning-light: #fdba74;    /* orange-300 */
     --warning-dark: #c2410c;     /* orange-700 */
 
+    --success: #047857; /* emerald-700 */
+    --success-foreground: #ffffff;
+    --success-soft: #d1fae5; /* emerald-100 */
+    --success-strong: #065f46; /* emerald-800 */
+    --warning: #c2410c; /* orange-700 */
+    --warning-foreground: #ffffff;
+    --warning-soft: #ffedd5; /* orange-100 */
+    --warning-strong: #9a3412; /* orange-800 */
+    --info: #0e7490; /* cyan-700 */
+    --info-foreground: #ffffff;
+    --info-soft: #cffafe; /* cyan-100 */
+    --info-strong: #155e75; /* cyan-800 */
+    --destructive-foreground: #ffffff;
+    --destructive-soft: #fee2e2; /* red-100 */
+    --destructive-strong: #b91c1c; /* red-700 */
+
     --border: #d6d3d1;           /* stone-300 */
     --input: #d6d3d1;
     --ring: #1d4ed8;
@@ -45,6 +61,31 @@
     --chart-3: #047857;          /* emerald-700 */
     --chart-4: #0891b2;          /* cyan-600 */
     --chart-5: #dc2626;          /* red-600 */
+
+    --tone-1: #1d4ed8; /* blue-700 */
+    --tone-1-foreground: #ffffff;
+    --tone-1-soft: #dbeafe; /* blue-100 */
+    --tone-1-strong: #1e40af; /* blue-800 */
+    --tone-2: #b45309; /* amber-700 */
+    --tone-2-foreground: #ffffff;
+    --tone-2-soft: #fef3c7; /* amber-100 */
+    --tone-2-strong: #92400e; /* amber-800 */
+    --tone-3: #047857; /* emerald-700 */
+    --tone-3-foreground: #ffffff;
+    --tone-3-soft: #d1fae5; /* emerald-100 */
+    --tone-3-strong: #065f46; /* emerald-800 */
+    --tone-4: #475569; /* slate-600 */
+    --tone-4-foreground: #ffffff;
+    --tone-4-soft: #f1f5f9; /* slate-100 */
+    --tone-4-strong: #1e293b; /* slate-800 */
+    --tone-5: #6d28d9; /* violet-700 */
+    --tone-5-foreground: #ffffff;
+    --tone-5-soft: #ede9fe; /* violet-100 */
+    --tone-5-strong: #5b21b6; /* violet-800 */
+    --tone-6: #0e7490; /* cyan-700 */
+    --tone-6-foreground: #ffffff;
+    --tone-6-soft: #cffafe; /* cyan-100 */
+    --tone-6-strong: #155e75; /* cyan-800 */
 
     --radius: 0.5rem;
 
@@ -59,6 +100,14 @@
 
     --font-heading: 'Outfit Variable', system-ui, sans-serif;
     --font-sans: 'Public Sans Variable', system-ui, sans-serif;
+
+    /* Content on photos and dark bands. Same in light and dark. */
+    --on-image: #ffffff;
+    --on-image-muted: #e2e8f0; /* slate-200 */
+    --on-image-surface: rgb(255 255 255 / 0.12);
+    --on-image-border: rgb(255 255 255 / 0.5);
+    --on-image-ring: rgb(255 255 255 / 0.7);
+    --accent-on-dark: #fcd34d; /* amber-300 */
 }
 
 :root:not([data-theme]).dark,
@@ -89,6 +138,22 @@
     --warning-light: #fdba74;    /* orange-300 */
     --warning-dark: #c2410c;     /* orange-700 */
 
+    --success: #34d399; /* emerald-400 */
+    --success-foreground: #022c22; /* emerald-950 */
+    --success-soft: #064e3b; /* emerald-900 */
+    --success-strong: #6ee7b7; /* emerald-300 */
+    --warning: #fb923c; /* orange-400 */
+    --warning-foreground: #431407; /* orange-950 */
+    --warning-soft: #7c2d12; /* orange-900 */
+    --warning-strong: #fdba74; /* orange-300 */
+    --info: #22d3ee; /* cyan-400 */
+    --info-foreground: #083344; /* cyan-950 */
+    --info-soft: #164e63; /* cyan-900 */
+    --info-strong: #67e8f9; /* cyan-300 */
+    --destructive-foreground: #1c0505; /* below red-950, which is 4.29:1 on red-500 */
+    --destructive-soft: #7f1d1d; /* red-900 */
+    --destructive-strong: #fca5a5; /* red-300 */
+
     --border: #3f3f46;           /* zinc-700 (divider) */
     --input: #3f3f46;
     --ring: #2563eb;
@@ -98,6 +163,31 @@
     --chart-3: #6ee7b7;          /* emerald-300 */
     --chart-4: #67e8f9;          /* cyan-300 */
     --chart-5: #fca5a5;          /* red-300 */
+
+    --tone-1: #60a5fa; /* blue-400 */
+    --tone-1-foreground: #172554; /* blue-950 */
+    --tone-1-soft: #1e3a8a; /* blue-900 */
+    --tone-1-strong: #bfdbfe; /* blue-200 */
+    --tone-2: #fbbf24; /* amber-400 */
+    --tone-2-foreground: #451a03; /* amber-950 */
+    --tone-2-soft: #78350f; /* amber-900 */
+    --tone-2-strong: #fde68a; /* amber-200 */
+    --tone-3: #34d399; /* emerald-400 */
+    --tone-3-foreground: #022c22; /* emerald-950 */
+    --tone-3-soft: #064e3b; /* emerald-900 */
+    --tone-3-strong: #a7f3d0; /* emerald-200 */
+    --tone-4: #94a3b8; /* slate-400 */
+    --tone-4-foreground: #0f172a; /* slate-900 */
+    --tone-4-soft: #334155; /* slate-700 */
+    --tone-4-strong: #e2e8f0; /* slate-200 */
+    --tone-5: #a78bfa; /* violet-400 */
+    --tone-5-foreground: #2e1065; /* violet-950 */
+    --tone-5-soft: #4c1d95; /* violet-900 */
+    --tone-5-strong: #ddd6fe; /* violet-200 */
+    --tone-6: #22d3ee; /* cyan-400 */
+    --tone-6-foreground: #083344; /* cyan-950 */
+    --tone-6-soft: #164e63; /* cyan-900 */
+    --tone-6-strong: #a5f3fc; /* cyan-200 */
 
     --sidebar: #27272a;          /* zinc-800 */
     --sidebar-foreground: #f1f5f9;

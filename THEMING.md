@@ -46,8 +46,9 @@ Each theme scopes its values like this:
 ## Token contract
 
 Every theme defines every token below. Color tokens are required in both the
-light and dark blocks, even when the value is the same. Shape and type tokens
-don't vary by mode, so they're required in the light block only.
+light and dark blocks, even when the value is the same. Shape, type and
+on-image tokens don't vary by mode, so they're required in the light block
+only.
 
 Each theme is self-contained rather than a list of differences from Ocotillo:
 it's easier to read, and a theme never silently depends on another file.
@@ -81,12 +82,38 @@ it's easier to read, and a theme never silently depends on another file.
 | `input` | Form control borders |
 | `ring` | Focus ring |
 
+### Status and tones: one pattern
+
+Status colors and category tones use the same four tokens:
+
+| Suffix | Use | Example |
+| --- | --- | --- |
+| (none) | Solid fill: dots, icons, solid badges | `bg-success` |
+| `-foreground` | Text on the solid fill | `text-success-foreground` |
+| `-soft` | Tinted background: soft badges, alerts | `bg-success-soft` |
+| `-strong` | Text, icons and strokes on the tint or on a card | `text-success-strong` |
+
+`-foreground` on the solid and `-strong` on `-soft` must meet WCAG AA
+(4.5:1), and `pnpm check:themes` checks both.
+
 ### Status
 
 | Token | Purpose |
 | --- | --- |
-| `destructive` | Errors and destructive actions |
-| `warning-light` / `warning-dark` | Warning fill and warning text |
+| `destructive` (+ `-foreground`, `-soft`, `-strong`) | Errors and destructive actions. shadcn's name, kept instead of a separate `danger`. |
+| `success` (+ `-foreground`, `-soft`, `-strong`) | Success, healthy, approved |
+| `warning` (+ `-foreground`, `-soft`, `-strong`) | Warnings, degraded, provisional |
+| `info` (+ `-foreground`, `-soft`, `-strong`) | Neutral information |
+| `warning-light` / `warning-dark` | Older warning fill and text. Prefer `warning-soft` / `warning-strong`. |
+
+### Category tones
+
+| Token | Purpose |
+| --- | --- |
+| `tone-1` … `tone-6` (+ `-foreground`, `-soft`, `-strong`) | Categories such as dataset topics or layer groups. Not status: a tone says "which kind", never "good or bad". |
+
+Tone order is stable within a theme, so an app can map its categories to
+numbers once. Tones 1 and 2 follow the theme's primary and secondary hues.
 
 ### Data
 
@@ -111,6 +138,20 @@ it's easier to read, and a theme never silently depends on another file.
 | `font-heading` | Headings (`h1`–`h6`, `font-heading`) |
 | `font-sans` | Body and UI text |
 
+### On image (light block only)
+
+For content on photos and dark brand bands. These don't change with the
+mode, because a photo looks the same in light and dark.
+
+| Token | Purpose |
+| --- | --- |
+| `on-image` | Text on images and dark bands |
+| `on-image-muted` | Secondary text |
+| `on-image-surface` | Translucent chip and tab fill |
+| `on-image-border` | Outline |
+| `on-image-ring` | Focus ring |
+| `accent-on-dark` | Highlight color for headings on dark bands |
+
 Fonts listed in a theme must be loaded by the app. Base imports Outfit and
 Public Sans, which both current themes use.
 
@@ -129,9 +170,8 @@ Raw colors still in components, and why:
 
 | Where | Colors | Status |
 | --- | --- | --- |
-| `status-indicator`, `field-value` | emerald, amber, slate, red, cyan, blue | Become status tokens in Step 2 |
 | `dialog`, `sheet`, `alert-dialog`, `onboarding-tour` | `bg-black/10`, `bg-black/50` scrims | Kept: same as upstream shadcn |
-| `basemap-selector` | `from-black/65`, `text-white` caption on map thumbnails | Becomes `on-image` tokens in Step 2 |
+| `basemap-selector` | `from-black/65` scrim behind thumbnail captions | Kept: a scrim, like the overlay ones |
 | `slider` | `bg-white` thumb | Kept: same as upstream shadcn |
 | `layer-selector` | `#ffffff` marker stroke, `#6b7280` color-input fallback | Kept: map data colors, not UI; `<input type="color">` needs hex |
 
