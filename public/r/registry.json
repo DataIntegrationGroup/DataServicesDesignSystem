@@ -6,8 +6,8 @@
     {
       "name": "theme",
       "type": "registry:theme",
-      "title": "OcotilloUI Theme",
-      "description": "OcotilloUI (NMBGMRDataManager) production palette and typography — blue/amber/red/orange/emerald/cyan over stone (light) and zinc (dark) neutrals. Outfit headings, Public Sans body.",
+      "title": "OcotilloUI Theme (legacy)",
+      "description": "Legacy: merges the OcotilloUI palette into the app's CSS as shadcn cssVars. New apps should install theme-base plus one theme file (theme-ocotillo, theme-nmwdi); see THEMING.md. OcotilloUI (NMBGMRDataManager) production palette and typography — blue/amber/red/orange/emerald/cyan over stone (light) and zinc (dark) neutrals. Outfit headings, Public Sans body.",
       "dependencies": [
         "@fontsource-variable/outfit",
         "@fontsource-variable/public-sans"
@@ -85,6 +85,39 @@
           "sidebar-ring": "#2563eb"
         }
       }
+    },
+    {
+      "name": "theme-base",
+      "type": "registry:file",
+      "title": "Theme base",
+      "description": "Shared design-system CSS: imports, dark variant, @theme inline token mappings, radius scale, base type styles and DS keyframes. Sets no colors; load one theme file after it.",
+      "dependencies": ["@fontsource-variable/outfit", "@fontsource-variable/public-sans", "tw-animate-css", "shadcn"],
+      "files": [
+        { "path": "src/styles/base.css", "type": "registry:file", "target": "~/src/styles/ds-base.css" }
+      ],
+      "docs": "In your CSS entry, import ds-base.css and then one theme file, and remove the @import \"tailwindcss\", @theme inline and :root/.dark blocks that shadcn init created. Set data-theme on <html>. See THEMING.md in the DataServices design system."
+    },
+    {
+      "name": "theme-ocotillo",
+      "type": "registry:file",
+      "title": "Ocotillo theme",
+      "description": "OcotilloUI palette (blue/amber over stone and zinc), light and dark. The default theme: it also applies when <html> has no data-theme.",
+      "registryDependencies": ["@dataservices/theme-base"],
+      "files": [
+        { "path": "src/themes/ocotillo.css", "type": "registry:file", "target": "~/src/styles/themes/ocotillo.css" }
+      ],
+      "docs": "Import after ds-base.css: @import \"./styles/themes/ocotillo.css\". Setting <html data-theme=\"ocotillo\"> is optional."
+    },
+    {
+      "name": "theme-nmwdi",
+      "type": "registry:file",
+      "title": "NMWDI theme",
+      "description": "New Mexico Water Data Initiative palette (teal, terracotta, sand), light and dark. Used by Weaver.",
+      "registryDependencies": ["@dataservices/theme-base"],
+      "files": [
+        { "path": "src/themes/nmwdi.css", "type": "registry:file", "target": "~/src/styles/themes/nmwdi.css" }
+      ],
+      "docs": "Import after ds-base.css: @import \"./styles/themes/nmwdi.css\", and set <html data-theme=\"nmwdi\">."
     },
     {
       "name": "theme-provider",

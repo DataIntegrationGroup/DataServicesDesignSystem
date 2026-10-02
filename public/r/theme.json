@@ -1,8 +1,8 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "theme",
-  "title": "OcotilloUI Theme",
-  "description": "OcotilloUI (NMBGMRDataManager) production palette and typography — blue/amber/red/orange/emerald/cyan over stone (light) and zinc (dark) neutrals. Outfit headings, Public Sans body.",
+  "title": "OcotilloUI Theme (legacy)",
+  "description": "Legacy: merges the OcotilloUI palette into the app's CSS as shadcn cssVars. New apps should install theme-base plus one theme file (theme-ocotillo, theme-nmwdi); see THEMING.md. OcotilloUI (NMBGMRDataManager) production palette and typography — blue/amber/red/orange/emerald/cyan over stone (light) and zinc (dark) neutrals. Outfit headings, Public Sans body.",
   "dependencies": [
     "@fontsource-variable/outfit",
     "@fontsource-variable/public-sans"

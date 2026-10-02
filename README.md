@@ -22,10 +22,38 @@ The consuming app must already be a shadcn/ui project (`npx shadcn init`).
    }
    ```
 
-2. Add the theme first (palette + fonts), then the components you need:
+2. Add one theme. It pulls in `theme-base`, the shared CSS structure:
 
    ```bash
-   npx shadcn add @dataservices/theme
+   npx shadcn add @dataservices/theme-ocotillo   # or @dataservices/theme-nmwdi
+   ```
+
+   This writes `src/styles/ds-base.css` and `src/styles/themes/<name>.css`.
+   Point your CSS entry at them, replacing the `@import "tailwindcss"`,
+   `@theme inline` and `:root` / `.dark` blocks that `shadcn init` created:
+
+   ```css
+   /* src/index.css */
+   @import "./styles/ds-base.css";
+   @import "./styles/themes/nmwdi.css";
+   /* app styles below */
+   ```
+
+   Then select the theme on `<html>`. Ocotillo is the default, so it works
+   without the attribute:
+
+   ```html
+   <html lang="en" data-theme="nmwdi">
+   ```
+
+   To update later, re-run the same `add` with `--overwrite`. It refreshes
+   `ds-base.css` and the theme file and never touches your CSS entry, so keep
+   app styles out of those two files. See [THEMING.md](THEMING.md) for the
+   token contract.
+
+3. Add the components you need:
+
+   ```bash
    npx shadcn add @dataservices/navbar @dataservices/page @dataservices/map
    npx shadcn add @dataservices/mode-toggle   # pulls theme-provider + button
    ```
@@ -37,8 +65,11 @@ Each item carries its own npm dependencies (e.g. `map` → `react-map-gl`,
 
 | Item             | Type      | What                                                          |
 | ---------------- | --------- | ------------------------------------------------------------- |
-| `theme`          | theme     | OcotilloUI palette + Outfit/Public Sans tokens (light + dark) |
-| `theme-provider` | component | Light/dark/system context, localStorage-persisted             |
+| `theme-base`     | file      | Shared CSS: imports, token mappings, radius, type, keyframes  |
+| `theme-ocotillo` | file      | OcotilloUI palette, light + dark (default theme)              |
+| `theme-nmwdi`    | file      | NMWDI palette (teal/terracotta/sand), light + dark            |
+| `theme`          | theme     | Legacy: OcotilloUI palette as cssVars merged into app CSS     |
+| `theme-provider` | component | Light/dark/system context, plus an optional `palette` prop    |
 | `mode-toggle`    | component | Light/dark toggle button                                      |
 | `map`            | ui        | MapLibre map, token-free CARTO basemap, NM default extent     |
 | `navbar`         | ui        | Router-agnostic top nav chrome (`asChild` link slots)         |
