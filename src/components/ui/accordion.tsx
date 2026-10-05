@@ -30,17 +30,26 @@ function AccordionItem({
   )
 }
 
+/**
+ * `variant="plain"` drops the hover underline and centers the chevron, for
+ * triggers that hold more than a label (e.g. a filter rail's "N selected").
+ */
 function AccordionTrigger({
   className,
   children,
+  variant = "default",
   ...props
-}: React.ComponentProps<typeof AccordionPrimitive.Trigger>) {
+}: React.ComponentProps<typeof AccordionPrimitive.Trigger> & {
+  variant?: "default" | "plain"
+}) {
   return (
     <AccordionPrimitive.Header className="flex">
       <AccordionPrimitive.Trigger
         data-slot="accordion-trigger"
+        data-variant={variant}
         className={cn(
           "group/accordion-trigger relative flex flex-1 items-start justify-between rounded-lg border border-transparent py-2.5 text-left text-sm font-medium transition-all outline-none hover:underline focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:after:border-ring disabled:pointer-events-none disabled:opacity-50 **:data-[slot=accordion-trigger-icon]:ml-auto **:data-[slot=accordion-trigger-icon]:size-4 **:data-[slot=accordion-trigger-icon]:text-muted-foreground",
+          "data-[variant=plain]:items-center data-[variant=plain]:font-semibold data-[variant=plain]:hover:no-underline",
           className
         )}
         {...props}
