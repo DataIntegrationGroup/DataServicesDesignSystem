@@ -2116,18 +2116,6 @@ function App() {
                     </a>
                   </Card>
                 </Example>
-                <Example label='asChild interactive size="sm"' className="items-stretch">
-                  <Card asChild interactive size="sm" className="h-full">
-                    <a href="#layout">
-                      <CardHeader>
-                        <CardTitle>Explore the map</CardTitle>
-                        <CardDescription>
-                          Every monitoring location in New Mexico.
-                        </CardDescription>
-                      </CardHeader>
-                    </a>
-                  </Card>
-                </Example>
               </ExampleGroup>
             </section>
 
