@@ -155,6 +155,35 @@ mode, because a photo looks the same in light and dark.
 Fonts listed in a theme must be loaded by the app. Base imports Outfit and
 Public Sans, which both current themes use.
 
+## Type steps
+
+Named steps for sizes the default Tailwind scale doesn't cover, shared by
+every app. They're `--text-*` tokens in `base.css`, so each one is a normal
+`text-*` utility that sets size, line height, tracking and weight together.
+They don't depend on the theme.
+
+| Class | Size | Use | Pair with |
+| --- | --- | --- | --- |
+| `text-display` | 64–104px, fluid | Hero heading | `font-heading` |
+| `text-eyebrow` | 12px, tracked | Small label above a heading | `uppercase` |
+
+Everything else uses the built-in scale. Large section headings use the
+`h1` styles or `text-5xl` (48px); big KPI numbers use `text-5xl font-bold
+tabular-nums`; intro paragraphs use `text-lg` (18px). For UI text at 13
+or 15px, use the nearest standard step (`text-xs`, `text-sm`, `text-base`)
+rather than an arbitrary size.
+
+**Use the DS `cn()`.** Stock tailwind-merge treats an unknown `text-*` class
+as a color, so `cn("text-display text-primary")` silently drops
+`text-display`. `@dataservices/utils` (a dependency of `theme-base`) lists
+the steps so `cn()` merges them as font sizes. To add a step, add its
+`--text-*` tokens to `base.css` and its name to `TYPE_STEPS` in
+`src/lib/utils.ts`.
+
+Upstream shadcn components installed from now on import `cn` from the `cn`
+npm package rather than `lib/utils`, so they don't see this configuration.
+Avoid passing a type step to them alongside a text color.
+
 ## Canvas components
 
 `data-grid` (Glide) and `echart` draw on a canvas, where CSS variables don't

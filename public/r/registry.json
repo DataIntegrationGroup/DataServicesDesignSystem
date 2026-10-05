@@ -92,10 +92,21 @@
       "title": "Theme base",
       "description": "Shared design-system CSS: imports, dark variant, @theme inline token mappings, radius scale, base type styles and DS keyframes. Sets no colors; load one theme file after it.",
       "dependencies": ["@fontsource-variable/outfit", "@fontsource-variable/public-sans", "tw-animate-css", "shadcn"],
+      "registryDependencies": ["@dataservices/utils"],
       "files": [
         { "path": "src/styles/base.css", "type": "registry:file", "target": "~/src/styles/ds-base.css" }
       ],
       "docs": "In your CSS entry, import ds-base.css and then one theme file, and remove the @import \"tailwindcss\", @theme inline and :root/.dark blocks that shadcn init created. Set data-theme on <html>. See THEMING.md in the DataServices design system."
+    },
+    {
+      "name": "utils",
+      "type": "registry:lib",
+      "title": "cn() with DS type steps",
+      "description": "The stock shadcn cn() (clsx + tailwind-merge), configured so the design system's type steps (text-display, text-eyebrow) merge as font sizes instead of being mistaken for colors. Replaces lib/utils.ts.",
+      "dependencies": ["clsx", "tailwind-merge"],
+      "files": [
+        { "path": "src/lib/utils.ts", "type": "registry:lib" }
+      ]
     },
     {
       "name": "theme-ocotillo",

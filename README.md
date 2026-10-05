@@ -28,7 +28,9 @@ The consuming app must already be a shadcn/ui project (`npx shadcn init`).
    npx shadcn add @dataservices/theme-ocotillo   # or @dataservices/theme-nmwdi
    ```
 
-   This writes `src/styles/ds-base.css` and `src/styles/themes/<name>.css`.
+   This writes `src/styles/ds-base.css` and `src/styles/themes/<name>.css`,
+   and replaces `src/lib/utils.ts` with the DS `cn()`, which knows the type
+   steps. Accept the overwrite unless you've customized that file.
    Point your CSS entry at them, replacing the `@import "tailwindcss"`,
    `@theme inline` and `:root` / `.dark` blocks that `shadcn init` created:
 
@@ -66,6 +68,7 @@ Each item carries its own npm dependencies (e.g. `map` → `react-map-gl`,
 | Item             | Type      | What                                                          |
 | ---------------- | --------- | ------------------------------------------------------------- |
 | `theme-base`     | file      | Shared CSS: imports, token mappings, radius, type, keyframes  |
+| `utils`          | lib       | `cn()` configured for the DS type steps (replaces lib/utils)  |
 | `theme-ocotillo` | file      | OcotilloUI palette, light + dark (default theme)              |
 | `theme-nmwdi`    | file      | NMWDI palette (teal/terracotta/sand), light + dark            |
 | `theme`          | theme     | Legacy: OcotilloUI palette as cssVars merged into app CSS     |
