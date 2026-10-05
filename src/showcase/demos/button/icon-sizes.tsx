@@ -5,7 +5,7 @@ import { Example } from "@/showcase/example"
 
 export default function ButtonIconSizes() {
   return (
-    <>
+    <div className="flex flex-wrap items-end gap-x-6 gap-y-4">
       <Example label='size="icon-xs"'>
         <Button size="icon-xs" variant="outline" aria-label="More">
           <MoreHorizontalIcon />
@@ -26,6 +26,6 @@ export default function ButtonIconSizes() {
           <MoreHorizontalIcon />
         </Button>
       </Example>
-    </>
+    </div>
   )
 }

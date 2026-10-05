@@ -21,7 +21,7 @@ const sources = [
 
 export default function TableSources() {
   return (
-    <>
+    <div className="flex flex-col gap-4">
       <Example label="TableCaption · right-aligned actions column" className="items-stretch">
         <Card>
           <Table>
@@ -63,6 +63,6 @@ export default function TableSources() {
           </Table>
         </Card>
       </Example>
-    </>
+    </div>
   )
 }

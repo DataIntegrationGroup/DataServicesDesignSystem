@@ -14,7 +14,7 @@ import { Example } from "@/showcase/example"
 
 export default function DialogVariants() {
   return (
-    <>
+    <div className="flex flex-wrap items-end gap-x-6 gap-y-4">
       <Example label="default (close button)">
         <Dialog>
           <DialogTrigger asChild>
@@ -56,6 +56,6 @@ export default function DialogVariants() {
           </DialogContent>
         </Dialog>
       </Example>
-    </>
+    </div>
   )
 }

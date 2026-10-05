@@ -4,7 +4,7 @@ import { Example } from "@/showcase/example"
 
 export default function RadioGroupDefault() {
   return (
-    <>
+    <div className="flex flex-wrap items-end gap-x-6 gap-y-4">
       <Example label='defaultValue="incremental", one item disabled'>
         <RadioGroup defaultValue="incremental">
           <div className="flex items-center gap-2">
@@ -21,6 +21,6 @@ export default function RadioGroupDefault() {
           </div>
         </RadioGroup>
       </Example>
-    </>
+    </div>
   )
 }

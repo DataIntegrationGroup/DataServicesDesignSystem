@@ -10,7 +10,7 @@ import { Example } from "@/showcase/example"
 
 export default function KbdInputHint() {
   return (
-    <>
+    <div className="flex flex-wrap items-end gap-x-6 gap-y-4">
       <Example label="Kbd hint in an InputGroup" className="w-72 items-stretch">
         <InputGroup>
           <InputGroupAddon>
@@ -25,6 +25,6 @@ export default function KbdInputHint() {
           </InputGroupAddon>
         </InputGroup>
       </Example>
-    </>
+    </div>
   )
 }

@@ -4,7 +4,7 @@ import { Example } from "@/showcase/example"
 
 export default function CheckboxStates() {
   return (
-    <>
+    <div className="flex flex-wrap items-end gap-x-6 gap-y-4">
       <Example label='unchecked'>
         <div className="flex items-center gap-2">
           <Checkbox id="ex-cb-1" />
@@ -29,6 +29,6 @@ export default function CheckboxStates() {
           <Label htmlFor="ex-cb-4">I accept the terms</Label>
         </div>
       </Example>
-    </>
+    </div>
   )
 }

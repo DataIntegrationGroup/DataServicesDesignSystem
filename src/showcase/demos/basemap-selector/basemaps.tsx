@@ -13,10 +13,10 @@ const BASEMAPS: BasemapOption[] = [
 export default function BasemapSelectorBasemaps() {
   const [basemap, setBasemap] = React.useState(DEFAULT_MAP_STYLE)
   return (
-    <>
+    <div className="flex flex-wrap items-end gap-x-6 gap-y-4">
       <Example label="options · value · onValueChange" className="w-72 items-stretch">
         <BasemapSelector options={BASEMAPS} value={basemap} onValueChange={setBasemap} />
       </Example>
-    </>
+    </div>
   )
 }

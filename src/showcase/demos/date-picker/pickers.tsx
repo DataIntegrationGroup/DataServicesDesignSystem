@@ -8,7 +8,7 @@ export default function DatePickers() {
   const [date, setDate] = React.useState<Date | undefined>()
   const [range, setRange] = React.useState<DateRange | undefined>()
   return (
-    <>
+    <div className="flex flex-wrap items-end gap-x-6 gap-y-4">
       <Example label="DatePicker">
         <DatePicker value={date} onValueChange={setDate} />
       </Example>
@@ -18,6 +18,6 @@ export default function DatePickers() {
       <Example label="DatePicker disabled">
         <DatePicker disabled />
       </Example>
-    </>
+    </div>
   )
 }

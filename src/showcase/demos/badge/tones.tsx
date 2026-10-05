@@ -3,7 +3,7 @@ import { Example } from "@/showcase/example"
 
 export default function BadgeTones() {
   return (
-    <>
+    <div className="flex flex-wrap items-end gap-x-6 gap-y-4">
       <Example label='variant="tone-1"'>
         <Badge variant="tone-1">Water levels</Badge>
       </Example>
@@ -22,6 +22,6 @@ export default function BadgeTones() {
       <Example label='variant="tone-6"'>
         <Badge variant="tone-6">Geology</Badge>
       </Example>
-    </>
+    </div>
   )
 }

@@ -5,7 +5,7 @@ import { Example } from "@/showcase/example"
 
 export default function ToastSonner() {
   return (
-    <>
+    <div className="flex flex-wrap items-end gap-x-6 gap-y-4">
       <Example label="toast()">
         <Button variant="outline" onClick={() => toast("Settings saved")}>
           Default
@@ -58,6 +58,6 @@ export default function ToastSonner() {
           With action
         </Button>
       </Example>
-    </>
+    </div>
   )
 }

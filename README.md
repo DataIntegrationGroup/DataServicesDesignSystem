@@ -118,7 +118,8 @@ Each component has a page in the showcase (`#/button`), listed in
 list of demos: small files in `src/showcase/demos/<page>/`, each rendering a
 few labeled `<Example>`s. The **Code** toggle shows the demo file itself, with
 the `Example` wrappers turned into comments, so write demos as code someone
-would copy: spell out each variant rather than mapping over a list. Blocks
+would copy: spell out each variant rather than mapping over a list, and set
+the layout on the demo's root element rather than on the page. Blocks
 (`src/blocks/`) preview in an iframe at desktop, tablet and phone widths.
 
 `pnpm lint` runs `check:showcase`, which fails if a registry item has no page

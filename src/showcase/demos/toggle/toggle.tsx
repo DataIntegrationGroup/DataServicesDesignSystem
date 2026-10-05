@@ -5,7 +5,7 @@ import { Example } from "@/showcase/example"
 
 export default function ToggleDemo() {
   return (
-    <>
+    <div className="flex flex-wrap items-end gap-x-6 gap-y-4">
       <Example label='variant="default"'>
         <Toggle aria-label="Bold">
           <BoldIcon />
@@ -41,6 +41,6 @@ export default function ToggleDemo() {
           <BoldIcon />
         </Toggle>
       </Example>
-    </>
+    </div>
   )
 }

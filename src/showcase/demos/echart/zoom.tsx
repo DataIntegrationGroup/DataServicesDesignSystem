@@ -35,7 +35,7 @@ export default function EChartZoom() {
   }, [])
 
   return (
-    <>
+    <div className="flex flex-col gap-4">
       <Example label="line + bar combo · dataZoom (drag the slider or scroll)" className="items-stretch">
         <Card>
           <CardHeader>
@@ -47,6 +47,6 @@ export default function EChartZoom() {
           </CardContent>
         </Card>
       </Example>
-    </>
+    </div>
   )
 }

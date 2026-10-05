@@ -22,7 +22,7 @@ const sources = ["warehouse-prod", "lakehouse-stg", "legacy-ora", "events-kafka"
 // which would jump the page if it sat inline.
 export default function CommandPopover() {
   return (
-    <>
+    <div className="flex flex-wrap items-end gap-x-6 gap-y-4">
       <Example label="Command in a Popover (searchable list)">
         <Popover>
           <PopoverTrigger asChild>
@@ -47,6 +47,6 @@ export default function CommandPopover() {
           </PopoverContent>
         </Popover>
       </Example>
-    </>
+    </div>
   )
 }

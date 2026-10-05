@@ -8,7 +8,6 @@ export default function EChartPage() {
         name="echart/zoom"
         title="Interactive chart"
         description="For heavier, interactive charting. Themed from the active theme and mode."
-        className="flex-col items-stretch"
       />
     </PageContent>
   )

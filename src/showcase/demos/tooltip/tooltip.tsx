@@ -7,7 +7,7 @@ import { Example } from "@/showcase/example"
 
 export default function TooltipSides() {
   return (
-    <>
+    <div className="flex flex-wrap items-end gap-x-6 gap-y-4">
       <Example label='side="top"'>
         <Tooltip>
           <TooltipTrigger asChild>
@@ -60,6 +60,6 @@ export default function TooltipSides() {
           </TooltipContent>
         </Tooltip>
       </Example>
-    </>
+    </div>
   )
 }

@@ -4,7 +4,7 @@ import { Example } from "@/showcase/example"
 
 export default function MapOptions() {
   return (
-    <>
+    <div className="flex flex-col gap-4">
       <Example label='showScale={false} controlPosition="bottom-left"' className="items-stretch">
         <Card className="overflow-hidden p-0">
           <div className="h-[240px]">
@@ -12,6 +12,6 @@ export default function MapOptions() {
           </div>
         </Card>
       </Example>
-    </>
+    </div>
   )
 }

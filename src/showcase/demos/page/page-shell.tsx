@@ -5,7 +5,7 @@ import { Example } from "@/showcase/example"
 
 export default function PageShellExample() {
   return (
-    <>
+    <div className="flex flex-col gap-4">
       <Example label="PageShell + NavBar + PageBody" className="items-stretch">
         <Card className="overflow-hidden p-0">
           <PageShell className="h-[240px]">
@@ -21,6 +21,6 @@ export default function PageShellExample() {
           </PageShell>
         </Card>
       </Example>
-    </>
+    </div>
   )
 }

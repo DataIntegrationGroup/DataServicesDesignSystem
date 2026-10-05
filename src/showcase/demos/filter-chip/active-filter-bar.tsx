@@ -12,7 +12,7 @@ const INITIAL = [
 export default function ActiveFilterBarExample() {
   const [filters, setFilters] = React.useState(INITIAL)
   return (
-    <>
+    <div className="flex flex-col gap-4">
       <Example label="ActiveFilterBar onClearAll + FilterChips" className="items-stretch">
         {filters.length > 0 ? (
           <ActiveFilterBar
@@ -40,6 +40,6 @@ export default function ActiveFilterBarExample() {
           </button>
         )}
       </Example>
-    </>
+    </div>
   )
 }

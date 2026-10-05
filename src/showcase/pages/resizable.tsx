@@ -8,7 +8,6 @@ export default function ResizablePage() {
         name="resizable/map-split"
         title="Map and source panel"
         description="Drag the divider to resize the map against the source list."
-        className="flex-col items-stretch"
       />
     </PageContent>
   )

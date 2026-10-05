@@ -3,7 +3,7 @@ import { Example } from "@/showcase/example"
 
 export default function StatusIndicatorStatuses() {
   return (
-    <>
+    <div className="flex flex-wrap items-end gap-x-6 gap-y-4">
       <Example label='status="online"'>
         <StatusIndicator status="online">online</StatusIndicator>
       </Example>
@@ -30,6 +30,6 @@ export default function StatusIndicatorStatuses() {
       <Example label="no label (bare dot)">
         <StatusIndicator status="online" aria-label="online" />
       </Example>
-    </>
+    </div>
   )
 }

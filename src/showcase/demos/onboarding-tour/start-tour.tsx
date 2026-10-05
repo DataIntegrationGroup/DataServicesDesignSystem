@@ -24,7 +24,7 @@ const TOUR_STEPS: TourStep[] = [
 export default function OnboardingTourExample() {
   const [run, setRun] = React.useState(0)
   return (
-    <>
+    <div className="flex flex-wrap items-end gap-x-6 gap-y-4">
       <Example label='OnboardingTour steps={…} storageKey="dsds-showcase-tour"'>
         <Button
           variant="outline"
@@ -41,6 +41,6 @@ export default function OnboardingTourExample() {
       {run > 0 && (
         <OnboardingTour key={run} steps={TOUR_STEPS} storageKey={TOUR_STORAGE_KEY} />
       )}
-    </>
+    </div>
   )
 }

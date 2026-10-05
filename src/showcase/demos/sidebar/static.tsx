@@ -23,7 +23,7 @@ import { Example } from "@/showcase/example"
 
 export default function SidebarStatic() {
   return (
-    <>
+    <div className="flex flex-col gap-4">
       <Example
         label='Sidebar collapsible="none", SidebarMenuButton isActive, SidebarMenuBadge'
         className="items-stretch"
@@ -84,6 +84,6 @@ export default function SidebarStatic() {
           </SidebarProvider>
         </Card>
       </Example>
-    </>
+    </div>
   )
 }

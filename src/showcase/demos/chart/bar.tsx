@@ -25,7 +25,7 @@ const chartConfig = {
 
 export default function ChartBar() {
   return (
-    <>
+    <div className="flex flex-col gap-4">
       <Example label="BarChart · tooltip with hideLabel" className="items-stretch">
         <Card>
           <CardHeader>
@@ -44,6 +44,6 @@ export default function ChartBar() {
           </CardContent>
         </Card>
       </Example>
-    </>
+    </div>
   )
 }

@@ -16,7 +16,7 @@ import { Example } from "@/showcase/example"
 
 export default function SheetSides() {
   return (
-    <>
+    <div className="flex flex-wrap items-end gap-x-6 gap-y-4">
       <Example label='side="right"'>
         <Sheet>
           <SheetTrigger asChild>
@@ -137,6 +137,6 @@ export default function SheetSides() {
           </SheetContent>
         </Sheet>
       </Example>
-    </>
+    </div>
   )
 }

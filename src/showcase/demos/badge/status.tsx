@@ -3,7 +3,7 @@ import { Example } from "@/showcase/example"
 
 export default function BadgeStatus() {
   return (
-    <>
+    <div className="flex flex-wrap items-end gap-x-6 gap-y-4">
       <Example label='variant="success"'>
         <Badge variant="success">Success</Badge>
       </Example>
@@ -16,6 +16,6 @@ export default function BadgeStatus() {
       <Example label='variant="destructive"'>
         <Badge variant="destructive">Destructive</Badge>
       </Example>
-    </>
+    </div>
   )
 }

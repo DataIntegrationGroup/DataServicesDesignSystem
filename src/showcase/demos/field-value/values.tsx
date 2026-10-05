@@ -3,7 +3,7 @@ import { Example } from "@/showcase/example"
 
 export default function FieldValueValues() {
   return (
-    <>
+    <div className="flex flex-wrap items-end gap-x-6 gap-y-4">
       <Example label='"Approved"'>
         <FieldValue value="Approved" />
       </Example>
@@ -19,6 +19,6 @@ export default function FieldValueValues() {
       <Example label="plain text">
         <FieldValue value="Sandia Basin" />
       </Example>
-    </>
+    </div>
   )
 }

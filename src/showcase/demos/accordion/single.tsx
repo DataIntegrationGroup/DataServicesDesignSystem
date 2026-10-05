@@ -8,7 +8,7 @@ import { Example } from "@/showcase/example"
 
 export default function AccordionSingle() {
   return (
-    <>
+    <div className="flex flex-col gap-4">
       <Example label='type="single" collapsible' className="items-stretch">
         <Accordion type="single" collapsible className="w-full">
           <AccordionItem value="a">
@@ -28,6 +28,6 @@ export default function AccordionSingle() {
           </AccordionItem>
         </Accordion>
       </Example>
-    </>
+    </div>
   )
 }

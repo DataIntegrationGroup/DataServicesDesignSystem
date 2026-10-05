@@ -49,7 +49,7 @@ export default function FacetRailWithFilterBar() {
   )
 
   return (
-    <>
+    <div className="grid items-start gap-6 md:grid-cols-[18rem_1fr]">
       <Example
         label='FacetRail + FacetRailItem + FacetCheckboxes legendHidden countLabel="datasets"'
         className="items-stretch"
@@ -98,6 +98,6 @@ export default function FacetRailWithFilterBar() {
           </p>
         )}
       </Example>
-    </>
+    </div>
   )
 }

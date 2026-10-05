@@ -5,7 +5,7 @@ import { Example } from "@/showcase/example"
 
 export default function FilterChipExamples() {
   return (
-    <>
+    <div className="flex flex-wrap items-end gap-x-6 gap-y-4">
       <Example label='kind="Topic" value="Water levels"'>
         <FilterChip
           kind="Topic"
@@ -16,6 +16,6 @@ export default function FilterChipExamples() {
       <Example label='value only (no kind)'>
         <FilterChip value="“arsenic”" onRemove={() => toast("Removed “arsenic”")} />
       </Example>
-    </>
+    </div>
   )
 }

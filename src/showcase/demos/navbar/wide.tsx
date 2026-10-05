@@ -9,7 +9,7 @@ import { Example } from "@/showcase/example"
 
 export default function NavBarWide() {
   return (
-    <>
+    <div className="flex flex-col gap-4">
       <Example
         label='NavBar innerClassName="max-w-7xl" · NavBarLink size="lg" (active sets aria-current="page")'
         className="items-stretch"
@@ -33,6 +33,6 @@ export default function NavBarWide() {
           </NavBar>
         </Card>
       </Example>
-    </>
+    </div>
   )
 }

@@ -11,7 +11,7 @@ import { Example } from "@/showcase/example"
 
 export default function BreadcrumbDefault() {
   return (
-    <>
+    <div className="flex flex-wrap items-end gap-x-6 gap-y-4">
       <Example label="Breadcrumb with BreadcrumbEllipsis and BreadcrumbPage">
         <Breadcrumb>
           <BreadcrumbList>
@@ -33,6 +33,6 @@ export default function BreadcrumbDefault() {
           </BreadcrumbList>
         </Breadcrumb>
       </Example>
-    </>
+    </div>
   )
 }

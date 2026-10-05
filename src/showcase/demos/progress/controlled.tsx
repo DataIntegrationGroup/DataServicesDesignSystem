@@ -7,7 +7,7 @@ import { Example } from "@/showcase/example"
 export default function ProgressControlled() {
   const [progress, setProgress] = React.useState(62)
   return (
-    <>
+    <div className="flex flex-wrap items-start gap-x-6 gap-y-4">
       <Example label="controlled value" className="w-72 items-stretch">
         <Progress value={progress} aria-label="Indexing progress" />
         <div className="flex gap-2">
@@ -27,6 +27,6 @@ export default function ProgressControlled() {
           </Button>
         </div>
       </Example>
-    </>
+    </div>
   )
 }

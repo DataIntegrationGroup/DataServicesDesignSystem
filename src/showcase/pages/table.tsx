@@ -4,7 +4,7 @@ import { PageContent } from "@/showcase/page-header"
 export default function TablePage() {
   return (
     <PageContent>
-      <Demo name="table/sources" title="Static table" className="flex-col items-stretch" />
+      <Demo name="table/sources" title="Static table" />
     </PageContent>
   )
 }

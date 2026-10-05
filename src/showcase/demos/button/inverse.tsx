@@ -5,7 +5,7 @@ import { Example } from "@/showcase/example"
 
 export default function ButtonInverse() {
   return (
-    <>
+    <div className="flex flex-wrap items-end gap-x-6 gap-y-4">
       <Example label='variant="inverse"' className="items-stretch">
         <div className="flex items-center gap-4 rounded-xl bg-primary-dark p-6">
           <Button variant="inverse">Button</Button>
@@ -14,6 +14,6 @@ export default function ButtonInverse() {
           </Button>
         </div>
       </Example>
-    </>
+    </div>
   )
 }

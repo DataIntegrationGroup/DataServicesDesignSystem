@@ -3,7 +3,7 @@ import { Example } from "@/showcase/example"
 
 export default function DetailListDemo() {
   return (
-    <>
+    <div className="flex flex-wrap items-end gap-x-6 gap-y-4">
       <Example label="DetailSection + DetailList + DetailItem" className="w-full max-w-lg items-stretch">
         <div className="space-y-5">
           <DetailSection title="Construction">
@@ -21,6 +21,6 @@ export default function DetailListDemo() {
           </DetailSection>
         </div>
       </Example>
-    </>
+    </div>
   )
 }

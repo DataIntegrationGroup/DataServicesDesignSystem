@@ -5,7 +5,7 @@ import { Example } from "@/showcase/example"
 
 export default function ToggleGroupDemo() {
   return (
-    <>
+    <div className="flex flex-wrap items-end gap-x-6 gap-y-4">
       <Example label='type="multiple" variant="outline"'>
         <ToggleGroup type="multiple" variant="outline" defaultValue={["bold"]}>
           <ToggleGroupItem value="bold" aria-label="Bold">
@@ -33,6 +33,6 @@ export default function ToggleGroupDemo() {
           <ToggleGroupItem value="month">Month</ToggleGroupItem>
         </ToggleGroup>
       </Example>
-    </>
+    </div>
   )
 }

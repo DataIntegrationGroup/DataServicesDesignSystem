@@ -8,7 +8,6 @@ export default function DataGridPage() {
         name="data-grid/editable"
         title="Editable grid"
         description="Canvas-rendered, for large datasets. Themed from the active theme and mode."
-        className="flex-col items-stretch"
       />
     </PageContent>
   )

@@ -20,7 +20,7 @@ import { Example } from "@/showcase/example"
 
 export default function DropdownMenuItemTypes() {
   return (
-    <>
+    <div className="flex flex-wrap items-end gap-x-6 gap-y-4">
       <Example label="items, shortcuts, destructive">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -79,6 +79,6 @@ export default function DropdownMenuItemTypes() {
           </DropdownMenuContent>
         </DropdownMenu>
       </Example>
-    </>
+    </div>
   )
 }

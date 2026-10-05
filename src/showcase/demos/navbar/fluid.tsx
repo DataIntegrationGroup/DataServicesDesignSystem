@@ -5,7 +5,7 @@ import { Example } from "@/showcase/example"
 
 export default function NavBarFluid() {
   return (
-    <>
+    <div className="flex flex-col gap-4">
       <Example label="NavBar fluid" className="items-stretch">
         <Card className="overflow-hidden p-0">
           <NavBar fluid>
@@ -16,6 +16,6 @@ export default function NavBarFluid() {
           </NavBar>
         </Card>
       </Example>
-    </>
+    </div>
   )
 }

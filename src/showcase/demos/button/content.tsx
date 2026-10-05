@@ -5,7 +5,7 @@ import { Example } from "@/showcase/example"
 
 export default function ButtonContent() {
   return (
-    <>
+    <div className="flex flex-wrap items-end gap-x-6 gap-y-4">
       <Example label="icon start">
         <Button>
           <DatabaseIcon data-icon="inline-start" /> Connect
@@ -29,6 +29,6 @@ export default function ButtonContent() {
           <a href="#/button">Anchor</a>
         </Button>
       </Example>
-    </>
+    </div>
   )
 }

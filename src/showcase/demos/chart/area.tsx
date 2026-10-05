@@ -28,7 +28,7 @@ const chartConfig = {
 
 export default function ChartArea() {
   return (
-    <>
+    <div className="flex flex-col gap-4">
       <Example label="AreaChart · stacked · tooltip + legend" className="items-stretch">
         <Card>
           <CardHeader>
@@ -63,6 +63,6 @@ export default function ChartArea() {
           </CardContent>
         </Card>
       </Example>
-    </>
+    </div>
   )
 }

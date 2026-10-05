@@ -3,7 +3,7 @@ import { Example } from "@/showcase/example"
 
 export default function StatBandFewer() {
   return (
-    <>
+    <div className="grid items-start gap-x-6 gap-y-4 md:grid-cols-2">
       <Example label="3 Stats in a half-width column (stacks)" className="items-stretch">
         <StatBand>
           <Stat value="42" label="Water levels" />
@@ -17,6 +17,6 @@ export default function StatBandFewer() {
           <Stat value="3 min" label="Median refresh" />
         </StatBand>
       </Example>
-    </>
+    </div>
   )
 }

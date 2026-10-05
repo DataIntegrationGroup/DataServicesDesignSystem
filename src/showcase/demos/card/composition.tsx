@@ -13,7 +13,7 @@ import { Example } from "@/showcase/example"
 
 export default function CardComposition() {
   return (
-    <>
+    <div className="grid items-start gap-x-6 gap-y-4 md:grid-cols-2">
       <Example
         label="CardHeader + CardContent + CardFooter"
         className="items-stretch"
@@ -42,6 +42,6 @@ export default function CardComposition() {
           </CardContent>
         </Card>
       </Example>
-    </>
+    </div>
   )
 }

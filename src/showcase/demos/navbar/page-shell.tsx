@@ -12,7 +12,7 @@ import { Example } from "@/showcase/example"
 
 export default function NavBarInPageShell() {
   return (
-    <>
+    <div className="flex flex-col gap-4">
       <Example
         label="PageShell + NavBar (NavBarBrand, NavBarNav, NavBarLink active, NavBarActions) + PageBody"
         className="items-stretch"
@@ -45,6 +45,6 @@ export default function NavBarInPageShell() {
           </PageShell>
         </Card>
       </Example>
-    </>
+    </div>
   )
 }

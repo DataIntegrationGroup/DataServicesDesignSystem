@@ -3,7 +3,7 @@ import { Example } from "@/showcase/example"
 
 export default function KbdExamples() {
   return (
-    <>
+    <div className="flex flex-wrap items-end gap-x-6 gap-y-4">
       <Example label="Kbd">
         <Kbd>Esc</Kbd>
       </Example>
@@ -23,6 +23,6 @@ export default function KbdExamples() {
           to toggle the sidebar.
         </p>
       </Example>
-    </>
+    </div>
   )
 }

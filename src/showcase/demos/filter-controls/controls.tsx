@@ -7,7 +7,7 @@ export default function FilterControlsDemo() {
   const [bbox, setBbox] = React.useState(false)
   const [query, setQuery] = React.useState("")
   return (
-    <>
+    <div className="flex flex-wrap items-end gap-x-6 gap-y-4">
       <Example label="FilterControls">
         <FilterControls
           bbox={bbox}
@@ -16,6 +16,6 @@ export default function FilterControlsDemo() {
           onQueryChange={setQuery}
         />
       </Example>
-    </>
+    </div>
   )
 }

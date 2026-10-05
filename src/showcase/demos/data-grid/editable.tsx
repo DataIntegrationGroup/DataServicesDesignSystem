@@ -21,10 +21,10 @@ const columns: DataGridColumn<Source>[] = [
 export default function DataGridEditable() {
   const [rows, setRows] = React.useState(sources)
   return (
-    <>
+    <div className="flex flex-col gap-4">
       <Example label="editable (double-click a cell) · onRowsChange" className="items-stretch">
         <DataGrid columns={columns} rows={rows} onRowsChange={setRows} height={240} />
       </Example>
-    </>
+    </div>
   )
 }

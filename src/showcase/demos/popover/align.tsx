@@ -10,7 +10,7 @@ import { Example } from "@/showcase/example"
 
 export default function PopoverAlign() {
   return (
-    <>
+    <div className="flex flex-wrap items-end gap-x-6 gap-y-4">
       <Example label='align="start"'>
         <Popover>
           <PopoverTrigger asChild>
@@ -65,6 +65,6 @@ export default function PopoverAlign() {
           </PopoverContent>
         </Popover>
       </Example>
-    </>
+    </div>
   )
 }

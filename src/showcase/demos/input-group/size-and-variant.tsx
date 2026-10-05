@@ -10,7 +10,7 @@ import { Example } from "@/showcase/example"
 
 export default function InputGroupSizeAndVariant() {
   return (
-    <>
+    <div className="flex flex-col gap-4">
       <Example label='default' className="items-stretch">
         <InputGroup>
           <InputGroupAddon>
@@ -75,6 +75,6 @@ export default function InputGroupSizeAndVariant() {
           </InputGroupAddon>
         </InputGroup>
       </Example>
-    </>
+    </div>
   )
 }

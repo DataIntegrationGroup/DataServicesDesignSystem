@@ -3,7 +3,7 @@ import { Example } from "@/showcase/example"
 
 export default function AvatarSizes() {
   return (
-    <>
+    <div className="flex flex-wrap items-end gap-x-6 gap-y-4">
       <Example label='size="sm"'>
         <Avatar size="sm">
           <AvatarImage src="https://github.com/shadcn.png" alt="" />
@@ -22,6 +22,6 @@ export default function AvatarSizes() {
           <AvatarFallback>SC</AvatarFallback>
         </Avatar>
       </Example>
-    </>
+    </div>
   )
 }

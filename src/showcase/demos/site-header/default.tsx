@@ -5,7 +5,7 @@ import { SiteHeader } from "@/blocks/site-header"
 
 export default function SiteHeaderDemo() {
   return (
-    <>
+    <div>
       <SiteHeader
         brand={
           <NavBarBrand asChild>
@@ -35,6 +35,6 @@ export default function SiteHeaderDemo() {
           breakpoint, the links move into the menu.
         </p>
       </Container>
-    </>
+    </div>
   )
 }

@@ -13,7 +13,7 @@ import { Example } from "@/showcase/example"
 
 export default function InputGroupAddons() {
   return (
-    <>
+    <div className="grid items-start gap-x-6 gap-y-4 md:grid-cols-3">
       <Example label="Kbd hint" className="items-stretch">
         <InputGroup>
           <InputGroupAddon>
@@ -47,6 +47,6 @@ export default function InputGroupAddons() {
           </InputGroupAddon>
         </InputGroup>
       </Example>
-    </>
+    </div>
   )
 }

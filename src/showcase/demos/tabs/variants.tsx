@@ -3,7 +3,7 @@ import { Example } from "@/showcase/example"
 
 export default function TabsVariants() {
   return (
-    <>
+    <div className="grid items-start gap-x-6 gap-y-4 md:grid-cols-2">
       <Example label='TabsList variant="default"'>
         <Tabs defaultValue="levels">
           <TabsList variant="default">
@@ -22,6 +22,6 @@ export default function TabsVariants() {
           </TabsList>
         </Tabs>
       </Example>
-    </>
+    </div>
   )
 }

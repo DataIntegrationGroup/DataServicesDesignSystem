@@ -16,7 +16,7 @@ export default function ComboboxStates() {
   const [kind, setKind] = React.useState("")
   const [selected, setSelected] = React.useState("kafka")
   return (
-    <>
+    <div className="flex flex-wrap items-start gap-x-6 gap-y-4">
       <Example label="default" className="w-56 items-stretch">
         <Combobox
           options={sourceKinds}
@@ -41,6 +41,6 @@ export default function ComboboxStates() {
           disabled
         />
       </Example>
-    </>
+    </div>
   )
 }

@@ -17,7 +17,7 @@ const LAYERS: LayerOption[] = [
 export default function LayerSelectorLayers() {
   const [visible, setVisible] = React.useState(["wells"])
   return (
-    <>
+    <div className="flex flex-wrap items-end gap-x-6 gap-y-4">
       <Example label="options · value · onToggle" className="w-80 items-stretch">
         <LayerSelector
           options={LAYERS}
@@ -27,6 +27,6 @@ export default function LayerSelectorLayers() {
           }
         />
       </Example>
-    </>
+    </div>
   )
 }

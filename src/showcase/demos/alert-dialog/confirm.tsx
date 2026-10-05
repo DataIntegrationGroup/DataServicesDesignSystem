@@ -16,7 +16,7 @@ import { Example } from "@/showcase/example"
 
 export default function AlertDialogConfirm() {
   return (
-    <>
+    <div className="flex flex-wrap items-end gap-x-6 gap-y-4">
       <Example label="confirm a destructive action">
         <AlertDialog>
           <AlertDialogTrigger asChild>
@@ -39,6 +39,6 @@ export default function AlertDialogConfirm() {
           </AlertDialogContent>
         </AlertDialog>
       </Example>
-    </>
+    </div>
   )
 }

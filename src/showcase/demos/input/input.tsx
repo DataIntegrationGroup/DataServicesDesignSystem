@@ -4,7 +4,7 @@ import { Example } from "@/showcase/example"
 
 export default function InputExamples() {
   return (
-    <>
+    <div className="flex flex-wrap items-start gap-x-6 gap-y-4">
       <Example label="default" className="w-56 items-stretch">
         <Input placeholder="warehouse-prod" aria-label="Name" />
       </Example>
@@ -22,6 +22,6 @@ export default function InputExamples() {
           aria-label="Invalid host"
         />
       </Example>
-    </>
+    </div>
   )
 }

@@ -3,7 +3,7 @@ import { Example } from "@/showcase/example"
 
 export default function StatBandFour() {
   return (
-    <>
+    <div className="flex flex-col gap-4">
       <Example
         label="StatBand with 4 Stats (4 columns, 2×2 or 1 by its own width)"
         className="items-stretch"
@@ -15,6 +15,6 @@ export default function StatBandFour() {
           <Stat value="12" label="Partner agencies" />
         </StatBand>
       </Example>
-    </>
+    </div>
   )
 }

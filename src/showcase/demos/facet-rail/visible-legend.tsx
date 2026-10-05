@@ -6,7 +6,7 @@ import { Example } from "@/showcase/example"
 export default function FacetCheckboxesVisibleLegend() {
   const [checked, setChecked] = React.useState<string[]>([])
   return (
-    <>
+    <div className="flex flex-wrap items-end gap-x-6 gap-y-4">
       <Example label="FacetCheckboxes with a visible legend" className="items-stretch">
         <FacetCheckboxes
           legend="Source"
@@ -24,6 +24,6 @@ export default function FacetCheckboxesVisibleLegend() {
           className="max-w-xs"
         />
       </Example>
-    </>
+    </div>
   )
 }

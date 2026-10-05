@@ -3,7 +3,7 @@ import { Example } from "@/showcase/example"
 
 export default function TabsFolder() {
   return (
-    <>
+    <div className="flex flex-col gap-4">
       <Example
         label='TabsList variant="folder" (joins a bg-card panel, on a dark band)'
         className="items-stretch"
@@ -29,6 +29,6 @@ export default function TabsFolder() {
           </Tabs>
         </div>
       </Example>
-    </>
+    </div>
   )
 }

@@ -6,7 +6,7 @@ import { Example } from "@/showcase/example"
 export default function SliderDefault() {
   const [volume, setVolume] = React.useState([40])
   return (
-    <>
+    <div className="flex flex-wrap items-start gap-x-6 gap-y-4">
       <Example label="controlled value" className="w-56 items-stretch">
         <Slider
           value={volume}
@@ -22,6 +22,6 @@ export default function SliderDefault() {
       <Example label="disabled" className="w-56 items-stretch">
         <Slider defaultValue={[50]} disabled aria-label="Disabled" />
       </Example>
-    </>
+    </div>
   )
 }

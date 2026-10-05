@@ -5,7 +5,7 @@ import { Example } from "@/showcase/example"
 
 export default function BadgeContent() {
   return (
-    <>
+    <div className="flex flex-wrap items-end gap-x-6 gap-y-4">
       <Example label="icon start">
         <Badge variant="secondary">
           <CheckIcon data-icon="inline-start" /> Verified
@@ -21,6 +21,6 @@ export default function BadgeContent() {
           <a href="#/badge">Linked</a>
         </Badge>
       </Example>
-    </>
+    </div>
   )
 }

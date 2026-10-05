@@ -4,11 +4,7 @@ import { PageContent } from "@/showcase/page-header"
 export default function SidebarPage() {
   return (
     <PageContent>
-      <Demo
-        name="sidebar/static"
-        title="Static sidebar"
-        className="flex-col items-stretch"
-      />
+      <Demo name="sidebar/static" title="Static sidebar" />
     </PageContent>
   )
 }

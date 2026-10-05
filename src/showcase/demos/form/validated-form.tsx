@@ -110,7 +110,7 @@ function SourceForm() {
 
 export default function ValidatedForm() {
   return (
-    <>
+    <div className="flex flex-wrap items-end gap-x-6 gap-y-4">
       <Example
         label="react-hook-form + zod, with a Combobox field"
         className="w-full max-w-md items-stretch"
@@ -125,6 +125,6 @@ export default function ValidatedForm() {
           </CardContent>
         </Card>
       </Example>
-    </>
+    </div>
   )
 }

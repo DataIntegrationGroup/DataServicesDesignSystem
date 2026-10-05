@@ -5,7 +5,7 @@ import { Example } from "@/showcase/example"
 
 export default function AlertVariants() {
   return (
-    <>
+    <div className="flex flex-col gap-4">
       <Example label='variant="default"' className="items-stretch">
         <Alert>
           <InfoIcon />
@@ -52,6 +52,6 @@ export default function AlertVariants() {
           </AlertDescription>
         </Alert>
       </Example>
-    </>
+    </div>
   )
 }

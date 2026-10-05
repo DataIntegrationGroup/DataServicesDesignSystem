@@ -27,7 +27,7 @@ export default function MapWithSelectors() {
   const [basemap, setBasemap] = React.useState(DEFAULT_MAP_STYLE)
   const [visibleLayers, setVisibleLayers] = React.useState(["wells"])
   return (
-    <>
+    <div className="flex flex-col gap-4">
       <Example
         label='defaults: showNavigation showScale controlPosition="top-right"'
         className="items-stretch"
@@ -62,6 +62,6 @@ export default function MapWithSelectors() {
           </div>
         </Card>
       </Example>
-    </>
+    </div>
   )
 }

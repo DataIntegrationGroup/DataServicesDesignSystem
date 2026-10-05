@@ -9,7 +9,7 @@ import { Example } from "@/showcase/example"
 
 export default function AvatarContent() {
   return (
-    <>
+    <div className="flex flex-wrap items-end gap-x-6 gap-y-4">
       <Example label="AvatarFallback (initials)">
         <Avatar>
           <AvatarFallback>JR</AvatarFallback>
@@ -35,6 +35,6 @@ export default function AvatarContent() {
           <AvatarGroupCount>+4</AvatarGroupCount>
         </AvatarGroup>
       </Example>
-    </>
+    </div>
   )
 }

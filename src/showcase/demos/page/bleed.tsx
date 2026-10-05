@@ -5,7 +5,7 @@ import { Example } from "@/showcase/example"
 
 export default function PageBodyBleed() {
   return (
-    <>
+    <div className="flex flex-col gap-4">
       <Example
         label='PageBody bleed: a full-width band and a section, each with a Container size="wide"'
         className="items-stretch"
@@ -34,6 +34,6 @@ export default function PageBodyBleed() {
           </PageShell>
         </Card>
       </Example>
-    </>
+    </div>
   )
 }

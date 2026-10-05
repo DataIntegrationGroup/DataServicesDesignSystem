@@ -9,7 +9,7 @@ import { Example } from "@/showcase/example"
 
 export default function SelectSizes() {
   return (
-    <>
+    <div className="flex flex-wrap items-end gap-x-6 gap-y-4">
       <Example label='size="default"'>
         <Select>
           <SelectTrigger className="w-48" aria-label="Source type">
@@ -46,6 +46,6 @@ export default function SelectSizes() {
           </SelectContent>
         </Select>
       </Example>
-    </>
+    </div>
   )
 }

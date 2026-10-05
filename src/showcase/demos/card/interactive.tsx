@@ -11,7 +11,7 @@ import { Example } from "@/showcase/example"
 
 export default function CardInteractive() {
   return (
-    <>
+    <div className="grid gap-x-6 gap-y-4 md:grid-cols-2">
       <Example label="asChild interactive (whole-card link)" className="items-stretch">
         <Card asChild interactive className="h-full">
           <a href="#/card">
@@ -27,6 +27,6 @@ export default function CardInteractive() {
           </a>
         </Card>
       </Example>
-    </>
+    </div>
   )
 }

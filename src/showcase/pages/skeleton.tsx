@@ -4,7 +4,7 @@ import { PageContent } from "@/showcase/page-header"
 export default function SkeletonPage() {
   return (
     <PageContent>
-      <Demo name="skeleton/shapes" title="Shapes" className="items-start" />
+      <Demo name="skeleton/shapes" title="Shapes" />
     </PageContent>
   )
 }

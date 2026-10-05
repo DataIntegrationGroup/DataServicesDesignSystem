@@ -10,7 +10,7 @@ import { Example } from "@/showcase/example"
 
 export default function AccordionPlain() {
   return (
-    <>
+    <div className="flex flex-col gap-4">
       <Example
         label='AccordionTrigger variant="plain" (filter rail)'
         className="items-stretch"
@@ -61,6 +61,6 @@ export default function AccordionPlain() {
           </AccordionItem>
         </Accordion>
       </Example>
-    </>
+    </div>
   )
 }

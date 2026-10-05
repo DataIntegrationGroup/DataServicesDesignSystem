@@ -17,7 +17,7 @@ const sources = [
 
 export default function ResizableMapSplit() {
   return (
-    <>
+    <div className="flex flex-col gap-4">
       <Example
         label='ResizablePanelGroup orientation="horizontal", ResizableHandle withHandle'
         className="items-stretch"
@@ -54,6 +54,6 @@ export default function ResizableMapSplit() {
           </ResizablePanelGroup>
         </Card>
       </Example>
-    </>
+    </div>
   )
 }

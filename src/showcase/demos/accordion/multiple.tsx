@@ -8,7 +8,7 @@ import { Example } from "@/showcase/example"
 
 export default function AccordionMultiple() {
   return (
-    <>
+    <div className="flex flex-col gap-4">
       <Example label='type="multiple" defaultValue={["c"]}' className="items-stretch">
         <Accordion type="multiple" defaultValue={["c"]} className="w-full">
           <AccordionItem value="c">
@@ -26,6 +26,6 @@ export default function AccordionMultiple() {
           </AccordionItem>
         </Accordion>
       </Example>
-    </>
+    </div>
   )
 }

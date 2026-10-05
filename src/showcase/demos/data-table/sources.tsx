@@ -45,7 +45,7 @@ const columns: ColumnDef<Source>[] = [
 
 export default function DataTableSources() {
   return (
-    <>
+    <div className="flex flex-col gap-4">
       <Example
         label='filterColumn="name" pageSize={5} · sortable headers, column visibility'
         className="items-stretch"
@@ -60,6 +60,6 @@ export default function DataTableSources() {
           />
         </Card>
       </Example>
-    </>
+    </div>
   )
 }

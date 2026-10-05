@@ -3,7 +3,7 @@ import { Example } from "@/showcase/example"
 
 export default function ButtonVariants() {
   return (
-    <>
+    <div className="flex flex-wrap items-end gap-x-6 gap-y-4">
       <Example label='variant="default"'>
         <Button>Button</Button>
       </Example>
@@ -22,6 +22,6 @@ export default function ButtonVariants() {
       <Example label='variant="link"'>
         <Button variant="link">Button</Button>
       </Example>
-    </>
+    </div>
   )
 }
