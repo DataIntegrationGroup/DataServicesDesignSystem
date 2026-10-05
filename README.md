@@ -119,11 +119,12 @@ list of demos: small files in `src/showcase/demos/<page>/`, each rendering a
 few labeled `<Example>`s. The **Code** toggle shows the demo file itself, with
 the `Example` wrappers turned into comments, so write demos as code someone
 would copy: spell out each variant rather than mapping over a list, and set
-the layout on the demo's root element rather than on the page. Blocks
+the layout on the demo's root element rather than on the page. Each demo's
+title is a section heading that can be linked (`#/button/sizes`). Blocks
 (`src/blocks/`) preview in an iframe at desktop, tablet and phone widths.
 
-`pnpm lint` runs `check:showcase`, which fails if a registry item has no page
-or a page's demos are missing or unused.
+`pnpm lint` runs `check:showcase`, which fails if a registry item has no page,
+a page's demos are missing or unused, or two demos on a page share a title.
 
 ### React 19 note
 

@@ -7,10 +7,14 @@ const subscribe = (onChange: () => void) => {
 
 const read = () => window.location.hash.replace(/^#\/?/, "")
 
-/** The current page slug from a `#/slug` URL ("" on the home page). Hash
- *  routes need no server config, so the showcase works on static hosting. */
-export function useRouteSlug() {
-  return React.useSyncExternalStore(subscribe, read)
+/** The current route from a `#/slug` or `#/slug/section` URL (slug "" on the
+ *  home page). Hash routes need no server config, so the showcase works on
+ *  static hosting; the section part stands in for a `#section` anchor. */
+export function useRoute() {
+  const route = React.useSyncExternalStore(subscribe, read)
+  const [slug, section] = route.split("/")
+  return { slug, section: section || undefined }
 }
 
-export const href = (slug: string) => `#/${slug}`
+export const href = (slug: string, section?: string) =>
+  section ? `#/${slug}/${section}` : `#/${slug}`

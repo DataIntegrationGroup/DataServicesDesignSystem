@@ -1,16 +1,21 @@
 import * as React from "react"
-import { ExternalLinkIcon } from "lucide-react"
+import { ArrowLeftIcon, ArrowRightIcon, ExternalLinkIcon } from "lucide-react"
 
+import { cn } from "@/lib/utils"
 import { Badge } from "@/components/ui/badge"
 import { CopyButton } from "@/showcase/code-block"
+import { SectionLink } from "@/showcase/demo-section"
 import {
   CurrentPageContext,
+  PAGE_GROUPS,
+  PAGES,
   installCommand,
   pageDescription,
   upstreamDocs,
   type Origin,
   type ShowcasePage,
 } from "@/showcase/pages"
+import { href, useRoute } from "@/showcase/router"
 
 const ORIGIN_LABEL: Record<Origin, string> = {
   ds: "DS",
@@ -83,15 +88,149 @@ export function PageHeader({ page }: { page: ShowcasePage }) {
   )
 }
 
-/** Page body: the current page's header, then demos and sections spaced
- *  evenly. The app shell provides the current page. */
+/** Pages in sidebar order, for Previous/Next. */
+const PAGE_ORDER = PAGE_GROUPS.flatMap((group) => PAGES.filter((p) => p.group === group))
+
+type Section = { id: string; title: string }
+
+/**
+ * Page body: the current page's header, then its demos and sections, an
+ * "On this page" list of the sections on wide screens, and Previous/Next
+ * links. Scrolls to the section in the URL (`#/slug/section`), or to the
+ * top on a new page. The app shell provides the current page.
+ */
 export function PageContent({ children }: { children?: React.ReactNode }) {
   const page = React.useContext(CurrentPageContext)
+  const { section } = useRoute()
+  const [sections, setSections] = React.useState<Section[]>([])
+
+  // Demos render with the page, so their sections are in the DOM here.
+  const collectSections = React.useCallback((article: HTMLElement | null) => {
+    if (!article) return
+    setSections(
+      [...article.querySelectorAll<HTMLElement>("[data-section]")].map((el) => ({
+        id: el.id,
+        title: el.dataset.section ?? "",
+      }))
+    )
+  }, [])
+
+  React.useEffect(() => {
+    if (section) document.getElementById(section)?.scrollIntoView()
+    else window.scrollTo({ top: 0 })
+  }, [page, section])
+
   if (!page) throw new Error("PageContent must render inside the showcase app")
+
+  const index = PAGE_ORDER.indexOf(page)
+  const previous = PAGE_ORDER[index - 1]
+  const next = PAGE_ORDER[index + 1]
+
   return (
-    <article className="space-y-10">
-      <PageHeader page={page} />
-      {children}
-    </article>
+    <div className="xl:grid xl:grid-cols-[minmax(0,1fr)_12rem] xl:gap-12">
+      <article ref={collectSections} className="min-w-0 space-y-10">
+        <PageHeader page={page} />
+        {children}
+        <nav aria-label="Pages" className="flex justify-between gap-4 border-t pt-6">
+          {previous ? <PagerLink page={previous} direction="previous" /> : <span />}
+          {next && <PagerLink page={next} direction="next" />}
+        </nav>
+      </article>
+      {sections.length > 1 && <OnThisPage sections={sections} />}
+    </div>
+  )
+}
+
+function PagerLink({
+  page,
+  direction,
+}: {
+  page: ShowcasePage
+  direction: "previous" | "next"
+}) {
+  const Icon = direction === "previous" ? ArrowLeftIcon : ArrowRightIcon
+  return (
+    <a
+      href={href(page.slug)}
+      rel={direction === "previous" ? "prev" : "next"}
+      className={cn(
+        "group flex flex-col gap-0.5 rounded-lg border px-4 py-2.5 text-sm hover:bg-muted",
+        direction === "next" && "items-end text-right"
+      )}
+    >
+      <span className="text-muted-foreground">
+        {direction === "previous" ? "Previous" : "Next"}
+      </span>
+      <span className="flex items-center gap-1.5 font-medium">
+        {direction === "previous" && <Icon className="size-4" />}
+        {page.title}
+        {direction === "next" && <Icon className="size-4" />}
+      </span>
+    </a>
+  )
+}
+
+/**
+ * The page's sections, with the one being read highlighted: the last whose
+ * heading has scrolled under the header. Short pages can't scroll their last
+ * sections that far, so once the page is scrolled to the bottom the section
+ * picked from this list (the one in the URL) stays highlighted if it's on
+ * screen, and otherwise the last section is.
+ */
+function OnThisPage({ sections }: { sections: Section[] }) {
+  const { section } = useRoute()
+  const [active, setActive] = React.useState<string>()
+
+  React.useEffect(() => {
+    const update = () => {
+      const tops = sections.map(({ id }) => ({
+        id,
+        top: document.getElementById(id)?.getBoundingClientRect().top ?? Infinity,
+      }))
+      const atBottom =
+        window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2
+      const picked = tops.find((t) => t.id === section)
+      if (atBottom) {
+        const onScreen = picked && picked.top >= 0 && picked.top < window.innerHeight
+        setActive(onScreen ? picked.id : tops.at(-1)?.id)
+      } else {
+        setActive((tops.findLast((t) => t.top <= 120) ?? tops[0])?.id)
+      }
+    }
+    let frame = requestAnimationFrame(update)
+    const onScroll = () => {
+      cancelAnimationFrame(frame)
+      frame = requestAnimationFrame(update)
+    }
+    window.addEventListener("scroll", onScroll, { passive: true })
+    window.addEventListener("resize", onScroll)
+    return () => {
+      cancelAnimationFrame(frame)
+      window.removeEventListener("scroll", onScroll)
+      window.removeEventListener("resize", onScroll)
+    }
+  }, [sections, section])
+
+  return (
+    <nav aria-label="On this page" className="hidden xl:block">
+      <div className="sticky top-24 space-y-2 text-sm">
+        <div className="font-medium">On this page</div>
+        <ul className="space-y-1.5 border-l">
+          {sections.map(({ id, title }) => (
+            <li key={id}>
+              <SectionLink
+                section={id}
+                className={cn(
+                  "-ml-px block border-l border-transparent pl-3 text-muted-foreground hover:text-foreground",
+                  active === id && "border-primary font-medium text-foreground"
+                )}
+              >
+                {title}
+              </SectionLink>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </nav>
   )
 }

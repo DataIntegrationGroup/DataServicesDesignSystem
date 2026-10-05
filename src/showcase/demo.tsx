@@ -1,26 +1,24 @@
 import * as React from "react"
 import { CodeIcon } from "lucide-react"
 
-import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { CodeBlock } from "@/showcase/code-block"
+import { DemoSection } from "@/showcase/demo-section"
 import { demoComponents, demoSources } from "@/showcase/demos"
 
 /**
- * One demo from src/showcase/demos, with a title and a "Code" toggle that
- * shows the demo file's source. `className` sets the preview's layout; by
- * default examples sit in a wrapping row.
+ * One demo from src/showcase/demos in a framed preview, with a "Code" toggle
+ * that shows the demo file's source. The demo file sets its own layout, so
+ * the code you copy looks like the preview.
  */
 export function Demo({
   name,
   title,
   description,
-  className,
 }: {
   name: string
-  title?: string
+  title: string
   description?: React.ReactNode
-  className?: string
 }) {
   const Component = demoComponents[name]
   const [code, setCode] = React.useState<string>()
@@ -35,18 +33,11 @@ export function Demo({
   }
 
   return (
-    <div data-demo={name} className="space-y-3">
-      <div className="flex items-end justify-between gap-4">
-        <div className="space-y-1">
-          {title && (
-            <h3 className="!text-sm !leading-normal !font-semibold font-sans text-muted-foreground uppercase tracking-wide">
-              {title}
-            </h3>
-          )}
-          {description && (
-            <p className="text-sm text-muted-foreground">{description}</p>
-          )}
-        </div>
+    <DemoSection
+      name={name}
+      title={title}
+      description={description}
+      actions={
         <Button
           type="button"
           variant="ghost"
@@ -57,11 +48,12 @@ export function Demo({
         >
           <CodeIcon /> {open ? "Hide code" : "Code"}
         </Button>
-      </div>
-      <div className={cn("flex flex-wrap items-end gap-x-6 gap-y-4", className)}>
+      }
+    >
+      <div className="rounded-xl border p-6 sm:p-8">
         <Component />
       </div>
       {open && code !== undefined && <CodeBlock id={codeId} code={code} />}
-    </div>
+    </DemoSection>
   )
 }

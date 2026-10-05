@@ -12,6 +12,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group"
 import { useTheme } from "@/components/theme-provider"
 import { CodeBlock } from "@/showcase/code-block"
+import { DemoSection } from "@/showcase/demo-section"
 import { blockSources, demoComponents, demoSources } from "@/showcase/demos"
 import type { FrameThemeMessage } from "@/showcase/frame"
 
@@ -34,7 +35,7 @@ export function BlockDemo({
 }: {
   name: string
   block: string
-  title?: string
+  title: string
   description?: React.ReactNode
   minHeight?: number
 }) {
@@ -83,17 +84,12 @@ export function BlockDemo({
   }
 
   return (
-    <div data-demo={name} className="space-y-3">
-      <div className="flex flex-wrap items-end justify-between gap-4">
-        <div className="space-y-1">
-          {title && (
-            <h3 className="!text-sm !leading-normal !font-semibold font-sans text-muted-foreground uppercase tracking-wide">
-              {title}
-            </h3>
-          )}
-          {description && <p className="text-sm text-muted-foreground">{description}</p>}
-        </div>
-        <div className="flex items-center gap-2">
+    <DemoSection
+      name={name}
+      title={title}
+      description={description}
+      actions={
+        <>
           <ToggleGroup
             type="single"
             variant="outline"
@@ -127,12 +123,13 @@ export function BlockDemo({
           >
             <CodeIcon /> {open ? "Hide code" : "Code"}
           </Button>
-        </div>
-      </div>
+        </>
+      }
+    >
       <div className="overflow-hidden rounded-xl border bg-muted/40">
         <iframe
           ref={frame}
-          title={title ?? name}
+          title={title}
           src={src}
           onLoad={onLoad}
           className="mx-auto block max-w-full bg-background transition-[width]"
@@ -153,6 +150,6 @@ export function BlockDemo({
           </TabsContent>
         </Tabs>
       )}
-    </div>
+    </DemoSection>
   )
 }

@@ -20,5 +20,5 @@
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["vite.config.ts", "scripts/demo-source.ts", "scripts/check-showcase.ts"]
+  "include": ["vite.config.ts", "scripts/demo-source.ts", "scripts/check-showcase.ts", "src/showcase/section-id.ts"]
 }

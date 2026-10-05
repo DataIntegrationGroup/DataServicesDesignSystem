@@ -1,12 +1,13 @@
 // Showcase coverage check, run by `pnpm lint`:
 // - every registry item is documented by a showcase page (src/showcase/pages.ts),
-// - every page file exists, component pages have demos, and every
-//   <Demo name> they use exists,
+// - every page file exists, component pages have demos, every <Demo name>
+//   they use exists, and demo titles are unique on a page (they're anchors),
 // - every demo file is used by some page,
 // - every demo's "Code" view can be generated (see scripts/demo-source.ts).
 import { existsSync, readdirSync, readFileSync } from "node:fs"
 import { join, relative } from "node:path"
 
+import { sectionId } from "../src/showcase/section-id.ts"
 import { toDisplaySource } from "./demo-source.ts"
 
 const root = join(import.meta.dirname, "..")
@@ -53,9 +54,16 @@ for (const slug of pageFiles) {
     problems.push(`page file src/showcase/pages/${slug}.tsx is missing`)
     continue
   }
-  const demos = [...readFileSync(file, "utf8").matchAll(/<(?:Block)?Demo\s[^>]*name="([^"]+)"/g)]
+  const pageSource = readFileSync(file, "utf8")
+  const demos = [...pageSource.matchAll(/<(?:Block)?Demo\s[^>]*name="([^"]+)"/g)]
   if (demos.length === 0 && !PROSE_PAGES.has(slug)) {
     problems.push(`src/showcase/pages/${slug}.tsx has no demos`)
+  }
+  const sections = new Set<string>()
+  for (const [, title] of pageSource.matchAll(/<(?:Block)?Demo\s[^>]*title="([^"]+)"/g)) {
+    const id = sectionId(title)
+    if (sections.has(id)) problems.push(`src/showcase/pages/${slug}.tsx has two demos titled "${title}"`)
+    sections.add(id)
   }
   for (const [, name] of demos) {
     usedDemos.add(name)

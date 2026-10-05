@@ -39,26 +39,21 @@ import {
   type ShowcasePage,
 } from "@/showcase/pages"
 import { PALETTES, PALETTE_STORAGE_KEY } from "@/showcase/palettes"
-import { href, useRouteSlug } from "@/showcase/router"
+import { href, useRoute } from "@/showcase/router"
 import { ShowcaseSearch } from "@/showcase/search"
 
 const DS_ONLY_STORAGE_KEY = "dsds-showcase-ds-only"
 
 export function ShowcaseApp() {
-  const slug = useRouteSlug()
+  const { slug } = useRoute()
   const page = findPage(slug) ?? PAGES[0]
-
-  // New page: start at the top.
-  React.useEffect(() => {
-    window.scrollTo({ top: 0 })
-  }, [page])
 
   return (
     <SidebarProvider>
       <ShowcaseSidebar current={page} />
       <SidebarInset>
         <ShowcaseHeader />
-        <div className="mx-auto w-full max-w-5xl px-6 py-10">
+        <div className="mx-auto w-full max-w-5xl px-6 py-10 xl:max-w-7xl">
           <CurrentPageContext.Provider value={page}>
             <React.Suspense fallback={<PageSkeleton />}>
               <page.component />
