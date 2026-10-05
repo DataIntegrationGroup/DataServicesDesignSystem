@@ -80,6 +80,10 @@ Each item carries its own npm dependencies (e.g. `map` → `react-map-gl`,
 | `filter-chip`    | ui        | `FilterChip` + `ActiveFilterBar` for applied filters          |
 | `facet-rail`     | ui        | `FacetCheckboxes` + `FacetRail` filter facets with counts     |
 | `stat-band`      | ui        | `StatBand` + `Stat` big-number KPI row                        |
+| `detail-list`    | ui        | `DetailSection` + `DetailList` / `DetailItem` label/value rows |
+| `site-header`    | block     | NavBar on the wide column, with a menu sheet on phones        |
+| `hero`           | block     | Landing hero: eyebrow, display title, tagline, actions        |
+| `detail-card`    | block     | Record detail card (well, dataset) with a loading state       |
 | `button`         | ui        | Upstream button + `size="xl"`, `variant="inverse"`            |
 | `badge`          | ui        | Upstream badge + status, `tone-1`…`tone-6`, `on-image`        |
 | `alert`          | ui        | Upstream alert + `success`, `warning`, `info`                 |
@@ -106,6 +110,19 @@ pnpm registry:build # regenerate public/r/*.json from registry.json
 After editing any registered component or `registry.json`, run
 `pnpm registry:build` and commit the regenerated `public/r/` JSON — that is what
 consumers fetch.
+
+### Showcase
+
+Each component has a page in the showcase (`#/button`), listed in
+`src/showcase/pages.ts` with its group, origin and registry item. A page is a
+list of demos: small files in `src/showcase/demos/<page>/`, each rendering a
+few labeled `<Example>`s. The **Code** toggle shows the demo file itself, with
+the `Example` wrappers turned into comments, so write demos as code someone
+would copy: spell out each variant rather than mapping over a list. Blocks
+(`src/blocks/`) preview in an iframe at desktop, tablet and phone widths.
+
+`pnpm lint` runs `check:showcase`, which fails if a registry item has no page
+or a page's demos are missing or unused.
 
 ### React 19 note
 
