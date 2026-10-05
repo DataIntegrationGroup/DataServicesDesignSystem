@@ -28,6 +28,8 @@ import { ModeToggle } from "@/components/mode-toggle"
 import { useTheme } from "@/components/theme-provider"
 import { useCssVars } from "@/hooks/use-css-vars"
 import { Example, ExampleGroup } from "@/showcase/example"
+import { TypographyShowcase } from "@/showcase/typography"
+import { BlocksShowcase } from "@/showcase/blocks"
 import {
   Tabs,
   TabsContent,
@@ -662,9 +664,10 @@ function App() {
       </header>
 
       <main className="mx-auto max-w-6xl px-6 py-10">
-        <Tabs defaultValue="foundations">
+        <Tabs defaultValue="typography">
           <TabsList className="mb-6">
-            <TabsTrigger value="foundations">Foundations</TabsTrigger>
+            <TabsTrigger value="typography">Typography</TabsTrigger>
+            <TabsTrigger value="tokens">Tokens</TabsTrigger>
             <TabsTrigger value="actions">Actions</TabsTrigger>
             <TabsTrigger value="forms">Forms</TabsTrigger>
             <TabsTrigger value="feedback">Feedback</TabsTrigger>
@@ -672,29 +675,26 @@ function App() {
             <TabsTrigger value="overlays">Overlays</TabsTrigger>
             <TabsTrigger value="map">Map</TabsTrigger>
             <TabsTrigger value="layout">Layout</TabsTrigger>
+            <TabsTrigger value="blocks">Blocks</TabsTrigger>
           </TabsList>
 
-          <TabsContent value="foundations" className="space-y-10">
-            <section className="space-y-4">
-              <h2>Typography</h2>
-              <Card>
-                <CardContent className="space-y-3 pt-6">
-                  <h1>Heading 1 — Outfit 700</h1>
-                  <h2>Heading 2 — Outfit 600</h2>
-                  <h3>Heading 3 — Outfit 500</h3>
-                  <h4>Heading 4 — Outfit 500</h4>
-                  <p>
-                    Body — Public Sans 400. Lorem ipsum dolor sit amet,
-                    consectetur adipiscing elit.
-                  </p>
-                </CardContent>
-              </Card>
-            </section>
+          {/* TabsContent sets text-sm; inherit the body size instead so
+              specimens show real page defaults (including the 14px phone
+              size). */}
+          <TabsContent
+            value="typography"
+            className="[font-size:inherit] [line-height:inherit]"
+          >
+            <TypographyShowcase />
+          </TabsContent>
 
-            <Separator />
-
+          <TabsContent value="tokens" className="space-y-10">
             <section className="space-y-4">
               <h2>Tokens</h2>
+              <p className="text-muted-foreground">
+                Every color token in the theme contract, for the active theme
+                and mode. See THEMING.md.
+              </p>
               <TokenSwatches />
             </section>
           </TabsContent>
@@ -2172,6 +2172,15 @@ function App() {
                 />
               )}
             </section>
+          </TabsContent>
+
+          {/* Inherit the body size like Typography, so blocks render as
+              they would on a page. */}
+          <TabsContent
+            value="blocks"
+            className="[font-size:inherit] [line-height:inherit]"
+          >
+            <BlocksShowcase />
           </TabsContent>
         </Tabs>
       </main>
