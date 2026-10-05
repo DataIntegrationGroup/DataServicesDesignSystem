@@ -3,10 +3,10 @@ import { CodeBlock } from "@/showcase/code-block"
 import { href } from "@/showcase/router"
 
 const INSTALL = `# 1. Base styles and a theme (Ocotillo is the default)
-npx shadcn@latest add @dataservices/theme-base @dataservices/theme-nmwdi
+pnpm dlx shadcn@latest add @dataservices/theme-base @dataservices/theme-nmwdi
 
 # 2. Components
-npx shadcn@latest add @dataservices/button @dataservices/navbar`
+pnpm dlx shadcn@latest add @dataservices/button @dataservices/navbar`
 
 export default function IntroductionPage() {
   return (

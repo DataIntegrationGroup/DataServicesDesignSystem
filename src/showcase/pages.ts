@@ -570,8 +570,8 @@ export function pageDescription(page: ShowcasePage) {
 
 /** The install command for the page's component. */
 export function installCommand(page: ShowcasePage) {
-  if (page.registry) return `npx shadcn@latest add @dataservices/${page.registry[0]}`
-  if (page.upstream) return `npx shadcn@latest add ${page.upstream}`
+  if (page.registry) return `pnpm dlx shadcn@latest add @dataservices/${page.registry[0]}`
+  if (page.upstream) return `pnpm dlx shadcn@latest add ${page.upstream}`
   return undefined
 }
 
