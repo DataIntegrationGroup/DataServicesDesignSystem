@@ -31,6 +31,8 @@ import { useCssVars } from "@/hooks/use-css-vars"
 import { Example, ExampleGroup } from "@/showcase/example"
 import { TypographyShowcase } from "@/showcase/typography"
 import { BlocksShowcase } from "@/showcase/blocks"
+import { FiltersShowcase } from "@/showcase/filters"
+import { Stat, StatBand } from "@/components/ui/stat-band"
 import {
   Tabs,
   TabsContent,
@@ -170,7 +172,7 @@ import {
   NavBarLink,
   NavBarNav,
 } from "@/components/ui/navbar"
-import { PageBody, PageShell } from "@/components/ui/page"
+import { Container, PageBody, PageShell } from "@/components/ui/page"
 import {
   InputGroup,
   InputGroupAddon,
@@ -1253,6 +1255,13 @@ function App() {
 
             <Separator />
 
+            <section className="space-y-6">
+              <h2>Filters</h2>
+              <FiltersShowcase />
+            </section>
+
+            <Separator />
+
             <section className="space-y-4">
               <h2>Validated form</h2>
               <p className="text-muted-foreground">
@@ -1582,6 +1591,35 @@ function App() {
                   <EChart option={echartOption} height={320} />
                 </CardContent>
               </Card>
+            </section>
+
+            <Separator />
+
+            <section className="space-y-6">
+              <h2>Stat band</h2>
+              <Example label="StatBand with 4 Stats (4 columns, 2×2 or 1 by its own width)" className="items-stretch">
+                <StatBand>
+                  <Stat value="5,213" label="Monitoring wells" />
+                  <Stat value="1.2M" label="Water level measurements" />
+                  <Stat value="64" label="Datasets" />
+                  <Stat value="12" label="Partner agencies" />
+                </StatBand>
+              </Example>
+              <ExampleGroup title="Fewer stats" className="grid md:grid-cols-2 items-start">
+                <Example label="3 Stats in a half-width column (stacks)" className="items-stretch">
+                  <StatBand>
+                    <Stat value="42" label="Water levels" />
+                    <Stat value="31" label="Water quality" />
+                    <Stat value="18" label="Wells" />
+                  </StatBand>
+                </Example>
+                <Example label="2 Stats" className="items-stretch">
+                  <StatBand>
+                    <Stat value="98%" label="Uptime" />
+                    <Stat value="3 min" label="Median refresh" />
+                  </StatBand>
+                </Example>
+              </ExampleGroup>
             </section>
 
             <Separator />
@@ -2052,6 +2090,34 @@ function App() {
                       </NavBarLink>
                     </NavBarNav>
                   </NavBar>
+                </Card>
+              </Example>
+              <Example
+                label='PageBody bleed: a full-width band and a section, each with a Container size="wide"'
+                className="items-stretch"
+              >
+                <Card className="overflow-hidden p-0">
+                  <PageShell className="h-[320px]">
+                    <NavBar innerClassName="max-w-7xl">
+                      <NavBarBrand>Weaver</NavBarBrand>
+                    </NavBar>
+                    <PageBody bleed>
+                      <section className="bg-primary-dark py-8">
+                        <Container size="wide">
+                          <h3 className="!text-2xl text-on-image">Full-width band</h3>
+                          <p className="text-on-image-muted">
+                            The section owns the background; the Container keeps text in the column.
+                          </p>
+                        </Container>
+                      </section>
+                      <Container size="wide" className="py-8">
+                        <h3 className="!text-xl">Datasets</h3>
+                        <p className="text-muted-foreground">
+                          Content lines up with the band above.
+                        </p>
+                      </Container>
+                    </PageBody>
+                  </PageShell>
                 </Card>
               </Example>
               <Example label="NavBar fluid" className="items-stretch">
