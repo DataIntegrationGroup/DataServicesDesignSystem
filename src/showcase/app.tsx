@@ -1,7 +1,6 @@
 import * as React from "react"
 import { DatabaseIcon } from "lucide-react"
 
-import { Badge } from "@/components/ui/badge"
 import { Label } from "@/components/ui/label"
 import { ModeToggle } from "@/components/mode-toggle"
 import { useTheme } from "@/components/theme-provider"
@@ -145,9 +144,6 @@ function ShowcaseHeader() {
       <SidebarTrigger />
       <Separator orientation="vertical" className="h-5!" />
       <span className="hidden font-heading font-semibold md:inline">DataServices Design System</span>
-      <Badge variant="secondary" className="hidden md:inline-flex">
-        v0.1.0
-      </Badge>
       <div className="ml-auto flex items-center gap-2">
         <ShowcaseSearch />
         <Select
