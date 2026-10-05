@@ -81,6 +81,7 @@ Each item carries its own npm dependencies (e.g. `map` → `react-map-gl`,
 | `facet-rail`     | ui        | `FacetCheckboxes` + `FacetRail` filter facets with counts     |
 | `stat-band`      | ui        | `StatBand` + `Stat` big-number KPI row                        |
 | `detail-list`    | ui        | `DetailSection` + `DetailList` / `DetailItem` label/value rows |
+| `app-shell`      | block     | Sidebar (icon rail) + top bar + scrolling content + side panel |
 | `site-header`    | block     | NavBar on the wide column, with a menu sheet on phones        |
 | `hero`           | block     | Landing hero: eyebrow, display title, tagline, actions        |
 | `detail-card`    | block     | Record detail card (well, dataset) with a loading state       |

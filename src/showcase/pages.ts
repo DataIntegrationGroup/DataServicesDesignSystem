@@ -57,6 +57,13 @@ export const PAGES: ShowcasePage[] = [
 
   // Blocks
   {
+    slug: "app-shell",
+    title: "App shell",
+    group: "Blocks",
+    registry: ["app-shell"],
+    component: page(() => import("./pages/app-shell")),
+  },
+  {
     slug: "site-header",
     title: "Site header",
     group: "Blocks",
