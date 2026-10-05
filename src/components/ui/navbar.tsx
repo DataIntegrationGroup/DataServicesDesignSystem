@@ -16,12 +16,20 @@ import { cn } from "@/lib/utils"
  *     <NavBarActions><ModeToggle /></NavBarActions>
  *   </NavBar>
  */
+/**
+ * `fluid` drops the max-width column. `innerClassName` styles the inner row
+ * (e.g. a wider max-width) without reaching in with `[&>div]:` selectors.
+ */
 function NavBar({
   className,
+  innerClassName,
   children,
   fluid = false,
   ...props
-}: React.ComponentProps<"header"> & { fluid?: boolean }) {
+}: React.ComponentProps<"header"> & {
+  fluid?: boolean
+  innerClassName?: string
+}) {
   return (
     <header
       data-slot="navbar"
@@ -31,7 +39,8 @@ function NavBar({
       <div
         className={cn(
           "flex items-center justify-between gap-2 py-3 sm:gap-4",
-          fluid ? "px-3 sm:px-5" : "mx-auto max-w-6xl px-4 sm:px-6"
+          fluid ? "px-3 sm:px-5" : "mx-auto max-w-6xl px-4 sm:px-6",
+          innerClassName
         )}
       >
         {children}
@@ -50,7 +59,7 @@ function NavBarBrand({
     <Comp
       data-slot="navbar-brand"
       className={cn(
-        "flex items-baseline gap-2 text-2xl font-bold leading-none text-primary",
+        "flex items-baseline gap-2 font-heading text-2xl font-bold leading-none text-primary",
         className
       )}
       {...props}
@@ -70,22 +79,31 @@ function NavBarNav({ className, ...props }: React.ComponentProps<"nav">) {
 
 /**
  * A nav link. Use `asChild` to render the app's router Link. Mark the active
- * link by setting `data-active` (e.g. via the router's activeProps) or the
- * `active` prop for non-router use.
+ * link with the `active` prop, `data-active`, or `aria-current="page"` (most
+ * routers set one of these); `active` also sets `aria-current="page"`.
+ * `size="lg"` is a larger link for marketing-style headers.
  */
 function NavBarLink({
   className,
   asChild = false,
   active,
+  size = "default",
   ...props
-}: React.ComponentProps<"a"> & { asChild?: boolean; active?: boolean }) {
+}: React.ComponentProps<"a"> & {
+  asChild?: boolean
+  active?: boolean
+  size?: "default" | "lg"
+}) {
   const Comp = asChild ? Slot.Root : "a"
   return (
     <Comp
       data-slot="navbar-link"
       data-active={active || undefined}
+      data-size={size}
+      aria-current={active ? "page" : undefined}
       className={cn(
-        "rounded-md px-3 py-1.5 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground data-[active]:bg-muted data-[active]:text-foreground",
+        "rounded-md px-3 py-1.5 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground data-[active]:bg-muted data-[active]:text-foreground aria-[current=page]:bg-muted aria-[current=page]:text-foreground",
+        "data-[size=lg]:rounded-lg data-[size=lg]:px-3.5 data-[size=lg]:py-2 data-[size=lg]:text-base",
         className
       )}
       {...props}
