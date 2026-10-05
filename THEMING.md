@@ -184,6 +184,20 @@ Upstream shadcn components installed from now on import `cn` from the `cn`
 npm package rather than `lib/utils`, so they don't see this configuration.
 Avoid passing a type step to them alongside a text color.
 
+## Choosing a chip
+
+Three components cover every pill-shaped control. Pick by what the chip does,
+not how it looks:
+
+| Need | Use | Example |
+| --- | --- | --- |
+| A static label | `Badge` (`tone-*` for categories, `success`/`warning`/`info` for status, `on-image` over photos) | A dataset's topic |
+| An on/off choice | `Toggle` or `ToggleGroup` | Quick filters above a list |
+| An applied filter the user can remove | `FilterChip`, inside an `ActiveFilterBar` | "Topic: Water levels ×" |
+
+Don't build other chip styles in apps. If one of these doesn't fit, add a
+variant to it in the DS.
+
 ## Canvas components
 
 `data-grid` (Glide) and `echart` draw on a canvas, where CSS variables don't
