@@ -511,12 +511,43 @@
       "name": "page",
       "type": "registry:ui",
       "title": "Page Shell",
-      "description": "Full-viewport app chrome — PageShell (flex column) plus PageBody (scrollable, width-capped content column).",
+      "description": "Full-viewport app chrome — PageShell (flex column) plus PageBody (scrollable, width-capped content column; bleed drops the column for full-width bands), and Container (centered column, size=\"wide\" for marketing pages).",
       "files": [
         {
           "path": "src/components/ui/page.tsx",
           "type": "registry:ui"
         }
+      ]
+    },
+    {
+      "name": "filter-chip",
+      "type": "registry:ui",
+      "title": "Filter Chip",
+      "description": "FilterChip (removable \"Kind: value\" chip for an applied filter) and ActiveFilterBar (\"Filtered by\" strip with Clear all).",
+      "dependencies": ["lucide-react"],
+      "registryDependencies": ["@dataservices/button"],
+      "files": [
+        { "path": "src/components/ui/filter-chip.tsx", "type": "registry:ui" }
+      ]
+    },
+    {
+      "name": "facet-rail",
+      "type": "registry:ui",
+      "title": "Facet Rail",
+      "description": "FacetCheckboxes (fieldset checkbox list with result counts) and FacetRail (card of collapsible facets with \"N selected\" in each trigger).",
+      "dependencies": ["radix-ui"],
+      "registryDependencies": ["@dataservices/accordion", "checkbox", "label"],
+      "files": [
+        { "path": "src/components/ui/facet-rail.tsx", "type": "registry:ui" }
+      ]
+    },
+    {
+      "name": "stat-band",
+      "type": "registry:ui",
+      "title": "Stat Band",
+      "description": "StatBand and Stat: a row of big-number KPIs with hairline dividers that reflows by its own width (4 / 2×2 / 1).",
+      "files": [
+        { "path": "src/components/ui/stat-band.tsx", "type": "registry:ui" }
       ]
     },
     {

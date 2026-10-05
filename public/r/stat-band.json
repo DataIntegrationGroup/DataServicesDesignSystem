@@ -1,0 +1,14 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "stat-band",
+  "title": "Stat Band",
+  "description": "StatBand and Stat: a row of big-number KPIs with hairline dividers that reflows by its own width (4 / 2×2 / 1).",
+  "files": [
+    {
+      "path": "src/components/ui/stat-band.tsx",
+      "content": "import * as React from \"react\"\n\nimport { cn } from \"@/lib/utils\"\n\n// Columns per stat count, chosen by the band's own width (container query)\n// so a row never ends half-empty: 4 → 4 / 2×2 / 1, 3 → 3 / 1, 2 → 2 / 1.\nconst COLUMNS: Record<number, string> = {\n  1: \"grid-cols-1\",\n  2: \"grid-cols-1 @[460px]:grid-cols-2\",\n  3: \"grid-cols-1 @[700px]:grid-cols-3\",\n  4: \"grid-cols-1 @[460px]:grid-cols-2 @[1000px]:grid-cols-4\",\n}\n\n/**\n * StatBand — a row of big-number stats with hairline dividers (the border\n * color showing through a 1px gap). Holds up to four Stats.\n *\n *   <StatBand>\n *     <Stat value=\"5,213\" label=\"Monitoring wells\" />\n *   </StatBand>\n */\nfunction StatBand({ className, children, ...props }: React.ComponentProps<\"div\">) {\n  const count = React.Children.toArray(children).length\n  return (\n    <div\n      data-slot=\"stat-band\"\n      className={cn(\"@container\", className)}\n      {...props}\n    >\n      <dl\n        className={cn(\n          \"grid gap-px overflow-hidden rounded-xl border bg-border\",\n          COLUMNS[count] ?? COLUMNS[4]\n        )}\n      >\n        {children}\n      </dl>\n    </div>\n  )\n}\n\n/** One stat. The value renders above the label; the DOM keeps dt before dd. */\nfunction Stat({\n  value,\n  label,\n  className,\n  ...props\n}: Omit<React.ComponentProps<\"div\">, \"children\"> & {\n  value: React.ReactNode\n  label: React.ReactNode\n}) {\n  return (\n    <div\n      data-slot=\"stat\"\n      className={cn(\"flex flex-col-reverse bg-card px-6 py-6 @[700px]:px-8\", className)}\n      {...props}\n    >\n      <dt className=\"mt-1.5 text-sm text-muted-foreground\">{label}</dt>\n      <dd className=\"font-heading text-4xl leading-none font-bold text-primary tabular-nums @[460px]:text-5xl\">\n        {value}\n      </dd>\n    </div>\n  )\n}\n\nexport { StatBand, Stat }\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

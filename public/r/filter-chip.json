@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "filter-chip",
+  "title": "Filter Chip",
+  "description": "FilterChip (removable \"Kind: value\" chip for an applied filter) and ActiveFilterBar (\"Filtered by\" strip with Clear all).",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "@dataservices/button"
+  ],
+  "files": [
+    {
+      "path": "src/components/ui/filter-chip.tsx",
+      "content": "import * as React from \"react\"\nimport { XIcon } from \"lucide-react\"\n\nimport { cn } from \"@/lib/utils\"\nimport { Button } from \"@/components/ui/button\"\n\n/**\n * FilterChip — a removable \"Kind: value\" chip for an applied filter. Use\n * Badge for static labels and Toggle for on/off choices; see THEMING.md.\n *\n *   <FilterChip kind=\"Topic\" value=\"Water levels\" onRemove={…} />\n */\nfunction FilterChip({\n  kind,\n  value,\n  onRemove,\n  className,\n  ...props\n}: Omit<React.ComponentProps<\"span\">, \"children\"> & {\n  kind?: string\n  value: string\n  onRemove: () => void\n}) {\n  return (\n    <span\n      data-slot=\"filter-chip\"\n      className={cn(\n        \"inline-flex h-7 items-center gap-1.5 rounded-full border border-primary/30 bg-accent pr-0.5 pl-2.5 text-sm text-accent-foreground\",\n        className\n      )}\n      {...props}\n    >\n      {kind && <span className=\"text-muted-foreground\">{kind}:</span>}\n      <span className=\"font-semibold\">{value}</span>\n      <Button\n        type=\"button\"\n        variant=\"ghost\"\n        size=\"icon-xs\"\n        className=\"rounded-full\"\n        onClick={onRemove}\n        aria-label={`Remove filter ${kind ? `${kind}: ` : \"\"}${value}`}\n      >\n        <XIcon aria-hidden />\n      </Button>\n    </span>\n  )\n}\n\n/**\n * ActiveFilterBar — \"Filtered by\" plus the applied FilterChips and a\n * trailing \"Clear all\". Render it only while filters are applied.\n */\nfunction ActiveFilterBar({\n  onClearAll,\n  label = \"Filtered by\",\n  clearLabel = \"Clear all\",\n  className,\n  children,\n  ...props\n}: React.ComponentProps<\"div\"> & {\n  onClearAll: () => void\n  label?: React.ReactNode\n  clearLabel?: React.ReactNode\n}) {\n  const labelId = React.useId()\n  return (\n    <div\n      data-slot=\"active-filter-bar\"\n      role=\"group\"\n      aria-labelledby={labelId}\n      className={cn(\"flex flex-wrap items-center gap-1.5\", className)}\n      {...props}\n    >\n      <span id={labelId} className=\"mr-1 text-sm text-muted-foreground\">\n        {label}\n      </span>\n      {children}\n      <Button\n        type=\"button\"\n        variant=\"link\"\n        size=\"xs\"\n        className=\"ml-auto\"\n        onClick={onClearAll}\n      >\n        {clearLabel}\n      </Button>\n    </div>\n  )\n}\n\nexport { FilterChip, ActiveFilterBar }\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

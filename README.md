@@ -76,7 +76,10 @@ Each item carries its own npm dependencies (e.g. `map` → `react-map-gl`,
 | `mode-toggle`    | component | Light/dark toggle button                                      |
 | `map`            | ui        | MapLibre map, token-free CARTO basemap, NM default extent     |
 | `navbar`         | ui        | Router-agnostic top nav chrome (`asChild` link slots)         |
-| `page`           | ui        | `PageShell` + `PageBody` full-viewport layout                 |
+| `page`           | ui        | `PageShell` + `PageBody` (`bleed`) + `Container` (`wide`)     |
+| `filter-chip`    | ui        | `FilterChip` + `ActiveFilterBar` for applied filters          |
+| `facet-rail`     | ui        | `FacetCheckboxes` + `FacetRail` filter facets with counts     |
+| `stat-band`      | ui        | `StatBand` + `Stat` big-number KPI row                        |
 | `button`         | ui        | Upstream button + `size="xl"`, `variant="inverse"`            |
 | `badge`          | ui        | Upstream badge + status, `tone-1`…`tone-6`, `on-image`        |
 | `alert`          | ui        | Upstream alert + `success`, `warning`, `info`                 |
