@@ -1,0 +1,14 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "detail-list",
+  "title": "Detail List",
+  "description": "DetailSection (eyebrow heading over content) and DetailList / DetailItem (label/value pairs, side by side from sm) for record detail panels.",
+  "files": [
+    {
+      "path": "src/components/ui/detail-list.tsx",
+      "content": "import * as React from \"react\"\n\nimport { cn } from \"@/lib/utils\"\n\n/**\n * DetailSection — a titled group inside a detail panel or card: an eyebrow\n * heading over its content. `headingLevel` sets the heading element so it\n * fits the page outline (default h3).\n */\nfunction DetailSection({\n  title,\n  headingLevel: Heading = \"h3\",\n  className,\n  children,\n  ...props\n}: React.ComponentProps<\"section\"> & {\n  title: React.ReactNode\n  headingLevel?: \"h2\" | \"h3\" | \"h4\"\n}) {\n  return (\n    <section data-slot=\"detail-section\" className={cn(\"space-y-1.5\", className)} {...props}>\n      {/* font-sans overrides the base heading font so it matches other eyebrows. */}\n      <Heading className=\"font-sans text-eyebrow text-muted-foreground uppercase\">\n        {title}\n      </Heading>\n      {children}\n    </section>\n  )\n}\n\n/**\n * DetailList — label/value pairs: muted labels, regular values, side by side\n * from the sm breakpoint and stacked below it.\n *\n *   <DetailList>\n *     <DetailItem label=\"Well depth\">312.5 ft</DetailItem>\n *   </DetailList>\n */\nfunction DetailList({ className, ...props }: React.ComponentProps<\"dl\">) {\n  return (\n    <dl\n      data-slot=\"detail-list\"\n      className={cn(\n        \"grid grid-cols-1 gap-x-4 gap-y-1.5 text-sm sm:grid-cols-[minmax(9rem,0.8fr)_1.2fr]\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nfunction DetailItem({\n  label,\n  className,\n  children,\n  ...props\n}: React.ComponentProps<\"div\"> & { label: React.ReactNode }) {\n  return (\n    <div\n      data-slot=\"detail-item\"\n      className={cn(\"col-span-full grid grid-cols-subgrid\", className)}\n      {...props}\n    >\n      <dt className=\"text-muted-foreground\">{label}</dt>\n      <dd>{children}</dd>\n    </div>\n  )\n}\n\nexport { DetailSection, DetailList, DetailItem }\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

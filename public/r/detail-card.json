@@ -1,0 +1,23 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "detail-card",
+  "title": "Detail Card",
+  "description": "Record detail panel (a well, a dataset): icon title, description and badge, DetailSections in the body, one action, and a loading state.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "@dataservices/card",
+    "@dataservices/badge",
+    "@dataservices/detail-list",
+    "skeleton"
+  ],
+  "files": [
+    {
+      "path": "src/blocks/detail-card.tsx",
+      "content": "import * as React from \"react\"\nimport type { LucideIcon } from \"lucide-react\"\n\nimport { Badge } from \"@/components/ui/badge\"\nimport {\n  Card,\n  CardAction,\n  CardContent,\n  CardDescription,\n  CardFooter,\n  CardHeader,\n  CardTitle,\n} from \"@/components/ui/card\"\nimport { Skeleton } from \"@/components/ui/skeleton\"\n\n/**\n * DetailCard block — the shared anatomy for record detail panels (a well, a\n * dataset, a station): an icon title, description and badge in the header,\n * DetailSections in the body, one action in the footer. `loading` shows\n * skeleton rows in place of the content.\n *\n *   <DetailCard icon={ActivityIcon} title=\"Monitoring\" description=\"NM-0042\">\n *     <DetailSection title=\"Status\">\n *       <DetailList>…</DetailList>\n *     </DetailSection>\n *   </DetailCard>\n */\nexport function DetailCard({\n  icon: Icon,\n  title,\n  description,\n  badge,\n  action,\n  loading = false,\n  className,\n  children,\n}: {\n  icon?: LucideIcon\n  title: React.ReactNode\n  description?: React.ReactNode\n  badge?: React.ReactNode\n  action?: React.ReactNode\n  loading?: boolean\n  className?: string\n  children?: React.ReactNode\n}) {\n  return (\n    <Card className={className} aria-busy={loading || undefined}>\n      <CardHeader>\n        <CardTitle className=\"flex items-center gap-2\">\n          {Icon && <Icon className=\"size-4 text-primary\" aria-hidden />}\n          {title}\n        </CardTitle>\n        {description && <CardDescription>{description}</CardDescription>}\n        {badge && !loading && (\n          <CardAction>\n            <Badge variant=\"outline\">{badge}</Badge>\n          </CardAction>\n        )}\n      </CardHeader>\n      <CardContent className=\"space-y-5\">\n        {loading ? (\n          <div className=\"space-y-2\">\n            <Skeleton className=\"h-3 w-20\" />\n            <Skeleton className=\"h-5 w-full\" />\n            <Skeleton className=\"h-5 w-full\" />\n            <Skeleton className=\"h-5 w-full\" />\n            <Skeleton className=\"h-5 w-full\" />\n          </div>\n        ) : (\n          children\n        )}\n      </CardContent>\n      {action && !loading && <CardFooter>{action}</CardFooter>}\n    </Card>\n  )\n}\n",
+      "type": "registry:component"
+    }
+  ],
+  "type": "registry:block"
+}

@@ -180,6 +180,14 @@ export const PAGES: ShowcasePage[] = [
     component: page(() => import("./pages/date-picker")),
   },
   {
+    slug: "detail-list",
+    title: "Detail list",
+    group: "Components",
+    origin: "ds",
+    registry: ["detail-list"],
+    component: page(() => import("./pages/detail-list")),
+  },
+  {
     slug: "dialog",
     title: "Dialog",
     group: "Components",
@@ -527,11 +535,25 @@ export const PAGES: ShowcasePage[] = [
 
   // Blocks
   {
-    slug: "blocks",
-    title: "Page patterns",
+    slug: "site-header",
+    title: "Site header",
     group: "Blocks",
-    description: "Compositions of DS components from the apps: a hero, and detail cards for a well and a dataset.",
-    component: page(() => import("./pages/blocks")),
+    registry: ["site-header"],
+    component: page(() => import("./pages/site-header")),
+  },
+  {
+    slug: "hero",
+    title: "Hero",
+    group: "Blocks",
+    registry: ["hero"],
+    component: page(() => import("./pages/hero")),
+  },
+  {
+    slug: "detail-card",
+    title: "Detail card",
+    group: "Blocks",
+    registry: ["detail-card"],
+    component: page(() => import("./pages/detail-card")),
   },
 ]
 

@@ -41,9 +41,9 @@ for (const { name } of registry.items) {
   }
 }
 
-// Foundations and blocks pages render their own content; every other page
-// shows its component through demos.
-const PROSE_PAGES = new Set(["introduction", "colors", "typography", "blocks"])
+// Foundations pages render their own content; every other page shows its
+// component through demos.
+const PROSE_PAGES = new Set(["introduction", "colors", "typography"])
 
 const pageFiles = [...pagesSource.matchAll(/import\("\.\/pages\/([a-z0-9-]+)"\)/g)].map((m) => m[1])
 const usedDemos = new Set<string>()
