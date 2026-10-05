@@ -20,3 +20,16 @@ export const demoComponents = Object.fromEntries(
 export const demoSources = Object.fromEntries(
   Object.entries(sources).map(([path, load]) => [key(path), load])
 )
+
+// Block files (src/blocks/<name>.tsx), for the "Block source" view.
+const blocks = import.meta.glob<string>("../blocks/*.tsx", {
+  query: "?demo-source",
+  import: "default",
+})
+
+export const blockSources = Object.fromEntries(
+  Object.entries(blocks).map(([path, load]) => [
+    path.replace(/^\.\.\/blocks\//, "").replace(/\.tsx$/, ""),
+    load,
+  ])
+)

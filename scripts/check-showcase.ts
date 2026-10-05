@@ -53,7 +53,7 @@ for (const slug of pageFiles) {
     problems.push(`page file src/showcase/pages/${slug}.tsx is missing`)
     continue
   }
-  const demos = [...readFileSync(file, "utf8").matchAll(/<Demo\s[^>]*name="([^"]+)"/g)]
+  const demos = [...readFileSync(file, "utf8").matchAll(/<(?:Block)?Demo\s[^>]*name="([^"]+)"/g)]
   if (demos.length === 0 && !PROSE_PAGES.has(slug)) {
     problems.push(`src/showcase/pages/${slug}.tsx has no demos`)
   }

@@ -8,6 +8,8 @@ import type { Plugin } from "vite"
  * showcase scaffolding taken out so the code is ready to copy:
  *
  * - `@/showcase/…` imports are dropped.
+ * - `@/blocks/…` imports point at `@/components/…`, where the CLI installs
+ *   blocks in an app.
  * - `<Example label="x">…</Example>` becomes a `{/* x *\/}` comment above its
  *   children, which are outdented to match.
  *
@@ -80,6 +82,17 @@ export function toDisplaySource(source: string, file = "demo.tsx") {
     ts.forEachChild(node, visit)
   }
   visit(sf)
+
+  for (const statement of sf.statements) {
+    if (
+      ts.isImportDeclaration(statement) &&
+      ts.isStringLiteral(statement.moduleSpecifier) &&
+      statement.moduleSpecifier.text.startsWith("@/blocks/")
+    ) {
+      const line = lineOf(statement.moduleSpecifier.getStart())
+      replace.set(line, (replace.get(line) ?? lines[line]).replace('"@/blocks/', '"@/components/'))
+    }
+  }
 
   const out: string[] = []
   lines.forEach((line, i) => {

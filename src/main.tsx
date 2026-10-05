@@ -2,10 +2,14 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import { ShowcaseApp } from './showcase/app.tsx'
+import { DemoFrame } from './showcase/frame.tsx'
 import { PALETTE_STORAGE_KEY } from './showcase/palettes.ts'
 import { ThemeProvider } from './components/theme-provider.tsx'
 import { TooltipProvider } from './components/ui/tooltip.tsx'
 import { Toaster } from './components/ui/sonner.tsx'
+
+// ?embed=<demo> renders one demo alone, for block preview iframes.
+const embed = new URLSearchParams(window.location.search).get('embed')
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -15,7 +19,7 @@ createRoot(document.getElementById('root')!).render(
       palette={localStorage.getItem(PALETTE_STORAGE_KEY) ?? undefined}
     >
       <TooltipProvider>
-        <ShowcaseApp />
+        {embed ? <DemoFrame name={embed} /> : <ShowcaseApp />}
         <Toaster richColors closeButton />
       </TooltipProvider>
     </ThemeProvider>
