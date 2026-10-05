@@ -4,7 +4,7 @@
   "title": "Input Group",
   "description": "Input or textarea with addons, buttons and text (upstream shadcn input-group). Adds size=\"lg\" (taller row, 18px text, larger icons) and variant=\"prominent\" (primary border, card fill, wider focus ring) for hero and page search.",
   "registryDependencies": [
-    "button",
+    "@dataservices/button",
     "input",
     "textarea"
   ],

@@ -149,7 +149,7 @@
       "title": "Mode Toggle",
       "description": "Light/dark toggle button. Tracks system preference when theme is 'system'.",
       "dependencies": ["lucide-react"],
-      "registryDependencies": ["button", "@dataservices/theme-provider"],
+      "registryDependencies": ["@dataservices/button", "@dataservices/theme-provider"],
       "files": [
         {
           "path": "src/components/mode-toggle.tsx",
@@ -279,7 +279,7 @@
       "title": "Combobox",
       "description": "Searchable single-select built on Popover + Command. Scales to long option lists where a plain Select doesn't.",
       "dependencies": ["lucide-react"],
-      "registryDependencies": ["button", "popover", "@dataservices/command"],
+      "registryDependencies": ["@dataservices/button", "popover", "@dataservices/command"],
       "files": [
         { "path": "src/components/ui/combobox.tsx", "type": "registry:ui" }
       ]
@@ -290,7 +290,7 @@
       "title": "Sheet",
       "description": "Side drawer (Radix Dialog) sliding from any edge — for filter panels and detail views.",
       "dependencies": ["radix-ui", "lucide-react"],
-      "registryDependencies": ["button"],
+      "registryDependencies": ["@dataservices/button"],
       "files": [
         { "path": "src/components/ui/sheet.tsx", "type": "registry:ui" }
       ]
@@ -301,7 +301,7 @@
       "title": "Alert Dialog",
       "description": "Accessible confirm dialog (Radix AlertDialog) for destructive actions, with themed Action/Cancel buttons.",
       "dependencies": ["radix-ui"],
-      "registryDependencies": ["button"],
+      "registryDependencies": ["@dataservices/button"],
       "files": [
         { "path": "src/components/ui/alert-dialog.tsx", "type": "registry:ui" }
       ]
@@ -317,11 +317,71 @@
       ]
     },
     {
+      "name": "button",
+      "type": "registry:ui",
+      "title": "Button",
+      "description": "Upstream shadcn button. Adds size=\"xl\" (48px call to action) and variant=\"inverse\" (light button for dark bands and images).",
+      "dependencies": ["radix-ui", "class-variance-authority"],
+      "files": [
+        { "path": "src/components/ui/button.tsx", "type": "registry:ui" }
+      ]
+    },
+    {
+      "name": "badge",
+      "type": "registry:ui",
+      "title": "Badge",
+      "description": "Upstream shadcn badge. Adds status variants (success, warning, info), category tones (tone-1 … tone-6) and an on-image outline variant.",
+      "dependencies": ["radix-ui", "class-variance-authority"],
+      "files": [
+        { "path": "src/components/ui/badge.tsx", "type": "registry:ui" }
+      ]
+    },
+    {
+      "name": "alert",
+      "type": "registry:ui",
+      "title": "Alert",
+      "description": "Upstream shadcn alert. Adds success, warning and info variants on the status tokens.",
+      "dependencies": ["class-variance-authority"],
+      "files": [
+        { "path": "src/components/ui/alert.tsx", "type": "registry:ui" }
+      ]
+    },
+    {
+      "name": "tabs",
+      "type": "registry:ui",
+      "title": "Tabs",
+      "description": "Upstream shadcn tabs. Adds a folder TabsList variant: tabs that join a card panel below, for use on images and dark bands.",
+      "dependencies": ["radix-ui", "class-variance-authority"],
+      "files": [
+        { "path": "src/components/ui/tabs.tsx", "type": "registry:ui" }
+      ]
+    },
+    {
+      "name": "card",
+      "type": "registry:ui",
+      "title": "Card",
+      "description": "Upstream shadcn card. Adds asChild and interactive for whole-card links (hover border and shadow, focus ring).",
+      "dependencies": ["radix-ui"],
+      "files": [
+        { "path": "src/components/ui/card.tsx", "type": "registry:ui" }
+      ]
+    },
+    {
+      "name": "accordion",
+      "type": "registry:ui",
+      "title": "Accordion",
+      "description": "Upstream shadcn accordion. Adds AccordionTrigger variant=\"plain\" (no hover underline, centered chevron) for filter rails.",
+      "dependencies": ["radix-ui", "lucide-react"],
+      "files": [
+        { "path": "src/components/ui/accordion.tsx", "type": "registry:ui" }
+      ]
+    },
+    {
       "name": "input-group",
       "type": "registry:ui",
       "title": "Input Group",
       "description": "Input or textarea with addons, buttons and text (upstream shadcn input-group). Adds size=\"lg\" (taller row, 18px text, larger icons) and variant=\"prominent\" (primary border, card fill, wider focus ring) for hero and page search.",
-      "registryDependencies": ["button", "input", "textarea"],
+      "registryDependencies": ["@dataservices/button", "input", "textarea"],
       "files": [
         { "path": "src/components/ui/input-group.tsx", "type": "registry:ui" }
       ]
@@ -400,7 +460,7 @@
       "description": "Collapsible app sidebar (offcanvas/icon), with provider, keyboard shortcut, cookie-persisted state, mobile Sheet fallback, and a full set of menu/group primitives. Themed via the OcotilloUI --sidebar tokens.",
       "dependencies": ["radix-ui", "lucide-react"],
       "registryDependencies": [
-        "button",
+        "@dataservices/button",
         "input",
         "separator",
         "skeleton",
@@ -418,7 +478,7 @@
       "title": "Calendar",
       "description": "Date calendar built on react-day-picker v10, themed to OcotilloUI. Supports single, multiple, and range selection.",
       "dependencies": ["react-day-picker", "lucide-react"],
-      "registryDependencies": ["button"],
+      "registryDependencies": ["@dataservices/button"],
       "files": [
         { "path": "src/components/ui/calendar.tsx", "type": "registry:ui" }
       ]
@@ -429,7 +489,7 @@
       "title": "Date Picker",
       "description": "DatePicker (single) and DateRangePicker (start/end) built on Popover + Calendar, with date-fns formatting.",
       "dependencies": ["date-fns", "react-day-picker", "lucide-react"],
-      "registryDependencies": ["button", "popover", "@dataservices/calendar"],
+      "registryDependencies": ["@dataservices/button", "popover", "@dataservices/calendar"],
       "files": [
         { "path": "src/components/ui/date-picker.tsx", "type": "registry:ui" }
       ]
@@ -438,7 +498,7 @@
       "name": "navbar",
       "type": "registry:ui",
       "title": "NavBar",
-      "description": "Router-agnostic top navigation chrome. Link slots accept the app's router Link via asChild.",
+      "description": "Router-agnostic top navigation chrome. Link slots accept the app's router Link via asChild; active links get aria-current=\"page\". innerClassName styles the inner row; NavBarLink has size=\"lg\".",
       "dependencies": ["radix-ui"],
       "files": [
         {
@@ -518,7 +578,7 @@
       "title": "Onboarding Tour",
       "description": "Dismissible getting-started tour shown once per browser (localStorage). Each step spotlights a target element (dim backdrop with a cut-out + pulsing ring) and anchors an explanatory card beside it. Keyboard: arrows navigate, Esc dismisses. Pass steps and a storageKey — fully presentational.",
       "dependencies": ["lucide-react"],
-      "registryDependencies": ["button"],
+      "registryDependencies": ["@dataservices/button"],
       "files": [
         {
           "path": "src/components/onboarding-tour.tsx",

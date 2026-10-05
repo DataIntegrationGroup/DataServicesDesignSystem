@@ -77,9 +77,18 @@ Each item carries its own npm dependencies (e.g. `map` → `react-map-gl`,
 | `map`            | ui        | MapLibre map, token-free CARTO basemap, NM default extent     |
 | `navbar`         | ui        | Router-agnostic top nav chrome (`asChild` link slots)         |
 | `page`           | ui        | `PageShell` + `PageBody` full-viewport layout                 |
+| `button`         | ui        | Upstream button + `size="xl"`, `variant="inverse"`            |
+| `badge`          | ui        | Upstream badge + status, `tone-1`…`tone-6`, `on-image`        |
+| `alert`          | ui        | Upstream alert + `success`, `warning`, `info`                 |
+| `tabs`           | ui        | Upstream tabs + `TabsList variant="folder"`                   |
+| `card`           | ui        | Upstream card + `asChild` and `interactive` (whole-card link) |
+| `accordion`      | ui        | Upstream accordion + `AccordionTrigger variant="plain"`       |
 
-Standard shadcn primitives (button, card, dialog, table, …) come from the
-upstream shadcn registry — install those the normal way.
+Where the DS publishes an upstream primitive with added variants (button,
+badge, alert, tabs, card, accordion, input-group, …), install it from
+`@dataservices` so you get the variants; DS items depend on those versions.
+Other shadcn primitives (dialog, table, …) come from the upstream registry —
+install those the normal way.
 
 ## Develop
 

@@ -9,7 +9,7 @@
     "lucide-react"
   ],
   "registryDependencies": [
-    "button",
+    "@dataservices/button",
     "popover",
     "@dataservices/calendar"
   ],
