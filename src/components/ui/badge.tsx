@@ -19,6 +19,17 @@ const badgeVariants = cva(
         ghost:
           "hover:bg-muted hover:text-muted-foreground dark:hover:bg-muted/50",
         link: "text-primary underline-offset-4 hover:underline",
+        success: "bg-success-soft text-success-strong [a]:hover:bg-success-soft/80",
+        warning: "bg-warning-soft text-warning-strong [a]:hover:bg-warning-soft/80",
+        info: "bg-info-soft text-info-strong [a]:hover:bg-info-soft/80",
+        "tone-1": "bg-tone-1-soft text-tone-1-strong [a]:hover:bg-tone-1-soft/80",
+        "tone-2": "bg-tone-2-soft text-tone-2-strong [a]:hover:bg-tone-2-soft/80",
+        "tone-3": "bg-tone-3-soft text-tone-3-strong [a]:hover:bg-tone-3-soft/80",
+        "tone-4": "bg-tone-4-soft text-tone-4-strong [a]:hover:bg-tone-4-soft/80",
+        "tone-5": "bg-tone-5-soft text-tone-5-strong [a]:hover:bg-tone-5-soft/80",
+        "tone-6": "bg-tone-6-soft text-tone-6-strong [a]:hover:bg-tone-6-soft/80",
+        "on-image":
+          "border-on-image-border text-on-image focus-visible:border-on-image-ring focus-visible:ring-on-image-ring/50 [a]:hover:bg-on-image-surface [button]:hover:bg-on-image-surface",
       },
     },
     defaultVariants: {
