@@ -7,8 +7,9 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "lint": "eslint . && pnpm check:themes",
+    "lint": "eslint . && pnpm check:themes && pnpm check:showcase",
     "check:themes": "node scripts/check-themes.mjs",
+    "check:showcase": "node --disable-warning=ExperimentalWarning scripts/check-showcase.ts",
     "preview": "vite preview",
     "registry:build": "shadcn build"
   },
