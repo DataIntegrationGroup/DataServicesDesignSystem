@@ -4,6 +4,7 @@ import {
   Bell,
   Check,
   ChevronRight,
+  CircleCheck,
   Database,
   Info,
   MoreHorizontal,
@@ -719,11 +720,21 @@ function App() {
                 ))}
               </ExampleGroup>
               <ExampleGroup title="Sizes">
-                {(["xs", "sm", "default", "lg"] as const).map((size) => (
+                {(["xs", "sm", "default", "lg", "xl"] as const).map((size) => (
                   <Example key={size} label={`size="${size}"`}>
                     <Button size={size}>Button</Button>
                   </Example>
                 ))}
+              </ExampleGroup>
+              <ExampleGroup title="On a dark band">
+                <Example label='variant="inverse"' className="items-stretch">
+                  <div className="flex items-center gap-4 rounded-xl bg-primary-dark p-6">
+                    <Button variant="inverse">Button</Button>
+                    <Button variant="inverse" size="xl">
+                      Join on Slack <ChevronRight data-icon="inline-end" />
+                    </Button>
+                  </div>
+                </Example>
               </ExampleGroup>
               <ExampleGroup title="Icon sizes">
                 {(["icon-xs", "icon-sm", "icon", "icon-lg"] as const).map(
@@ -782,6 +793,43 @@ function App() {
                     <Badge variant={variant}>Badge</Badge>
                   </Example>
                 ))}
+              </ExampleGroup>
+              <ExampleGroup title="Status">
+                {(["success", "warning", "info", "destructive"] as const).map(
+                  (variant) => (
+                    <Example key={variant} label={`variant="${variant}"`}>
+                      <Badge variant={variant}>
+                        {variant[0].toUpperCase() + variant.slice(1)}
+                      </Badge>
+                    </Example>
+                  )
+                )}
+              </ExampleGroup>
+              <ExampleGroup title="Tones (categories, not status)">
+                {(
+                  [
+                    ["tone-1", "Water levels"],
+                    ["tone-2", "Water quality"],
+                    ["tone-3", "Wells"],
+                    ["tone-4", "Springs"],
+                    ["tone-5", "Climate"],
+                    ["tone-6", "Geology"],
+                  ] as const
+                ).map(([variant, topic]) => (
+                  <Example key={variant} label={`variant="${variant}"`}>
+                    <Badge variant={variant}>{topic}</Badge>
+                  </Example>
+                ))}
+              </ExampleGroup>
+              <ExampleGroup title="On a dark band">
+                <Example label='variant="on-image"' className="items-stretch">
+                  <div className="flex items-center gap-2 rounded-xl bg-primary-dark p-6">
+                    <Badge variant="on-image">Groundwater</Badge>
+                    <Badge variant="on-image" asChild>
+                      <a href="#badges">Linked</a>
+                    </Badge>
+                  </div>
+                </Example>
               </ExampleGroup>
               <ExampleGroup title="Content">
                 <Example label="icon start">
@@ -1294,6 +1342,21 @@ function App() {
                   </AlertDescription>
                 </Alert>
               </Example>
+              {(
+                [
+                  ["success", CircleCheck, "Upload complete", "1,204 records were added to the dataset."],
+                  ["warning", TriangleAlert, "Very large download", "This file can take minutes to prepare. For most uses, connect through the API instead."],
+                  ["info", Info, "New data source", "Bureau of Geology well records are now included."],
+                ] as const
+              ).map(([variant, Icon, title, description]) => (
+                <Example key={variant} label={`variant="${variant}"`} className="items-stretch">
+                  <Alert variant={variant}>
+                    <Icon />
+                    <AlertTitle>{title}</AlertTitle>
+                    <AlertDescription>{description}</AlertDescription>
+                  </Alert>
+                </Example>
+              ))}
               <Example label="title only, no icon" className="items-stretch">
                 <Alert>
                   <AlertTitle>3 sources need attention.</AlertTitle>
@@ -1691,6 +1754,43 @@ function App() {
                   </AccordionItem>
                 </Accordion>
               </Example>
+              <Example
+                label='AccordionTrigger variant="plain" (filter rail)'
+                className="items-stretch"
+              >
+                <Accordion
+                  type="multiple"
+                  defaultValue={["topic"]}
+                  className="w-full max-w-xs rounded-xl border px-3"
+                >
+                  {(
+                    [
+                      ["topic", "Topic", ["Water levels", "Water quality", "Wells"], 2],
+                      ["agency", "Agency", ["NMBGMR", "USGS", "NMED"], 0],
+                    ] as const
+                  ).map(([value, legend, options, selected]) => (
+                    <AccordionItem key={value} value={value}>
+                      <AccordionTrigger variant="plain">
+                        <span className="flex flex-1 items-baseline justify-between gap-3 pr-3">
+                          {legend}
+                          {selected > 0 && (
+                            <span className="text-xs font-normal text-muted-foreground">
+                              {selected} selected
+                            </span>
+                          )}
+                        </span>
+                      </AccordionTrigger>
+                      <AccordionContent className="space-y-2">
+                        {options.map((option, i) => (
+                          <Label key={option} className="font-normal">
+                            <Checkbox defaultChecked={i < selected} /> {option}
+                          </Label>
+                        ))}
+                      </AccordionContent>
+                    </AccordionItem>
+                  ))}
+                </Accordion>
+              </Example>
             </section>
           </TabsContent>
 
@@ -2010,6 +2110,29 @@ function App() {
                   </PageShell>
                 </Card>
               </Example>
+              <Example
+                label='NavBar innerClassName="max-w-7xl" · NavBarLink size="lg" (active sets aria-current="page")'
+                className="items-stretch"
+              >
+                <Card className="overflow-hidden p-0">
+                  <NavBar innerClassName="max-w-7xl">
+                    <NavBarBrand asChild>
+                      <a href="#layout">Weaver</a>
+                    </NavBarBrand>
+                    <NavBarNav>
+                      <NavBarLink href="#layout" size="lg" active>
+                        Datasets
+                      </NavBarLink>
+                      <NavBarLink href="#layout" size="lg">
+                        Map
+                      </NavBarLink>
+                      <NavBarLink href="#layout" size="lg">
+                        About
+                      </NavBarLink>
+                    </NavBarNav>
+                  </NavBar>
+                </Card>
+              </Example>
               <Example label="NavBar fluid" className="items-stretch">
                 <Card className="overflow-hidden p-0">
                   <NavBar fluid>
@@ -2056,12 +2179,79 @@ function App() {
                   </Card>
                 </Example>
               </ExampleGroup>
+              <ExampleGroup title="Interactive" className="grid md:grid-cols-2 items-stretch">
+                <Example label="asChild interactive (whole-card link)" className="items-stretch">
+                  <Card asChild interactive className="h-full">
+                    <a href="#layout">
+                      <CardHeader>
+                        <CardTitle>Browse datasets</CardTitle>
+                        <CardDescription>
+                          Groundwater levels, water quality and well records.
+                        </CardDescription>
+                      </CardHeader>
+                      <CardContent className="mt-auto flex items-center gap-1 font-semibold text-primary">
+                        View datasets <ChevronRight className="size-4" />
+                      </CardContent>
+                    </a>
+                  </Card>
+                </Example>
+                <Example label='asChild interactive size="sm"' className="items-stretch">
+                  <Card asChild interactive size="sm" className="h-full">
+                    <a href="#layout">
+                      <CardHeader>
+                        <CardTitle>Explore the map</CardTitle>
+                        <CardDescription>
+                          Every monitoring location in New Mexico.
+                        </CardDescription>
+                      </CardHeader>
+                    </a>
+                  </Card>
+                </Example>
+              </ExampleGroup>
             </section>
 
             <Separator />
 
             <section className="space-y-6">
               <h2>Navigation</h2>
+              <ExampleGroup title="Tabs" className="grid md:grid-cols-2 items-start">
+                {(["default", "line"] as const).map((variant) => (
+                  <Example key={variant} label={`TabsList variant="${variant}"`}>
+                    <Tabs defaultValue="levels">
+                      <TabsList variant={variant}>
+                        <TabsTrigger value="levels">Levels</TabsTrigger>
+                        <TabsTrigger value="quality">Quality</TabsTrigger>
+                        <TabsTrigger value="wells">Wells</TabsTrigger>
+                      </TabsList>
+                    </Tabs>
+                  </Example>
+                ))}
+                <Example
+                  label='TabsList variant="folder" (joins a bg-card panel, on a dark band)'
+                  className="items-stretch md:col-span-2"
+                >
+                  <div className="rounded-xl bg-primary-dark p-6">
+                    <Tabs defaultValue="search">
+                      <TabsList variant="folder">
+                        <TabsTrigger value="search">Search data</TabsTrigger>
+                        <TabsTrigger value="map">Browse the map</TabsTrigger>
+                      </TabsList>
+                      <TabsContent
+                        value="search"
+                        className="rounded-b-xl rounded-tr-xl bg-card p-4 text-muted-foreground"
+                      >
+                        Search panel. The active tab merges into it.
+                      </TabsContent>
+                      <TabsContent
+                        value="map"
+                        className="rounded-b-xl rounded-tr-xl bg-card p-4 text-muted-foreground"
+                      >
+                        Map panel.
+                      </TabsContent>
+                    </Tabs>
+                  </div>
+                </Example>
+              </ExampleGroup>
               <Example label="Breadcrumb with BreadcrumbEllipsis and BreadcrumbPage">
                 <Breadcrumb>
                   <BreadcrumbList>
