@@ -30,8 +30,7 @@ const FACETS: { key: string; title: string; options: FacetOption[] }[] = [
   },
 ]
 
-/** A working filter rail and active-filter bar, as on Weaver's datasets page. */
-export function FiltersShowcase() {
+export default function FacetRailWithFilterBar() {
   const [checked, setChecked] = React.useState<Record<string, string[]>>({
     topic: ["levels", "quality"],
     source: [],
@@ -50,7 +49,7 @@ export function FiltersShowcase() {
   )
 
   return (
-    <div className="grid items-start gap-6 md:grid-cols-[18rem_1fr]">
+    <>
       <Example
         label='FacetRail + FacetRailItem + FacetCheckboxes legendHidden countLabel="datasets"'
         className="items-stretch"
@@ -75,41 +74,30 @@ export function FiltersShowcase() {
           ))}
         </FacetRail>
       </Example>
-      <div className="space-y-6">
-        <Example
-          label="ActiveFilterBar + FilterChip (rendered only while filters are applied)"
-          className="items-stretch"
-        >
-          {applied.length > 0 ? (
-            <ActiveFilterBar
-              onClearAll={() => setChecked({ topic: [], source: [] })}
-              className="rounded-xl border bg-card px-4 py-2.5"
-            >
-              {applied.map(({ facet, option }) => (
-                <FilterChip
-                  key={`${facet.key}-${option.value}`}
-                  kind={facet.title}
-                  value={String(option.label)}
-                  onRemove={() => toggle(facet.key, option.value)}
-                />
-              ))}
-            </ActiveFilterBar>
-          ) : (
-            <p className="text-sm text-muted-foreground">
-              No filters applied. Check an option in the rail.
-            </p>
-          )}
-        </Example>
-        <Example label="FacetCheckboxes with a visible legend" className="items-stretch">
-          <FacetCheckboxes
-            legend="Source"
-            options={FACETS[1].options}
-            checked={checked.source}
-            onToggle={(value) => toggle("source", value)}
-            className="max-w-xs"
-          />
-        </Example>
-      </div>
-    </div>
+      <Example
+        label="ActiveFilterBar + FilterChip (rendered only while filters are applied)"
+        className="items-stretch"
+      >
+        {applied.length > 0 ? (
+          <ActiveFilterBar
+            onClearAll={() => setChecked({ topic: [], source: [] })}
+            className="rounded-xl border bg-card px-4 py-2.5"
+          >
+            {applied.map(({ facet, option }) => (
+              <FilterChip
+                key={`${facet.key}-${option.value}`}
+                kind={facet.title}
+                value={String(option.label)}
+                onRemove={() => toggle(facet.key, option.value)}
+              />
+            ))}
+          </ActiveFilterBar>
+        ) : (
+          <p className="text-sm text-muted-foreground">
+            No filters applied. Check an option in the rail.
+          </p>
+        )}
+      </Example>
+    </>
   )
 }
