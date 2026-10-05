@@ -1713,85 +1713,6 @@ function App() {
                 </Example>
               </ExampleGroup>
             </section>
-
-            <Separator />
-
-            <section className="space-y-6">
-              <h2>Accordion</h2>
-              <Example label='type="single" collapsible' className="items-stretch">
-                <Accordion type="single" collapsible className="w-full">
-                  <AccordionItem value="a">
-                    <AccordionTrigger>
-                      What is the DataServices Design System?
-                    </AccordionTrigger>
-                    <AccordionContent>
-                      Shared UI components for DataServices apps. Each app picks
-                      a theme, and every component works in every theme.
-                    </AccordionContent>
-                  </AccordionItem>
-                  <AccordionItem value="b">
-                    <AccordionTrigger>Which framework does it use?</AccordionTrigger>
-                    <AccordionContent>
-                      Vite + React + TypeScript + Tailwind v4 + shadcn/ui.
-                    </AccordionContent>
-                  </AccordionItem>
-                </Accordion>
-              </Example>
-              <Example label='type="multiple" defaultValue={["c"]}' className="items-stretch">
-                <Accordion type="multiple" defaultValue={["c"]} className="w-full">
-                  <AccordionItem value="c">
-                    <AccordionTrigger>How do I add components?</AccordionTrigger>
-                    <AccordionContent>
-                      Run <code>npx shadcn add @dataservices/&lt;name&gt;</code>.
-                    </AccordionContent>
-                  </AccordionItem>
-                  <AccordionItem value="d">
-                    <AccordionTrigger>How do I pick a theme?</AccordionTrigger>
-                    <AccordionContent>
-                      Install a theme file and set <code>data-theme</code> on{" "}
-                      <code>&lt;html&gt;</code>. See THEMING.md.
-                    </AccordionContent>
-                  </AccordionItem>
-                </Accordion>
-              </Example>
-              <Example
-                label='AccordionTrigger variant="plain" (filter rail)'
-                className="items-stretch"
-              >
-                <Accordion
-                  type="multiple"
-                  defaultValue={["topic"]}
-                  className="w-full max-w-xs rounded-xl border px-3"
-                >
-                  {(
-                    [
-                      ["topic", "Topic", ["Water levels", "Water quality", "Wells"], 2],
-                      ["agency", "Agency", ["NMBGMR", "USGS", "NMED"], 0],
-                    ] as const
-                  ).map(([value, legend, options, selected]) => (
-                    <AccordionItem key={value} value={value}>
-                      <AccordionTrigger variant="plain">
-                        <span className="flex flex-1 items-baseline justify-between gap-3 pr-3">
-                          {legend}
-                          {selected > 0 && (
-                            <span className="text-xs font-normal text-muted-foreground">
-                              {selected} selected
-                            </span>
-                          )}
-                        </span>
-                      </AccordionTrigger>
-                      <AccordionContent className="space-y-2">
-                        {options.map((option, i) => (
-                          <Label key={option} className="font-normal">
-                            <Checkbox defaultChecked={i < selected} /> {option}
-                          </Label>
-                        ))}
-                      </AccordionContent>
-                    </AccordionItem>
-                  ))}
-                </Accordion>
-              </Example>
-            </section>
           </TabsContent>
 
           <TabsContent value="overlays" className="space-y-10">
@@ -2208,6 +2129,85 @@ function App() {
                   </Card>
                 </Example>
               </ExampleGroup>
+            </section>
+
+            <Separator />
+
+            <section className="space-y-6">
+              <h2>Accordion</h2>
+              <Example label='type="single" collapsible' className="items-stretch">
+                <Accordion type="single" collapsible className="w-full">
+                  <AccordionItem value="a">
+                    <AccordionTrigger>
+                      What is the DataServices Design System?
+                    </AccordionTrigger>
+                    <AccordionContent>
+                      Shared UI components for DataServices apps. Each app picks
+                      a theme, and every component works in every theme.
+                    </AccordionContent>
+                  </AccordionItem>
+                  <AccordionItem value="b">
+                    <AccordionTrigger>Which framework does it use?</AccordionTrigger>
+                    <AccordionContent>
+                      Vite + React + TypeScript + Tailwind v4 + shadcn/ui.
+                    </AccordionContent>
+                  </AccordionItem>
+                </Accordion>
+              </Example>
+              <Example label='type="multiple" defaultValue={["c"]}' className="items-stretch">
+                <Accordion type="multiple" defaultValue={["c"]} className="w-full">
+                  <AccordionItem value="c">
+                    <AccordionTrigger>How do I add components?</AccordionTrigger>
+                    <AccordionContent>
+                      Run <code>npx shadcn add @dataservices/&lt;name&gt;</code>.
+                    </AccordionContent>
+                  </AccordionItem>
+                  <AccordionItem value="d">
+                    <AccordionTrigger>How do I pick a theme?</AccordionTrigger>
+                    <AccordionContent>
+                      Install a theme file and set <code>data-theme</code> on{" "}
+                      <code>&lt;html&gt;</code>. See THEMING.md.
+                    </AccordionContent>
+                  </AccordionItem>
+                </Accordion>
+              </Example>
+              <Example
+                label='AccordionTrigger variant="plain" (filter rail)'
+                className="items-stretch"
+              >
+                <Accordion
+                  type="multiple"
+                  defaultValue={["topic"]}
+                  className="w-full max-w-xs rounded-xl border px-3"
+                >
+                  {(
+                    [
+                      ["topic", "Topic", ["Water levels", "Water quality", "Wells"], 2],
+                      ["agency", "Agency", ["NMBGMR", "USGS", "NMED"], 0],
+                    ] as const
+                  ).map(([value, legend, options, selected]) => (
+                    <AccordionItem key={value} value={value}>
+                      <AccordionTrigger variant="plain">
+                        <span className="flex flex-1 items-baseline justify-between gap-3 pr-3">
+                          {legend}
+                          {selected > 0 && (
+                            <span className="text-xs font-normal text-muted-foreground">
+                              {selected} selected
+                            </span>
+                          )}
+                        </span>
+                      </AccordionTrigger>
+                      <AccordionContent className="space-y-2">
+                        {options.map((option, i) => (
+                          <Label key={option} className="font-normal">
+                            <Checkbox defaultChecked={i < selected} /> {option}
+                          </Label>
+                        ))}
+                      </AccordionContent>
+                    </AccordionItem>
+                  ))}
+                </Accordion>
+              </Example>
             </section>
 
             <Separator />
