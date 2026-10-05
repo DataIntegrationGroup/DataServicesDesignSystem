@@ -55,6 +55,28 @@ export const PAGES: ShowcasePage[] = [
     component: page(() => import("./pages/typography")),
   },
 
+  // Blocks
+  {
+    slug: "site-header",
+    title: "Site header",
+    group: "Blocks",
+    registry: ["site-header"],
+    component: page(() => import("./pages/site-header")),
+  },
+  {
+    slug: "hero",
+    title: "Hero",
+    group: "Blocks",
+    registry: ["hero"],
+    component: page(() => import("./pages/hero")),
+  },
+  {
+    slug: "detail-card",
+    title: "Detail card",
+    group: "Blocks",
+    registry: ["detail-card"],
+    component: page(() => import("./pages/detail-card")),
+  },
   // Components, A–Z
   {
     slug: "accordion",
@@ -533,31 +555,9 @@ export const PAGES: ShowcasePage[] = [
     component: page(() => import("./pages/filter-controls")),
   },
 
-  // Blocks
-  {
-    slug: "site-header",
-    title: "Site header",
-    group: "Blocks",
-    registry: ["site-header"],
-    component: page(() => import("./pages/site-header")),
-  },
-  {
-    slug: "hero",
-    title: "Hero",
-    group: "Blocks",
-    registry: ["hero"],
-    component: page(() => import("./pages/hero")),
-  },
-  {
-    slug: "detail-card",
-    title: "Detail card",
-    group: "Blocks",
-    registry: ["detail-card"],
-    component: page(() => import("./pages/detail-card")),
-  },
 ]
 
-export const PAGE_GROUPS: PageGroup[] = ["Foundations", "Components", "Data & maps", "Blocks"]
+export const PAGE_GROUPS: PageGroup[] = ["Foundations", "Blocks", "Components", "Data & maps"]
 
 const REGISTRY_DESCRIPTIONS: Record<string, string> = Object.fromEntries(
   registry.items.map((item) => [item.name, item.description ?? ""])
