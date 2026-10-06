@@ -1,7 +1,6 @@
 import * as React from "react"
-import { PaletteIcon, SearchIcon, TypeIcon } from "lucide-react"
+import { PaletteIcon, TypeIcon } from "lucide-react"
 
-import { Button } from "@/components/ui/button"
 import {
   Command,
   CommandEmpty,
@@ -16,7 +15,7 @@ import {
   DialogDescription,
   DialogTitle,
 } from "@/components/ui/dialog"
-import { Kbd, KbdGroup } from "@/components/ui/kbd"
+import { AppShellSearch } from "@/blocks/app-shell"
 import { OriginBadge } from "@/showcase/page-header"
 import { PAGE_GROUPS, PAGES, pageDescription } from "@/showcase/pages"
 import { href } from "@/showcase/router"
@@ -35,23 +34,11 @@ function matchWords(value: string, search: string, keywords: string[] = []) {
   return name.includes(words[0] ?? "") ? 1 : 0.5
 }
 
-const isMac =
-  typeof navigator !== "undefined" && /Mac|iPhone|iPad/.test(navigator.platform)
-
 /** ⌘K / Ctrl+K search over every page, color token and type step. */
 export function ShowcaseSearch() {
   const [open, setOpen] = React.useState(false)
 
-  React.useEffect(() => {
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key.toLowerCase() === "k" && (event.metaKey || event.ctrlKey)) {
-        event.preventDefault()
-        setOpen((value) => !value)
-      }
-    }
-    window.addEventListener("keydown", onKeyDown)
-    return () => window.removeEventListener("keydown", onKeyDown)
-  }, [])
+  const openSearch = React.useCallback(() => setOpen(true), [])
 
   const go = (slug: string) => {
     window.location.assign(href(slug))
@@ -60,21 +47,7 @@ export function ShowcaseSearch() {
 
   return (
     <>
-      <Button
-        type="button"
-        variant="outline"
-        size="sm"
-        className="w-9 justify-start px-0 text-muted-foreground sm:w-full sm:max-w-sm sm:px-2.5"
-        aria-label="Search"
-        onClick={() => setOpen(true)}
-      >
-        <SearchIcon className="mx-auto sm:mx-0" />
-        <span className="hidden sm:inline">Search</span>
-        <KbdGroup className="ml-auto hidden sm:inline-flex">
-          <Kbd>{isMac ? "⌘" : "Ctrl"}</Kbd>
-          <Kbd>K</Kbd>
-        </KbdGroup>
-      </Button>
+      <AppShellSearch onClick={openSearch} size="lg" />
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent className="overflow-hidden p-0" showCloseButton={false}>
           <DialogTitle className="sr-only">Search the design system</DialogTitle>

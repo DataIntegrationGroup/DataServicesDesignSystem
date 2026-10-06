@@ -48,9 +48,9 @@ export function ShowcaseApp() {
   return (
     <AppShell
       brand={
-        <span className="text-[1.1rem] leading-none font-extrabold tracking-widest uppercase">
+        <>
           Data Services<span className="sr-only"> Design System</span>
-        </span>
+        </>
       }
       brandHref="/introduction"
       nav={nav}
@@ -74,7 +74,7 @@ export function ShowcaseApp() {
           />
         </div>
       }
-      header={<ShowcaseSearch />}
+      search={<ShowcaseSearch />}
       actions={<ShowcaseActions />}
     >
       <div className="mx-auto w-full max-w-5xl px-6 py-10 xl:max-w-7xl">
