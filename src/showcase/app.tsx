@@ -1,5 +1,4 @@
 import * as React from "react"
-import { DatabaseIcon } from "lucide-react"
 
 import { AppShell, type AppShellNavGroup } from "@/blocks/app-shell"
 import { Label } from "@/components/ui/label"
@@ -49,11 +48,9 @@ export function ShowcaseApp() {
   return (
     <AppShell
       brand={
-        <>
-          <DatabaseIcon className="size-5 shrink-0 text-sidebar-primary" />
-          <span className="text-lg text-sidebar-primary">DataServices</span>
-          <span className="sr-only"> Design System</span>
-        </>
+        <span className="text-[1.1rem] leading-none font-extrabold tracking-widest uppercase">
+          Data Services<span className="sr-only"> Design System</span>
+        </span>
       }
       brandHref="/introduction"
       nav={nav}
@@ -77,11 +74,7 @@ export function ShowcaseApp() {
           />
         </div>
       }
-      header={
-        <span className="hidden truncate font-heading font-semibold md:inline">
-          DataServices Design System
-        </span>
-      }
+      header={<ShowcaseSearch />}
       actions={<ShowcaseActions />}
     >
       <div className="mx-auto w-full max-w-5xl px-6 py-10 xl:max-w-7xl">
@@ -100,7 +93,6 @@ function ShowcaseActions() {
   const active = PALETTES.find((p) => p.value === palette) ?? PALETTES[0]
   return (
     <div className="flex items-center gap-2">
-      <ShowcaseSearch />
       <Select
         value={active.value}
         onValueChange={(value) => {

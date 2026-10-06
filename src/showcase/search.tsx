@@ -64,12 +64,12 @@ export function ShowcaseSearch() {
         type="button"
         variant="outline"
         size="sm"
-        className="w-9 justify-start px-0 text-muted-foreground sm:w-56 sm:px-2.5"
+        className="w-9 justify-start px-0 text-muted-foreground sm:w-full sm:max-w-sm sm:px-2.5"
         aria-label="Search"
         onClick={() => setOpen(true)}
       >
         <SearchIcon className="mx-auto sm:mx-0" />
-        <span className="hidden sm:inline">Search…</span>
+        <span className="hidden sm:inline">Search</span>
         <KbdGroup className="ml-auto hidden sm:inline-flex">
           <Kbd>{isMac ? "⌘" : "Ctrl"}</Kbd>
           <Kbd>K</Kbd>
