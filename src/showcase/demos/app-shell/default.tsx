@@ -15,6 +15,7 @@ import { toast } from "sonner"
 import { Button } from "@/components/ui/button"
 import {
   AppShell,
+  AppShellSearch,
   useAppShell,
   useAutoCollapseSidebar,
   type AppShellNavGroup,
@@ -31,11 +32,14 @@ function usePathname() {
   )
 }
 
+// Open your search dialog here.
+const openSearch = () => toast("Search opens here")
+
 const NAV: AppShellNavGroup[] = [
   {
     items: [
       { label: "Home", href: "/home", icon: HomeIcon },
-      { label: "Search", icon: SearchIcon, onSelect: () => toast("Open your search dialog here") },
+      { label: "Search", icon: SearchIcon, onSelect: openSearch },
       { label: "Map", href: "/map", icon: MapIcon },
     ],
   },
@@ -65,7 +69,7 @@ export default function AppShellDemo() {
       nav={NAV}
       pathname={pathname}
       renderLink={({ href, ...props }) => <a href={`#${href}`} {...props} />}
-      header={<span className="truncate text-sm font-medium">{titleOf(pathname)}</span>}
+      search={<AppShellSearch onClick={openSearch} />}
       actions={<HelpButton />}
       footer={
         <div className="flex flex-col gap-1 text-muted-foreground">

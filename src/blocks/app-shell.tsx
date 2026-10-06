@@ -4,12 +4,14 @@ import {
   MenuIcon,
   PanelLeftCloseIcon,
   PanelLeftOpenIcon,
+  SearchIcon,
   XIcon,
   type LucideIcon,
 } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
+import { Kbd, KbdGroup } from "@/components/ui/kbd"
 import {
   Collapsible,
   CollapsibleContent,
@@ -144,6 +146,7 @@ const STORAGE_PREFIX = "app-shell-sidebar:"
  *     pathname={location.pathname}
  *     renderLink={({ href, ...props }) => <Link to={href} {...props} />}
  *     header={<AppBreadcrumb />}
+ *     search={<AppShellSearch onClick={openSearch} />}
  *     actions={<UserMenu />}
  *   >
  *     <Outlet />
@@ -160,6 +163,7 @@ export function AppShell({
   pathname,
   renderLink = defaultLink,
   header,
+  search,
   actions,
   footer,
   footerNav,
@@ -179,6 +183,8 @@ export function AppShell({
   renderLink?: (props: LinkProps) => React.ReactElement
   /** Left side of the top bar, e.g. a breadcrumb. */
   header?: React.ReactNode
+  /** After `header` on the left of the top bar; usually AppShellSearch. */
+  search?: React.ReactNode
   /** Right side of the top bar, e.g. search and the user menu. */
   actions?: React.ReactNode
   /** Bottom of the sidebar, hidden in the icon rail: links, the version. */
@@ -281,7 +287,10 @@ export function AppShell({
         <SidebarInset className="min-w-0">
           <header className="sticky top-0 z-10 flex h-14 shrink-0 items-center gap-2 border-b bg-background px-3">
             <ExpandButton />
-            <div className="flex min-w-0 flex-1 items-center gap-2">{header}</div>
+            <div className="flex min-w-0 flex-1 items-center gap-3">
+              {header}
+              {search}
+            </div>
             {actions && <div className="flex shrink-0 items-center gap-1">{actions}</div>}
           </header>
           <div ref={setContent} data-slot="app-shell-content" className="min-h-0 flex-1 overflow-y-auto">
@@ -295,6 +304,65 @@ export function AppShell({
         )}
       </SidebarProvider>
     </AppShellContext.Provider>
+  )
+}
+
+const isMac = typeof navigator !== "undefined" && /Mac|iPhone|iPad/.test(navigator.platform)
+
+/**
+ * The top bar's search field: a button that looks like an input with a ⌘K
+ * hint, and an icon button on phones. It opens your search (a command
+ * dialog, say) with `onClick`, and ⌘K / Ctrl+K does the same unless
+ * `shortcut` is false. `size="lg"` is a little taller.
+ */
+export function AppShellSearch({
+  onClick,
+  placeholder = "Search",
+  size = "default",
+  shortcut = true,
+  className,
+}: {
+  onClick: () => void
+  placeholder?: string
+  size?: "default" | "lg"
+  shortcut?: boolean
+  className?: string
+}) {
+  React.useEffect(() => {
+    if (!shortcut) return
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key.toLowerCase() === "k" && (event.metaKey || event.ctrlKey)) {
+        event.preventDefault()
+        onClick()
+      }
+    }
+    window.addEventListener("keydown", onKeyDown)
+    return () => window.removeEventListener("keydown", onKeyDown)
+  }, [shortcut, onClick])
+
+  return (
+    <Button
+      type="button"
+      variant="outline"
+      size={size}
+      onClick={onClick}
+      aria-label={placeholder}
+      aria-keyshortcuts={shortcut ? "Meta+K Control+K" : undefined}
+      className={cn(
+        "justify-start px-0 font-normal text-muted-foreground sm:w-full sm:max-w-sm sm:px-2.5",
+        size === "lg" ? "w-9 sm:max-w-md" : "w-8",
+        className
+      )}
+    >
+      <SearchIcon className="mx-auto sm:mx-0" />
+      <span className="hidden sm:inline">{placeholder}</span>
+      {shortcut && (
+        <KbdGroup className="ml-auto hidden sm:inline-flex">
+          <Kbd>{isMac ? "⌘" : "Ctrl"}</Kbd>
+          <Kbd>K</Kbd>
+        </KbdGroup>
+      )}
+    </Button>
   )
 }
 
@@ -314,7 +382,8 @@ function ShellBrand({
   if (iconRail && !collapsed) return null
   return renderLink({
     href,
-    className: "flex min-w-0 items-center gap-2 font-heading font-bold text-sidebar-foreground",
+    className:
+      "flex min-w-0 items-center gap-2 font-heading text-[1.1rem] leading-none font-extrabold tracking-widest text-sidebar-foreground uppercase",
     children: iconRail ? collapsed : children,
   })
 }

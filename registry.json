@@ -565,7 +565,7 @@
       "title": "App Shell",
       "description": "Frame for tool-style apps: a sidebar that collapses to an icon rail (with nested sections, actions and a footer), a top bar, a content area that scrolls on its own, and a resizable side panel. Router-agnostic; becomes a menu sheet below the md breakpoint.",
       "dependencies": ["lucide-react"],
-      "registryDependencies": ["@dataservices/sidebar", "@dataservices/button", "collapsible"],
+      "registryDependencies": ["@dataservices/sidebar", "@dataservices/button", "@dataservices/kbd", "collapsible"],
       "files": [{ "path": "src/blocks/app-shell.tsx", "type": "registry:component" }]
     },
     {
