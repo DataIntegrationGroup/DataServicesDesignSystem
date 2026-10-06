@@ -25,6 +25,7 @@ import {
   SidebarHeader,
   SidebarInset,
   SidebarMenu,
+  SidebarMenuBadge,
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarMenuSub,
@@ -37,7 +38,11 @@ import {
 
 export type AppShellNavItem = {
   label: string
-  icon: LucideIcon
+  /** Needed for the icon rail (`collapsible="icon"`). */
+  icon?: LucideIcon
+  /** Small text after the label, e.g. a count or a tag. Hidden in the
+   *  icon rail. */
+  badge?: React.ReactNode
   /** Where the item links. Omit it for an action (`onSelect`) or for a
    *  parent that only opens its children. */
   href?: string
@@ -67,6 +72,9 @@ export type AppShellContextValue = {
   /** Open or collapse the sidebar without saving the choice, for layout
    *  changes the user didn't ask for (see useAutoCollapseSidebar). */
   setSidebarOpenTemporarily: (open: boolean) => void
+  /** The element the content scrolls in (the window doesn't scroll), for
+   *  scroll-to-top, scroll spies and the like. */
+  content: HTMLDivElement | null
 }
 
 const AppShellContext = React.createContext<AppShellContextValue | null>(null)
@@ -158,6 +166,8 @@ export function AppShell({
   panel,
   panelTitle,
   storageKey = "app",
+  collapsible = "icon",
+  beforeNav,
   children,
 }: {
   brand: React.ReactNode
@@ -180,12 +190,18 @@ export function AppShell({
   panel?: React.ReactNode
   panelTitle?: React.ReactNode
   storageKey?: string
+  /** `icon` collapses to an icon rail; `offcanvas` hides the sidebar, for
+   *  navs without icons. */
+  collapsible?: "icon" | "offcanvas"
+  /** Above the nav, hidden in the icon rail: e.g. a filter for the nav. */
+  beforeNav?: React.ReactNode
   children: React.ReactNode
 }) {
   const key = STORAGE_PREFIX + storageKey
   const [open, setOpen] = React.useState(() => localStorage.getItem(key) !== "false")
   const [panelOpen, setPanelOpen] = React.useState(false)
   const sidebarWasOpen = React.useRef(open)
+  const [content, setContent] = React.useState<HTMLDivElement | null>(null)
 
   // Changes the user makes (toggle buttons, ⌘B) are saved; changes the shell
   // makes for the panel or a page aren't.
@@ -213,15 +229,16 @@ export function AppShell({
       closePanel,
       togglePanel: panelOpen ? closePanel : openPanel,
       setSidebarOpenTemporarily: setOpen,
+      content,
     }
-  }, [panelOpen, open])
+  }, [panelOpen, open, content])
 
   const active = currentHref(pathname, [...nav, { items: footerNav ?? [] }])
 
   return (
     <AppShellContext.Provider value={shell}>
       <SidebarProvider open={open} onOpenChange={onOpenChange} className="h-svh overflow-hidden">
-        <Sidebar collapsible="icon">
+        <Sidebar collapsible={collapsible}>
           <SidebarHeader className="h-14 flex-row items-center gap-2 border-b px-3 py-0 group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:px-0">
             <ShellBrand href={brandHref} renderLink={renderLink} collapsed={brandCollapsed}>
               {brand}
@@ -229,6 +246,11 @@ export function AppShell({
             <CollapseButton />
           </SidebarHeader>
           <SidebarContent className="overflow-x-hidden">
+            {beforeNav && (
+              <div className="border-b px-4 py-3 group-data-[collapsible=icon]:hidden">
+                {beforeNav}
+              </div>
+            )}
             {nav.map((group, index) => (
               <React.Fragment key={group.label ?? index}>
                 {index > 0 && <SidebarSeparator className="mx-0" />}
@@ -262,7 +284,9 @@ export function AppShell({
             <div className="flex min-w-0 flex-1 items-center gap-2">{header}</div>
             {actions && <div className="flex shrink-0 items-center gap-1">{actions}</div>}
           </header>
-          <div className="min-h-0 flex-1 overflow-y-auto">{children}</div>
+          <div ref={setContent} data-slot="app-shell-content" className="min-h-0 flex-1 overflow-y-auto">
+            {children}
+          </div>
         </SidebarInset>
         {panel && (
           <SidePanel open={panelOpen} title={panelTitle} onClose={shell.closePanel}>
@@ -368,6 +392,7 @@ function NavMenu({
         ) : (
           <SidebarMenuItem key={item.label}>
             <NavButton item={item} active={active} renderLink={renderLink} onNavigate={onNavigate} />
+            {item.badge && <SidebarMenuBadge>{item.badge}</SidebarMenuBadge>}
           </SidebarMenuItem>
         )
       )}
@@ -395,7 +420,7 @@ function NavButton({
   const shell = useAppShell()
   const content = (
     <>
-      <Icon />
+      {Icon && <Icon />}
       <span>{label}</span>
       {trailing}
     </>
@@ -481,7 +506,7 @@ function NavSection({
                       onClick: onNavigate,
                       children: (
                         <>
-                          <child.icon />
+                          {child.icon && <child.icon />}
                           <span>{child.label}</span>
                         </>
                       ),
@@ -495,7 +520,7 @@ function NavSection({
                       disabled={child.disabled}
                       onClick={() => child.onSelect?.(shell)}
                     >
-                      <child.icon />
+                      {child.icon && <child.icon />}
                       <span>{child.label}</span>
                     </button>
                   </SidebarMenuSubButton>
