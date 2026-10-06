@@ -18,7 +18,7 @@
           "font-sans": "'Public Sans Variable', system-ui, sans-serif"
         },
         "light": {
-          "background": "#e7e5e4",
+          "background": "#fafafa",
           "foreground": "#0f172a",
           "card": "#ffffff",
           "card-foreground": "#0f172a",
@@ -42,7 +42,7 @@
           "chart-4": "#0891b2",
           "chart-5": "#dc2626",
           "radius": "0.5rem",
-          "sidebar": "#ffffff",
+          "sidebar": "#fafafa",
           "sidebar-foreground": "#0f172a",
           "sidebar-primary": "#1d4ed8",
           "sidebar-primary-foreground": "#ffffff",

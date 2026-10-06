@@ -11,7 +11,7 @@
     /* OcotilloUI (NMBGMRDataManager) production palette — light.
        Tokens map MUI theme.ts to shadcn: tailwind blue/amber/red/orange/
        emerald/cyan + stone/slate neutrals. */
-    --background: #e7e5e4;        /* stone-200 (page) */
+    --background: #fafafa;        /* neutral-50 (page), as OcotilloUI */
     --foreground: #0f172a;        /* slate-900 */
     --card: #ffffff;              /* paper */
     --card-foreground: #0f172a;
@@ -89,7 +89,7 @@
 
     --radius: 0.5rem;
 
-    --sidebar: #ffffff;
+    --sidebar: #fafafa;           /* matches --background */
     --sidebar-foreground: #0f172a;
     --sidebar-primary: #1d4ed8;
     --sidebar-primary-foreground: #ffffff;

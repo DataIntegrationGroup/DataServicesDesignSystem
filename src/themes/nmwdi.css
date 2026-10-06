@@ -4,7 +4,7 @@
    Defines the whole token contract (see THEMING.md). */
 
 :root[data-theme="nmwdi"] {
-    --background: #e7e5e4; /* stone-200 (page) */
+    --background: #fafafa; /* neutral-50 (page), as OcotilloUI */
     --foreground: #0f172a; /* slate-900 */
     --card: #ffffff; /* paper */
     --card-foreground: #0f172a;
@@ -82,7 +82,7 @@
 
     --radius: 0.5rem;
 
-    --sidebar: #ffffff;
+    --sidebar: #fafafa; /* matches --background */
     --sidebar-foreground: #04323f;
     --sidebar-primary: #006d8b;
     --sidebar-primary-foreground: #ffffff;
