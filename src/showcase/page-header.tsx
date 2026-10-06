@@ -3,6 +3,7 @@ import { ArrowLeftIcon, ArrowRightIcon, ExternalLinkIcon } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 import { Badge } from "@/components/ui/badge"
+import { useAppShell } from "@/blocks/app-shell"
 import { CopyButton } from "@/showcase/code-block"
 import { SectionLink } from "@/showcase/demo-section"
 import {
@@ -102,6 +103,7 @@ type Section = { id: string; title: string }
 export function PageContent({ children }: { children?: React.ReactNode }) {
   const page = React.useContext(CurrentPageContext)
   const { section } = useRoute()
+  const { content } = useAppShell()
   const [sections, setSections] = React.useState<Section[]>([])
 
   // Demos render with the page, so their sections are in the DOM here.
@@ -117,8 +119,8 @@ export function PageContent({ children }: { children?: React.ReactNode }) {
 
   React.useEffect(() => {
     if (section) document.getElementById(section)?.scrollIntoView()
-    else window.scrollTo({ top: 0 })
-  }, [page, section])
+    else content?.scrollTo({ top: 0 })
+  }, [page, section, content])
 
   if (!page) throw new Error("PageContent must render inside the showcase app")
 
@@ -172,29 +174,33 @@ function PagerLink({
 
 /**
  * The page's sections, with the one being read highlighted: the last whose
- * heading has scrolled under the header. Short pages can't scroll their last
+ * heading has scrolled to the top of the content area (the app shell's
+ * scroll container). Short pages can't scroll their last
  * sections that far, so once the page is scrolled to the bottom the section
  * picked from this list (the one in the URL) stays highlighted if it's on
  * screen, and otherwise the last section is.
  */
 function OnThisPage({ sections }: { sections: Section[] }) {
   const { section } = useRoute()
+  const { content: container } = useAppShell()
   const [active, setActive] = React.useState<string>()
 
   React.useEffect(() => {
+    if (!container) return
     const update = () => {
+      const offset = container.getBoundingClientRect().top
       const tops = sections.map(({ id }) => ({
         id,
-        top: document.getElementById(id)?.getBoundingClientRect().top ?? Infinity,
+        top: (document.getElementById(id)?.getBoundingClientRect().top ?? Infinity) - offset,
       }))
       const atBottom =
-        window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2
+        container.scrollTop + container.clientHeight >= container.scrollHeight - 2
       const picked = tops.find((t) => t.id === section)
       if (atBottom) {
-        const onScreen = picked && picked.top >= 0 && picked.top < window.innerHeight
+        const onScreen = picked && picked.top >= 0 && picked.top < container.clientHeight
         setActive(onScreen ? picked.id : tops.at(-1)?.id)
       } else {
-        setActive((tops.findLast((t) => t.top <= 120) ?? tops[0])?.id)
+        setActive((tops.findLast((t) => t.top <= 64) ?? tops[0])?.id)
       }
     }
     let frame = requestAnimationFrame(update)
@@ -202,18 +208,18 @@ function OnThisPage({ sections }: { sections: Section[] }) {
       cancelAnimationFrame(frame)
       frame = requestAnimationFrame(update)
     }
-    window.addEventListener("scroll", onScroll, { passive: true })
+    container.addEventListener("scroll", onScroll, { passive: true })
     window.addEventListener("resize", onScroll)
     return () => {
       cancelAnimationFrame(frame)
-      window.removeEventListener("scroll", onScroll)
+      container.removeEventListener("scroll", onScroll)
       window.removeEventListener("resize", onScroll)
     }
-  }, [sections, section])
+  }, [sections, section, container])
 
   return (
     <nav aria-label="On this page" className="hidden xl:block">
-      <div className="sticky top-24 space-y-2 text-sm">
+      <div className="sticky top-10 space-y-2 text-sm">
         <div className="font-medium">On this page</div>
         <ul className="space-y-1.5 border-l">
           {sections.map(({ id, title }) => (

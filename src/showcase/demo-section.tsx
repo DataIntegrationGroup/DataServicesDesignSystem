@@ -53,7 +53,7 @@ export function DemoSection({
 }) {
   const id = sectionId(title)
   return (
-    <section id={id} data-demo={name} data-section={title} className="scroll-mt-20 space-y-3">
+    <section id={id} data-demo={name} data-section={title} className="scroll-mt-6 space-y-3">
       <div className="flex flex-wrap items-end justify-between gap-x-4 gap-y-2">
         <div className="space-y-1">
           <h2 className="group/heading !text-xl !leading-snug">
