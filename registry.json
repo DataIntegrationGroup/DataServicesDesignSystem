@@ -569,14 +569,14 @@
       "files": [{ "path": "src/blocks/app-shell.tsx", "type": "registry:component" }]
     },
     {
-      "name": "site-header",
+      "name": "top-nav",
       "type": "registry:block",
-      "title": "Site Header",
-      "description": "Site-wide header for content pages: NavBar aligned to Container size=\"wide\", with the links in a menu sheet below the md breakpoint.",
+      "title": "Top Nav",
+      "description": "Navigation bar for content sites (use app-shell for tool-style apps): brand on the left, links on the right, aligned to Container size=\"wide\". Below the md breakpoint the links move into a menu sheet.",
       "dependencies": ["lucide-react"],
       "registryDependencies": ["@dataservices/navbar", "@dataservices/sheet", "@dataservices/button"],
       "files": [
-        { "path": "src/blocks/site-header.tsx", "type": "registry:component" }
+        { "path": "src/blocks/top-nav.tsx", "type": "registry:component" }
       ]
     },
     {

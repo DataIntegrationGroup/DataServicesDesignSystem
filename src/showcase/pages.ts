@@ -64,11 +64,11 @@ export const PAGES: ShowcasePage[] = [
     component: page(() => import("./pages/app-shell")),
   },
   {
-    slug: "site-header",
-    title: "Site header",
+    slug: "top-nav",
+    title: "Top nav",
     group: "Blocks",
-    registry: ["site-header"],
-    component: page(() => import("./pages/site-header")),
+    registry: ["top-nav"],
+    component: page(() => import("./pages/top-nav")),
   },
   {
     slug: "hero",

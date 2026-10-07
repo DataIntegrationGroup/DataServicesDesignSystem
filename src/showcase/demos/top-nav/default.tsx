@@ -1,37 +1,31 @@
 import { NavBarBrand, NavBarLink } from "@/components/ui/navbar"
-import { Button } from "@/components/ui/button"
 import { Container } from "@/components/ui/page"
-import { SiteHeader } from "@/blocks/site-header"
+import { TopNav } from "@/blocks/top-nav"
 
-export default function SiteHeaderDemo() {
+export default function TopNavDemo() {
   return (
     <div>
-      <SiteHeader
+      <TopNav
         brand={
           <NavBarBrand asChild>
-            <a href="#/site-header">Weaver</a>
+            <a href="#/top-nav">Weaver</a>
           </NavBarBrand>
         }
-        actions={
-          <Button size="sm" variant="outline">
-            Sign in
-          </Button>
-        }
       >
-        <NavBarLink href="#/site-header" size="lg" active>
+        <NavBarLink href="#/top-nav" size="lg" active>
           Datasets
         </NavBarLink>
-        <NavBarLink href="#/site-header" size="lg">
+        <NavBarLink href="#/top-nav" size="lg">
           Map
         </NavBarLink>
-        <NavBarLink href="#/site-header" size="lg">
+        <NavBarLink href="#/top-nav" size="lg">
           About
         </NavBarLink>
-      </SiteHeader>
+      </TopNav>
       <Container size="wide" className="space-y-2 py-10">
         <h2 className="!text-3xl">Datasets</h2>
         <p className="text-muted-foreground">
-          The header lines up with Container size="wide". Below the md
+          The bar lines up with Container size="wide". Below the md
           breakpoint, the links move into the menu.
         </p>
       </Container>

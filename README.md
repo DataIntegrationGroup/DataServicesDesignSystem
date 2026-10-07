@@ -82,7 +82,7 @@ Each item carries its own npm dependencies (e.g. `map` → `react-map-gl`,
 | `stat-band`      | ui        | `StatBand` + `Stat` big-number KPI row                        |
 | `detail-list`    | ui        | `DetailSection` + `DetailList` / `DetailItem` label/value rows |
 | `app-shell`      | block     | Sidebar (icon rail) + top bar + scrolling content + side panel |
-| `site-header`    | block     | NavBar on the wide column, with a menu sheet on phones        |
+| `top-nav`        | block     | Content-site nav bar: brand left, links right, menu on phones |
 | `hero`           | block     | Landing hero: eyebrow, display title, tagline, actions        |
 | `detail-card`    | block     | Record detail card (well, dataset) with a loading state       |
 | `button`         | ui        | Upstream button + `size="xl"`, `variant="inverse"`            |
