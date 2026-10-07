@@ -6,8 +6,8 @@ import { Example } from "@/showcase/example"
 export default function ToggleGroupDemo() {
   return (
     <div className="flex flex-wrap items-end gap-x-6 gap-y-4">
-      <Example label='type="multiple" variant="outline"'>
-        <ToggleGroup type="multiple" variant="outline" defaultValue={["bold"]}>
+      <Example label='type="multiple" variant="outline" spacing={0}'>
+        <ToggleGroup type="multiple" variant="outline" spacing={0} defaultValue={["bold"]}>
           <ToggleGroupItem value="bold" aria-label="Bold">
             <BoldIcon />
           </ToggleGroupItem>
@@ -26,8 +26,8 @@ export default function ToggleGroupDemo() {
           <ToggleGroupItem value="chart">Chart</ToggleGroupItem>
         </ToggleGroup>
       </Example>
-      <Example label='type="single" variant="outline" size="sm"'>
-        <ToggleGroup type="single" variant="outline" size="sm" defaultValue="day">
+      <Example label='type="single" variant="outline" size="sm" spacing={0}'>
+        <ToggleGroup type="single" variant="outline" size="sm" spacing={0} defaultValue="day">
           <ToggleGroupItem value="day">Day</ToggleGroupItem>
           <ToggleGroupItem value="week">Week</ToggleGroupItem>
           <ToggleGroupItem value="month">Month</ToggleGroupItem>

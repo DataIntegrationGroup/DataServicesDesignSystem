@@ -93,6 +93,7 @@ export function BlockDemo({
           <ToggleGroup
             type="single"
             variant="outline"
+            spacing={0}
             size="sm"
             value={width}
             onValueChange={(value) => value && setWidth(value as Width)}
