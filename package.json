@@ -10,6 +10,7 @@
     "lint": "eslint . && pnpm check:themes && pnpm check:showcase",
     "check:themes": "node scripts/check-themes.mjs",
     "check:showcase": "node --disable-warning=ExperimentalWarning scripts/check-showcase.ts",
+    "check:upstream": "node scripts/check-upstream.mjs",
     "preview": "vite preview",
     "registry:build": "shadcn build"
   },

@@ -92,11 +92,12 @@ Each item carries its own npm dependencies (e.g. `map` → `react-map-gl`,
 | `card`           | ui        | Upstream card + `asChild` and `interactive` (whole-card link) |
 | `accordion`      | ui        | Upstream accordion + `AccordionTrigger variant="plain"`       |
 
-Where the DS publishes an upstream primitive with added variants (button,
-badge, alert, tabs, card, accordion, input-group, …), install it from
-`@dataservices` so you get the variants; DS items depend on those versions.
-Other shadcn primitives (dialog, table, …) come from the upstream registry —
-install those the normal way.
+Install every component from `@dataservices`, including the shadcn
+primitives the DS hasn't changed (dialog, table, …). The registry publishes
+the copies this repo shows and tests, so they match the DS components and
+each other whatever style an app's `components.json` uses, and DS items
+depend only on `@dataservices` items. `pnpm check:upstream` lists the
+unchanged ones that have since changed upstream.
 
 ## Develop
 
