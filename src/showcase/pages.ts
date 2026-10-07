@@ -19,7 +19,7 @@ export type ShowcasePage = {
   origin?: Origin
   /** DS registry items this page documents; the first is the install target. */
   registry?: string[]
-  /** Upstream shadcn component name, for the docs link and plain install. */
+  /** Upstream shadcn component name, for the docs link. */
   upstream?: string
   /** For pages without a registry item (or to override its description). */
   description?: string
@@ -121,6 +121,7 @@ export const PAGES: ShowcasePage[] = [
     title: "Avatar",
     group: "Components",
     origin: "shadcn",
+    registry: ["avatar"],
     upstream: "avatar",
     description: "An image with a fallback for a user or organization, plus badges and groups.",
     component: page(() => import("./pages/avatar")),
@@ -179,9 +180,20 @@ export const PAGES: ShowcasePage[] = [
     title: "Checkbox",
     group: "Components",
     origin: "shadcn",
+    registry: ["checkbox"],
     upstream: "checkbox",
     description: "A control for toggling an option on and off.",
     component: page(() => import("./pages/checkbox")),
+  },
+  {
+    slug: "collapsible",
+    title: "Collapsible",
+    group: "Components",
+    origin: "shadcn",
+    registry: ["collapsible"],
+    upstream: "collapsible",
+    description: "Show and hide a section with a trigger.",
+    component: page(() => import("./pages/collapsible")),
   },
   {
     slug: "combobox",
@@ -221,6 +233,7 @@ export const PAGES: ShowcasePage[] = [
     title: "Dialog",
     group: "Components",
     origin: "shadcn",
+    registry: ["dialog"],
     upstream: "dialog",
     description: "A modal window over the page, for focused tasks like renaming or confirming.",
     component: page(() => import("./pages/dialog")),
@@ -230,6 +243,7 @@ export const PAGES: ShowcasePage[] = [
     title: "Dropdown menu",
     group: "Components",
     origin: "shadcn",
+    registry: ["dropdown-menu"],
     upstream: "dropdown-menu",
     description: "A menu of actions or options opened from a button.",
     component: page(() => import("./pages/dropdown-menu")),
@@ -264,6 +278,7 @@ export const PAGES: ShowcasePage[] = [
     title: "Input",
     group: "Components",
     origin: "shadcn",
+    registry: ["input", "textarea"],
     upstream: "input",
     description: "A single-line text field, plus Textarea for longer text.",
     component: page(() => import("./pages/input")),
@@ -290,6 +305,16 @@ export const PAGES: ShowcasePage[] = [
     registry: ["kbd"],
     upstream: "kbd",
     component: page(() => import("./pages/kbd")),
+  },
+  {
+    slug: "label",
+    title: "Label",
+    group: "Components",
+    origin: "shadcn",
+    registry: ["label"],
+    upstream: "label",
+    description: "A caption for a form control; clicking it focuses the control.",
+    component: page(() => import("./pages/label")),
   },
   {
     slug: "mode-toggle",
@@ -328,6 +353,7 @@ export const PAGES: ShowcasePage[] = [
     title: "Popover",
     group: "Components",
     origin: "shadcn",
+    registry: ["popover"],
     upstream: "popover",
     description: "Rich content in a floating panel, opened from a trigger.",
     component: page(() => import("./pages/popover")),
@@ -337,6 +363,7 @@ export const PAGES: ShowcasePage[] = [
     title: "Progress",
     group: "Components",
     origin: "shadcn",
+    registry: ["progress"],
     upstream: "progress",
     description: "A bar showing how far a task has got.",
     component: page(() => import("./pages/progress")),
@@ -364,9 +391,20 @@ export const PAGES: ShowcasePage[] = [
     title: "Select",
     group: "Components",
     origin: "shadcn",
+    registry: ["select"],
     upstream: "select",
     description: "A list of options to pick one from, opened from a button.",
     component: page(() => import("./pages/select")),
+  },
+  {
+    slug: "separator",
+    title: "Separator",
+    group: "Components",
+    origin: "shadcn",
+    registry: ["separator"],
+    upstream: "separator",
+    description: "A thin rule between content, horizontal or vertical.",
+    component: page(() => import("./pages/separator")),
   },
   {
     slug: "sheet",
@@ -391,6 +429,7 @@ export const PAGES: ShowcasePage[] = [
     title: "Skeleton",
     group: "Components",
     origin: "shadcn",
+    registry: ["skeleton"],
     upstream: "skeleton",
     description: "A placeholder shape shown while content loads.",
     component: page(() => import("./pages/skeleton")),
@@ -400,6 +439,7 @@ export const PAGES: ShowcasePage[] = [
     title: "Slider",
     group: "Components",
     origin: "shadcn",
+    registry: ["slider"],
     upstream: "slider",
     description: "Pick a value or range by dragging along a track.",
     component: page(() => import("./pages/slider")),
@@ -446,9 +486,11 @@ export const PAGES: ShowcasePage[] = [
     slug: "toast",
     title: "Toast",
     group: "Components",
-    origin: "shadcn",
+    origin: "extended",
+    registry: ["sonner"],
     upstream: "sonner",
     description: "Brief notifications (Sonner). Mount <Toaster /> once, then call toast() anywhere.",
+    additions: ["Reads light or dark from the DS ThemeProvider instead of next-themes"],
     component: page(() => import("./pages/toast")),
   },
   {
@@ -465,6 +507,7 @@ export const PAGES: ShowcasePage[] = [
     title: "Tooltip",
     group: "Components",
     origin: "shadcn",
+    registry: ["tooltip"],
     upstream: "tooltip",
     description: "A short label shown on hover or focus.",
     component: page(() => import("./pages/tooltip")),
@@ -501,6 +544,7 @@ export const PAGES: ShowcasePage[] = [
     title: "Table",
     group: "Data & maps",
     origin: "shadcn",
+    registry: ["table"],
     upstream: "table",
     description: "A plain, static table for small sets of rows.",
     component: page(() => import("./pages/table")),
@@ -575,10 +619,11 @@ export function pageDescription(page: ShowcasePage) {
   return page.description ?? (page.registry ? REGISTRY_DESCRIPTIONS[page.registry[0]] : "")
 }
 
-/** The install command for the page's component. */
+/** The install command for the page's component. Everything installs
+ *  through @dataservices, unchanged upstream components included, so apps
+ *  get the copies shown here (scripts/check-showcase.ts enforces it). */
 export function installCommand(page: ShowcasePage) {
   if (page.registry) return `pnpm dlx shadcn@latest add @dataservices/${page.registry[0]}`
-  if (page.upstream) return `pnpm dlx shadcn@latest add ${page.upstream}`
   return undefined
 }
 

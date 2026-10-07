@@ -10,7 +10,7 @@
     "@dataservices/sidebar",
     "@dataservices/button",
     "@dataservices/kbd",
-    "collapsible"
+    "@dataservices/collapsible"
   ],
   "files": [
     {

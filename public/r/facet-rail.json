@@ -8,8 +8,8 @@
   ],
   "registryDependencies": [
     "@dataservices/accordion",
-    "checkbox",
-    "label"
+    "@dataservices/checkbox",
+    "@dataservices/label"
   ],
   "files": [
     {

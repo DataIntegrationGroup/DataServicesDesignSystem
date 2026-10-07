@@ -7,10 +7,10 @@
     "lucide-react"
   ],
   "registryDependencies": [
-    "switch",
-    "input",
-    "label",
-    "tooltip"
+    "@dataservices/switch",
+    "@dataservices/input",
+    "@dataservices/label",
+    "@dataservices/tooltip"
   ],
   "files": [
     {

@@ -44,8 +44,7 @@ export default function IntroductionPage() {
           <dt><OriginBadge origin="extended" /></dt>
           <dd className="text-muted-foreground">
             Upstream shadcn/ui with variants the DS adds, e.g. Button's{" "}
-            <code>xl</code> size. Install these from <code>@dataservices</code>{" "}
-            to get the variants.
+            <code>xl</code> size.
           </dd>
           <dt><OriginBadge origin="shadcn" /></dt>
           <dd className="text-muted-foreground">
@@ -53,6 +52,10 @@ export default function IntroductionPage() {
             cover their full API.
           </dd>
         </dl>
+        <p className="max-w-3xl text-muted-foreground">
+          Install all of them from <code>@dataservices</code>, as each page
+          shows, so you get the copies tested here.
+        </p>
       </section>
     </PageContent>
   )

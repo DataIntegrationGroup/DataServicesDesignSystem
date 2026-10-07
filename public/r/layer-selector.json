@@ -7,11 +7,11 @@
     "lucide-react"
   ],
   "registryDependencies": [
-    "switch",
-    "slider",
-    "input",
-    "tooltip",
-    "popover"
+    "@dataservices/switch",
+    "@dataservices/slider",
+    "@dataservices/input",
+    "@dataservices/tooltip",
+    "@dataservices/popover"
   ],
   "files": [
     {

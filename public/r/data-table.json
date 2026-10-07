@@ -8,10 +8,10 @@
     "lucide-react"
   ],
   "registryDependencies": [
-    "table",
-    "button",
-    "input",
-    "dropdown-menu"
+    "@dataservices/table",
+    "@dataservices/button",
+    "@dataservices/input",
+    "@dataservices/dropdown-menu"
   ],
   "files": [
     {

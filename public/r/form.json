@@ -10,7 +10,7 @@
     "radix-ui"
   ],
   "registryDependencies": [
-    "label"
+    "@dataservices/label"
   ],
   "files": [
     {

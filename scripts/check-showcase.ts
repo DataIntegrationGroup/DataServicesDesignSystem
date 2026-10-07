@@ -1,5 +1,8 @@
 // Showcase coverage check, run by `pnpm lint`:
 // - every registry item is documented by a showcase page (src/showcase/pages.ts),
+// - every component installs through @dataservices: each page with a
+//   component names its registry item, and registry dependencies are
+//   @dataservices items rather than upstream shadcn ones,
 // - every page file exists, component pages have demos, every <Demo name>
 //   they use exists, and demo titles are unique on a page (they're anchors),
 // - every demo file is used by some page,
@@ -27,9 +30,22 @@ const FOUNDATION_ITEMS = new Set([
 const problems: string[] = []
 
 const registry = JSON.parse(readFileSync(join(root, "registry.json"), "utf8")) as {
-  items: { name: string }[]
+  items: { name: string; registryDependencies?: string[] }[]
 }
 const pagesSource = readFileSync(join(showcase, "pages.ts"), "utf8")
+
+for (const { name, registryDependencies = [] } of registry.items) {
+  for (const dep of registryDependencies) {
+    if (!dep.startsWith("@dataservices/")) {
+      problems.push(`registry item "${name}" depends on upstream "${dep}" (use "@dataservices/${dep}")`)
+    }
+  }
+}
+for (const [, slug, body] of pagesSource.matchAll(/\{\s*slug: "([^"]+)",([\s\S]*?)\n {2}\}/g)) {
+  if (body.includes("upstream:") && !body.includes("registry:")) {
+    problems.push(`page "${slug}" would install from upstream shadcn (give it a registry item)`)
+  }
+}
 
 const documented = new Set(
   [...pagesSource.matchAll(/registry: \[([^\]]*)\]/g)].flatMap((m) =>

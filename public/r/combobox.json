@@ -8,7 +8,7 @@
   ],
   "registryDependencies": [
     "@dataservices/button",
-    "popover",
+    "@dataservices/popover",
     "@dataservices/command"
   ],
   "files": [

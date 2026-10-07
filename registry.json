@@ -177,7 +177,7 @@
       "title": "Data Table",
       "description": "Generic client-side table over @tanstack/react-table — sortable headers (DataTableColumnHeader), column filter, column visibility, and pagination built in.",
       "dependencies": ["@tanstack/react-table", "lucide-react"],
-      "registryDependencies": ["table", "button", "input", "dropdown-menu"],
+      "registryDependencies": ["@dataservices/table", "@dataservices/button", "@dataservices/input", "@dataservices/dropdown-menu"],
       "files": [
         {
           "path": "src/components/ui/data-table.tsx",
@@ -258,7 +258,7 @@
       "title": "Form",
       "description": "react-hook-form + zod form primitives: Form, FormField, FormItem, FormLabel, FormControl, FormDescription, FormMessage, useFormField. Accessible labels, descriptions, and validation messages wired automatically.",
       "dependencies": ["react-hook-form", "@hookform/resolvers", "zod", "radix-ui"],
-      "registryDependencies": ["label"],
+      "registryDependencies": ["@dataservices/label"],
       "files": [
         { "path": "src/components/ui/form.tsx", "type": "registry:ui" }
       ]
@@ -279,7 +279,7 @@
       "title": "Combobox",
       "description": "Searchable single-select built on Popover + Command. Scales to long option lists where a plain Select doesn't.",
       "dependencies": ["lucide-react"],
-      "registryDependencies": ["@dataservices/button", "popover", "@dataservices/command"],
+      "registryDependencies": ["@dataservices/button", "@dataservices/popover", "@dataservices/command"],
       "files": [
         { "path": "src/components/ui/combobox.tsx", "type": "registry:ui" }
       ]
@@ -381,7 +381,7 @@
       "type": "registry:ui",
       "title": "Input Group",
       "description": "Input or textarea with addons, buttons and text (upstream shadcn input-group). Adds size=\"lg\" (taller row, 18px text, larger icons) and variant=\"prominent\" (primary border, card fill, wider focus ring) for hero and page search.",
-      "registryDependencies": ["@dataservices/button", "input", "textarea"],
+      "registryDependencies": ["@dataservices/button", "@dataservices/input", "@dataservices/textarea"],
       "files": [
         { "path": "src/components/ui/input-group.tsx", "type": "registry:ui" }
       ]
@@ -459,15 +459,7 @@
       "title": "Sidebar",
       "description": "Collapsible app sidebar (offcanvas/icon), with provider, keyboard shortcut, cookie-persisted state, mobile Sheet fallback, and a full set of menu/group primitives. Themed via the OcotilloUI --sidebar tokens.",
       "dependencies": ["radix-ui", "lucide-react"],
-      "registryDependencies": [
-        "@dataservices/button",
-        "input",
-        "separator",
-        "skeleton",
-        "tooltip",
-        "@dataservices/sheet",
-        "@dataservices/use-mobile"
-      ],
+      "registryDependencies": ["@dataservices/button", "@dataservices/input", "@dataservices/separator", "@dataservices/skeleton", "@dataservices/tooltip", "@dataservices/sheet", "@dataservices/use-mobile"],
       "files": [
         { "path": "src/components/ui/sidebar.tsx", "type": "registry:ui" }
       ]
@@ -489,7 +481,7 @@
       "title": "Date Picker",
       "description": "DatePicker (single) and DateRangePicker (start/end) built on Popover + Calendar, with date-fns formatting.",
       "dependencies": ["date-fns", "react-day-picker", "lucide-react"],
-      "registryDependencies": ["@dataservices/button", "popover", "@dataservices/calendar"],
+      "registryDependencies": ["@dataservices/button", "@dataservices/popover", "@dataservices/calendar"],
       "files": [
         { "path": "src/components/ui/date-picker.tsx", "type": "registry:ui" }
       ]
@@ -536,7 +528,7 @@
       "title": "Facet Rail",
       "description": "FacetCheckboxes (fieldset checkbox list with result counts) and FacetRail (card of collapsible facets with \"N selected\" in each trigger).",
       "dependencies": ["radix-ui"],
-      "registryDependencies": ["@dataservices/accordion", "checkbox", "label"],
+      "registryDependencies": ["@dataservices/accordion", "@dataservices/checkbox", "@dataservices/label"],
       "files": [
         { "path": "src/components/ui/facet-rail.tsx", "type": "registry:ui" }
       ]
@@ -560,12 +552,146 @@
       ]
     },
     {
+      "name": "avatar",
+      "type": "registry:ui",
+      "title": "Avatar",
+      "description": "Upstream shadcn avatar: an image with a fallback, plus badges and groups.",
+      "dependencies": ["radix-ui"],
+      "files": [{ "path": "src/components/ui/avatar.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "checkbox",
+      "type": "registry:ui",
+      "title": "Checkbox",
+      "description": "Upstream shadcn checkbox (Radix Checkbox).",
+      "dependencies": ["radix-ui", "lucide-react"],
+      "files": [{ "path": "src/components/ui/checkbox.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "collapsible",
+      "type": "registry:ui",
+      "title": "Collapsible",
+      "description": "Upstream shadcn collapsible (Radix Collapsible): show and hide a section.",
+      "dependencies": ["radix-ui"],
+      "files": [{ "path": "src/components/ui/collapsible.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "dialog",
+      "type": "registry:ui",
+      "title": "Dialog",
+      "description": "Upstream shadcn dialog (Radix Dialog): a modal window over the page.",
+      "dependencies": ["radix-ui", "lucide-react"],
+      "registryDependencies": ["@dataservices/button"],
+      "files": [{ "path": "src/components/ui/dialog.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "dropdown-menu",
+      "type": "registry:ui",
+      "title": "Dropdown Menu",
+      "description": "Upstream shadcn dropdown menu (Radix DropdownMenu).",
+      "dependencies": ["radix-ui", "lucide-react"],
+      "files": [{ "path": "src/components/ui/dropdown-menu.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "input",
+      "type": "registry:ui",
+      "title": "Input",
+      "description": "Upstream shadcn input: a single-line text field.",
+      "files": [{ "path": "src/components/ui/input.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "label",
+      "type": "registry:ui",
+      "title": "Label",
+      "description": "Upstream shadcn label (Radix Label) for form controls.",
+      "dependencies": ["radix-ui"],
+      "files": [{ "path": "src/components/ui/label.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "popover",
+      "type": "registry:ui",
+      "title": "Popover",
+      "description": "Upstream shadcn popover (Radix Popover): rich content in a floating panel.",
+      "dependencies": ["radix-ui"],
+      "files": [{ "path": "src/components/ui/popover.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "progress",
+      "type": "registry:ui",
+      "title": "Progress",
+      "description": "Upstream shadcn progress bar (Radix Progress).",
+      "dependencies": ["radix-ui"],
+      "files": [{ "path": "src/components/ui/progress.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "select",
+      "type": "registry:ui",
+      "title": "Select",
+      "description": "Upstream shadcn select (Radix Select): pick one option from a list.",
+      "dependencies": ["radix-ui", "lucide-react"],
+      "files": [{ "path": "src/components/ui/select.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "separator",
+      "type": "registry:ui",
+      "title": "Separator",
+      "description": "Upstream shadcn separator (Radix Separator): a horizontal or vertical rule.",
+      "dependencies": ["radix-ui"],
+      "files": [{ "path": "src/components/ui/separator.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "skeleton",
+      "type": "registry:ui",
+      "title": "Skeleton",
+      "description": "Upstream shadcn skeleton: a placeholder shape while content loads.",
+      "files": [{ "path": "src/components/ui/skeleton.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "slider",
+      "type": "registry:ui",
+      "title": "Slider",
+      "description": "Upstream shadcn slider (Radix Slider): pick a value or range.",
+      "dependencies": ["radix-ui"],
+      "files": [{ "path": "src/components/ui/slider.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "sonner",
+      "type": "registry:ui",
+      "title": "Sonner",
+      "description": "Toasts (Sonner). Upstream shadcn sonner, reading the mode from the DS ThemeProvider instead of next-themes.",
+      "dependencies": ["sonner", "lucide-react"],
+      "registryDependencies": ["@dataservices/theme-provider"],
+      "files": [{ "path": "src/components/ui/sonner.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "table",
+      "type": "registry:ui",
+      "title": "Table",
+      "description": "Upstream shadcn table: a plain, static table.",
+      "files": [{ "path": "src/components/ui/table.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "textarea",
+      "type": "registry:ui",
+      "title": "Textarea",
+      "description": "Upstream shadcn textarea: a multi-line text field.",
+      "files": [{ "path": "src/components/ui/textarea.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "tooltip",
+      "type": "registry:ui",
+      "title": "Tooltip",
+      "description": "Upstream shadcn tooltip (Radix Tooltip): a short label on hover or focus.",
+      "dependencies": ["radix-ui"],
+      "files": [{ "path": "src/components/ui/tooltip.tsx", "type": "registry:ui" }]
+    },
+    {
       "name": "app-shell",
       "type": "registry:block",
       "title": "App Shell",
       "description": "Frame for tool-style apps: a sidebar that collapses to an icon rail (with nested sections, actions and a footer), a top bar, a content area that scrolls on its own, and a resizable side panel. Router-agnostic; becomes a menu sheet below the md breakpoint.",
       "dependencies": ["lucide-react"],
-      "registryDependencies": ["@dataservices/sidebar", "@dataservices/button", "@dataservices/kbd", "collapsible"],
+      "registryDependencies": ["@dataservices/sidebar", "@dataservices/button", "@dataservices/kbd", "@dataservices/collapsible"],
       "files": [{ "path": "src/blocks/app-shell.tsx", "type": "registry:component" }]
     },
     {
@@ -595,7 +721,7 @@
       "title": "Detail Card",
       "description": "Record detail panel (a well, a dataset): icon title, description and badge, DetailSections in the body, one action, and a loading state.",
       "dependencies": ["lucide-react"],
-      "registryDependencies": ["@dataservices/card", "@dataservices/badge", "@dataservices/detail-list", "skeleton"],
+      "registryDependencies": ["@dataservices/card", "@dataservices/badge", "@dataservices/detail-list", "@dataservices/skeleton"],
       "files": [
         { "path": "src/blocks/detail-card.tsx", "type": "registry:component" }
       ]
@@ -619,7 +745,7 @@
       "title": "Layer Selector",
       "description": "Checkable list of map layers, each with a legend swatch, opacity slider, and a settings popover for attribute filters, categorical facet chips, no-data and clustering toggles, and color overrides. Presentational — the consumer owns the catalog and visibility state. Exports LayerSelector and PointSwatch.",
       "dependencies": ["lucide-react"],
-      "registryDependencies": ["switch", "slider", "input", "tooltip", "popover"],
+      "registryDependencies": ["@dataservices/switch", "@dataservices/slider", "@dataservices/input", "@dataservices/tooltip", "@dataservices/popover"],
       "files": [
         {
           "path": "src/components/ui/layer-selector.tsx",
@@ -645,7 +771,7 @@
       "title": "Filter Controls",
       "description": "Filter-to-map-extent switch plus a debounced text attribute filter (commits ~250ms after typing stops), with an info tooltip. Controlled via bbox/q props and onBboxChange/onQueryChange callbacks.",
       "dependencies": ["lucide-react"],
-      "registryDependencies": ["switch", "input", "label", "tooltip"],
+      "registryDependencies": ["@dataservices/switch", "@dataservices/input", "@dataservices/label", "@dataservices/tooltip"],
       "files": [
         {
           "path": "src/components/ui/filter-controls.tsx",

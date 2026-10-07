@@ -10,7 +10,7 @@
     "@dataservices/card",
     "@dataservices/badge",
     "@dataservices/detail-list",
-    "skeleton"
+    "@dataservices/skeleton"
   ],
   "files": [
     {

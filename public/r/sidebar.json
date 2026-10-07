@@ -9,10 +9,10 @@
   ],
   "registryDependencies": [
     "@dataservices/button",
-    "input",
-    "separator",
-    "skeleton",
-    "tooltip",
+    "@dataservices/input",
+    "@dataservices/separator",
+    "@dataservices/skeleton",
+    "@dataservices/tooltip",
     "@dataservices/sheet",
     "@dataservices/use-mobile"
   ],
