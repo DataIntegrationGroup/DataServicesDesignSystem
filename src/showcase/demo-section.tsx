@@ -35,8 +35,9 @@ export function SectionLink({
 }
 
 /**
- * One example on a page: a linkable h2 (listed under "On this page"), an
- * optional description, actions such as the Code toggle, and the preview.
+ * One example or topic on a page: a linkable h2 (listed under "On this
+ * page"), an optional description, actions such as the Code toggle, and the
+ * content. `name` is the demo shown, if any.
  */
 export function DemoSection({
   name,
@@ -45,7 +46,7 @@ export function DemoSection({
   actions,
   children,
 }: {
-  name: string
+  name?: string
   title: string
   description?: React.ReactNode
   actions?: React.ReactNode
