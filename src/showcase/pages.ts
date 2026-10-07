@@ -44,7 +44,7 @@ export const PAGES: ShowcasePage[] = [
     slug: "colors",
     title: "Colors",
     group: "Foundations",
-    description: "Every color token in the theme contract, for the active theme and mode. See THEMING.md.",
+    description: "Every color token in the theme contract, for the active theme and mode. Switch themes with the dropdown in the top right, and light or dark mode with the button next to it. See THEMING.md.",
     component: page(() => import("./pages/colors")),
   },
   {
