@@ -21,5 +21,11 @@ export async function highlight(code: string, lang: CodeLang = "tsx") {
     lang: lang === "bash" ? "shellscript" : lang,
     themes: { light: "github-light", dark: "github-dark" },
     defaultColor: "light",
+    // GitHub's comment gray is just under 4.5:1 on the code block's
+    // background, light and dark.
+    colorReplacements: {
+      "github-light": { "#6a737d": "#5f6670" },
+      "github-dark": { "#6a737d": "#959da5" },
+    },
   })
 }

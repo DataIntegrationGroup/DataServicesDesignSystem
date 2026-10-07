@@ -36,7 +36,7 @@ function Specimen({
       label={
         <>
           {label}
-          {measured && <span className="opacity-70"> · {measured}</span>}
+          {measured && <span> · {measured}</span>}
         </>
       }
       className="items-stretch"

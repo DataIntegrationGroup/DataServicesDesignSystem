@@ -17,7 +17,7 @@ pnpm dlx shadcn@latest add @dataservices/button --overwrite`
 
 const REPO = "https://github.com/DataIntegrationGroup/DataServicesDesignSystem"
 
-const LINK = "text-primary underline-offset-4 hover:underline"
+const LINK = "text-primary underline underline-offset-4"
 
 export default function IntroductionPage() {
   return (
