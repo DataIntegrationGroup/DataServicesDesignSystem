@@ -10,7 +10,7 @@ import registry from "../../registry.json"
  */
 export type Origin = "ds" | "extended" | "shadcn"
 
-export type PageGroup = "Foundations" | "Built by Data Services" | "Components"
+export type PageGroup = "Foundations" | "Custom" | "Core"
 
 export type ShowcasePage = {
   slug: string
@@ -55,39 +55,39 @@ export const PAGES: ShowcasePage[] = [
     component: page(() => import("./pages/typography")),
   },
 
-  // Built by Data Services: blocks, then components A–Z
+  // Custom: blocks, then components built for our apps, A–Z
   {
     slug: "app-shell",
     title: "App shell",
-    group: "Built by Data Services",
+    group: "Custom",
     registry: ["app-shell"],
     component: page(() => import("./pages/app-shell")),
   },
   {
     slug: "top-nav",
     title: "Top nav",
-    group: "Built by Data Services",
+    group: "Custom",
     registry: ["top-nav"],
     component: page(() => import("./pages/top-nav")),
   },
   {
     slug: "hero",
     title: "Hero",
-    group: "Built by Data Services",
+    group: "Custom",
     registry: ["hero"],
     component: page(() => import("./pages/hero")),
   },
   {
     slug: "detail-card",
     title: "Detail card",
-    group: "Built by Data Services",
+    group: "Custom",
     registry: ["detail-card"],
     component: page(() => import("./pages/detail-card")),
   },
   {
     slug: "basemap-selector",
     title: "Basemap selector",
-    group: "Built by Data Services",
+    group: "Custom",
     origin: "ds",
     registry: ["basemap-selector"],
     component: page(() => import("./pages/basemap-selector")),
@@ -95,7 +95,7 @@ export const PAGES: ShowcasePage[] = [
   {
     slug: "combobox",
     title: "Combobox",
-    group: "Built by Data Services",
+    group: "Custom",
     origin: "ds",
     registry: ["combobox"],
     component: page(() => import("./pages/combobox")),
@@ -103,7 +103,7 @@ export const PAGES: ShowcasePage[] = [
   {
     slug: "data-grid",
     title: "Data grid",
-    group: "Built by Data Services",
+    group: "Custom",
     origin: "ds",
     registry: ["data-grid"],
     component: page(() => import("./pages/data-grid")),
@@ -111,7 +111,7 @@ export const PAGES: ShowcasePage[] = [
   {
     slug: "data-table",
     title: "Data table",
-    group: "Built by Data Services",
+    group: "Custom",
     origin: "ds",
     registry: ["data-table"],
     component: page(() => import("./pages/data-table")),
@@ -119,7 +119,7 @@ export const PAGES: ShowcasePage[] = [
   {
     slug: "date-picker",
     title: "Date picker",
-    group: "Built by Data Services",
+    group: "Custom",
     origin: "ds",
     registry: ["date-picker", "calendar"],
     component: page(() => import("./pages/date-picker")),
@@ -127,7 +127,7 @@ export const PAGES: ShowcasePage[] = [
   {
     slug: "detail-list",
     title: "Detail list",
-    group: "Built by Data Services",
+    group: "Custom",
     origin: "ds",
     registry: ["detail-list"],
     component: page(() => import("./pages/detail-list")),
@@ -135,7 +135,7 @@ export const PAGES: ShowcasePage[] = [
   {
     slug: "echart",
     title: "EChart",
-    group: "Built by Data Services",
+    group: "Custom",
     origin: "ds",
     registry: ["echart", "use-css-vars"],
     component: page(() => import("./pages/echart")),
@@ -143,7 +143,7 @@ export const PAGES: ShowcasePage[] = [
   {
     slug: "field-value",
     title: "Field value",
-    group: "Built by Data Services",
+    group: "Custom",
     origin: "ds",
     registry: ["field-value"],
     component: page(() => import("./pages/field-value")),
@@ -151,7 +151,7 @@ export const PAGES: ShowcasePage[] = [
   {
     slug: "filter-controls",
     title: "Filter controls",
-    group: "Built by Data Services",
+    group: "Custom",
     origin: "ds",
     registry: ["filter-controls"],
     component: page(() => import("./pages/filter-controls")),
@@ -159,7 +159,7 @@ export const PAGES: ShowcasePage[] = [
   {
     slug: "layer-selector",
     title: "Layer selector",
-    group: "Built by Data Services",
+    group: "Custom",
     origin: "ds",
     registry: ["layer-selector"],
     component: page(() => import("./pages/layer-selector")),
@@ -167,7 +167,7 @@ export const PAGES: ShowcasePage[] = [
   {
     slug: "map",
     title: "Map",
-    group: "Built by Data Services",
+    group: "Custom",
     origin: "ds",
     registry: ["map"],
     component: page(() => import("./pages/map")),
@@ -175,7 +175,7 @@ export const PAGES: ShowcasePage[] = [
   {
     slug: "mode-toggle",
     title: "Mode toggle",
-    group: "Built by Data Services",
+    group: "Custom",
     origin: "ds",
     registry: ["mode-toggle", "theme-provider"],
     component: page(() => import("./pages/mode-toggle")),
@@ -183,7 +183,7 @@ export const PAGES: ShowcasePage[] = [
   {
     slug: "navbar",
     title: "NavBar",
-    group: "Built by Data Services",
+    group: "Custom",
     origin: "ds",
     registry: ["navbar"],
     component: page(() => import("./pages/navbar")),
@@ -191,17 +191,17 @@ export const PAGES: ShowcasePage[] = [
   {
     slug: "page",
     title: "Page and container",
-    group: "Built by Data Services",
+    group: "Custom",
     origin: "ds",
     registry: ["page"],
     component: page(() => import("./pages/page")),
   },
 
-  // Components (shadcn, some with DS variants), A–Z
+  // Core: the standard set, based on shadcn/ui (some with DS variants), A–Z
   {
     slug: "accordion",
     title: "Accordion",
-    group: "Components",
+    group: "Core",
     description: "Stacked headings that each expand to reveal a section of content.",
     origin: "shadcn",
     registry: ["accordion"],
@@ -211,7 +211,7 @@ export const PAGES: ShowcasePage[] = [
   {
     slug: "alert",
     title: "Alert",
-    group: "Components",
+    group: "Core",
     description: "A callout for a message that needs the user's attention.",
     origin: "extended",
     registry: ["alert"],
@@ -222,7 +222,7 @@ export const PAGES: ShowcasePage[] = [
   {
     slug: "alert-dialog",
     title: "Alert dialog",
-    group: "Components",
+    group: "Core",
     origin: "shadcn",
     registry: ["alert-dialog"],
     upstream: "alert-dialog",
@@ -231,7 +231,7 @@ export const PAGES: ShowcasePage[] = [
   {
     slug: "avatar",
     title: "Avatar",
-    group: "Components",
+    group: "Core",
     origin: "shadcn",
     registry: ["avatar"],
     upstream: "avatar",
@@ -241,7 +241,7 @@ export const PAGES: ShowcasePage[] = [
   {
     slug: "badge",
     title: "Badge",
-    group: "Components",
+    group: "Core",
     description: "A small label for a status, category or count.",
     origin: "extended",
     registry: ["badge"],
@@ -256,7 +256,7 @@ export const PAGES: ShowcasePage[] = [
   {
     slug: "breadcrumb",
     title: "Breadcrumb",
-    group: "Components",
+    group: "Core",
     origin: "shadcn",
     registry: ["breadcrumb"],
     upstream: "breadcrumb",
@@ -265,7 +265,7 @@ export const PAGES: ShowcasePage[] = [
   {
     slug: "button",
     title: "Button",
-    group: "Components",
+    group: "Core",
     description: "A button, or a link styled as one.",
     origin: "extended",
     registry: ["button"],
@@ -279,7 +279,7 @@ export const PAGES: ShowcasePage[] = [
   {
     slug: "card",
     title: "Card",
-    group: "Components",
+    group: "Core",
     description: "A surface that groups related content and actions.",
     origin: "shadcn",
     registry: ["card"],
@@ -289,7 +289,7 @@ export const PAGES: ShowcasePage[] = [
   {
     slug: "chart",
     title: "Chart",
-    group: "Components",
+    group: "Core",
     origin: "shadcn",
     registry: ["chart"],
     upstream: "chart",
@@ -298,7 +298,7 @@ export const PAGES: ShowcasePage[] = [
   {
     slug: "checkbox",
     title: "Checkbox",
-    group: "Components",
+    group: "Core",
     origin: "shadcn",
     registry: ["checkbox"],
     upstream: "checkbox",
@@ -308,7 +308,7 @@ export const PAGES: ShowcasePage[] = [
   {
     slug: "collapsible",
     title: "Collapsible",
-    group: "Components",
+    group: "Core",
     origin: "shadcn",
     registry: ["collapsible"],
     upstream: "collapsible",
@@ -318,7 +318,7 @@ export const PAGES: ShowcasePage[] = [
   {
     slug: "command",
     title: "Command",
-    group: "Components",
+    group: "Core",
     origin: "shadcn",
     registry: ["command"],
     upstream: "command",
@@ -327,7 +327,7 @@ export const PAGES: ShowcasePage[] = [
   {
     slug: "dialog",
     title: "Dialog",
-    group: "Components",
+    group: "Core",
     origin: "shadcn",
     registry: ["dialog"],
     upstream: "dialog",
@@ -337,7 +337,7 @@ export const PAGES: ShowcasePage[] = [
   {
     slug: "dropdown-menu",
     title: "Dropdown menu",
-    group: "Components",
+    group: "Core",
     origin: "shadcn",
     registry: ["dropdown-menu"],
     upstream: "dropdown-menu",
@@ -347,7 +347,7 @@ export const PAGES: ShowcasePage[] = [
   {
     slug: "form",
     title: "Form",
-    group: "Components",
+    group: "Core",
     origin: "shadcn",
     registry: ["form"],
     upstream: "form",
@@ -356,7 +356,7 @@ export const PAGES: ShowcasePage[] = [
   {
     slug: "input",
     title: "Input",
-    group: "Components",
+    group: "Core",
     origin: "shadcn",
     registry: ["input", "textarea"],
     upstream: "input",
@@ -366,7 +366,7 @@ export const PAGES: ShowcasePage[] = [
   {
     slug: "input-group",
     title: "Input group",
-    group: "Components",
+    group: "Core",
     description: "An input or textarea with icons, text, buttons or key hints attached.",
     origin: "extended",
     registry: ["input-group"],
@@ -380,7 +380,7 @@ export const PAGES: ShowcasePage[] = [
   {
     slug: "kbd",
     title: "Kbd",
-    group: "Components",
+    group: "Core",
     origin: "shadcn",
     registry: ["kbd"],
     upstream: "kbd",
@@ -389,7 +389,7 @@ export const PAGES: ShowcasePage[] = [
   {
     slug: "label",
     title: "Label",
-    group: "Components",
+    group: "Core",
     origin: "shadcn",
     registry: ["label"],
     upstream: "label",
@@ -399,7 +399,7 @@ export const PAGES: ShowcasePage[] = [
   {
     slug: "popover",
     title: "Popover",
-    group: "Components",
+    group: "Core",
     origin: "shadcn",
     registry: ["popover"],
     upstream: "popover",
@@ -409,7 +409,7 @@ export const PAGES: ShowcasePage[] = [
   {
     slug: "progress",
     title: "Progress",
-    group: "Components",
+    group: "Core",
     origin: "shadcn",
     registry: ["progress"],
     upstream: "progress",
@@ -419,7 +419,7 @@ export const PAGES: ShowcasePage[] = [
   {
     slug: "radio-group",
     title: "Radio group",
-    group: "Components",
+    group: "Core",
     origin: "shadcn",
     registry: ["radio-group"],
     upstream: "radio-group",
@@ -428,7 +428,7 @@ export const PAGES: ShowcasePage[] = [
   {
     slug: "resizable",
     title: "Resizable",
-    group: "Components",
+    group: "Core",
     origin: "shadcn",
     registry: ["resizable"],
     upstream: "resizable",
@@ -437,7 +437,7 @@ export const PAGES: ShowcasePage[] = [
   {
     slug: "select",
     title: "Select",
-    group: "Components",
+    group: "Core",
     origin: "shadcn",
     registry: ["select"],
     upstream: "select",
@@ -447,7 +447,7 @@ export const PAGES: ShowcasePage[] = [
   {
     slug: "separator",
     title: "Separator",
-    group: "Components",
+    group: "Core",
     origin: "shadcn",
     registry: ["separator"],
     upstream: "separator",
@@ -457,7 +457,7 @@ export const PAGES: ShowcasePage[] = [
   {
     slug: "sheet",
     title: "Sheet",
-    group: "Components",
+    group: "Core",
     origin: "shadcn",
     registry: ["sheet"],
     upstream: "sheet",
@@ -466,7 +466,7 @@ export const PAGES: ShowcasePage[] = [
   {
     slug: "sidebar",
     title: "Sidebar",
-    group: "Components",
+    group: "Core",
     origin: "shadcn",
     registry: ["sidebar", "use-mobile"],
     upstream: "sidebar",
@@ -475,7 +475,7 @@ export const PAGES: ShowcasePage[] = [
   {
     slug: "skeleton",
     title: "Skeleton",
-    group: "Components",
+    group: "Core",
     origin: "shadcn",
     registry: ["skeleton"],
     upstream: "skeleton",
@@ -485,7 +485,7 @@ export const PAGES: ShowcasePage[] = [
   {
     slug: "slider",
     title: "Slider",
-    group: "Components",
+    group: "Core",
     origin: "shadcn",
     registry: ["slider"],
     upstream: "slider",
@@ -495,7 +495,7 @@ export const PAGES: ShowcasePage[] = [
   {
     slug: "switch",
     title: "Switch",
-    group: "Components",
+    group: "Core",
     description: "An on/off control for a setting that applies immediately.",
     origin: "shadcn",
     registry: ["switch"],
@@ -505,7 +505,7 @@ export const PAGES: ShowcasePage[] = [
   {
     slug: "table",
     title: "Table",
-    group: "Components",
+    group: "Core",
     origin: "shadcn",
     registry: ["table"],
     upstream: "table",
@@ -515,7 +515,7 @@ export const PAGES: ShowcasePage[] = [
   {
     slug: "tabs",
     title: "Tabs",
-    group: "Components",
+    group: "Core",
     description: "Switch between related panels of content in one place.",
     origin: "shadcn",
     registry: ["tabs"],
@@ -525,7 +525,7 @@ export const PAGES: ShowcasePage[] = [
   {
     slug: "toast",
     title: "Toast",
-    group: "Components",
+    group: "Core",
     origin: "extended",
     registry: ["sonner"],
     upstream: "sonner",
@@ -536,7 +536,7 @@ export const PAGES: ShowcasePage[] = [
   {
     slug: "toggle",
     title: "Toggle",
-    group: "Components",
+    group: "Core",
     origin: "shadcn",
     registry: ["toggle", "toggle-group"],
     upstream: "toggle",
@@ -545,7 +545,7 @@ export const PAGES: ShowcasePage[] = [
   {
     slug: "tooltip",
     title: "Tooltip",
-    group: "Components",
+    group: "Core",
     origin: "shadcn",
     registry: ["tooltip"],
     upstream: "tooltip",
@@ -554,7 +554,7 @@ export const PAGES: ShowcasePage[] = [
   },
 ]
 
-export const PAGE_GROUPS: PageGroup[] = ["Foundations", "Built by Data Services", "Components"]
+export const PAGE_GROUPS: PageGroup[] = ["Foundations", "Custom", "Core"]
 
 const REGISTRY_DESCRIPTIONS: Record<string, string> = Object.fromEntries(
   registry.items.map((item) => [item.name, item.description ?? ""])

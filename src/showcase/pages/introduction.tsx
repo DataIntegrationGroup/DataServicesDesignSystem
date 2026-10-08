@@ -49,9 +49,9 @@ export default function IntroductionPage() {
       </DemoSection>
       <DemoSection title="Where components come from">
         <p className="max-w-3xl text-muted-foreground">
-          Each component page shows its origin and the command to install it.
-          The sidebar's "DS-specific only" switch hides the unchanged upstream
-          components.
+          The sidebar's Custom group has the blocks and components built for
+          our apps; Core has the standard set, based on shadcn/ui. Each page
+          shows its origin and the command to install it.
         </p>
         <dl className="grid max-w-3xl gap-x-6 gap-y-3 sm:grid-cols-[auto_1fr]">
           <dt><OriginBadge origin="ds" /></dt>

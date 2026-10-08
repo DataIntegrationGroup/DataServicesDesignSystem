@@ -1,7 +1,6 @@
 import * as React from "react"
 
 import { AppShell, type AppShellNavGroup } from "@/blocks/app-shell"
-import { Label } from "@/components/ui/label"
 import { ModeToggle } from "@/components/mode-toggle"
 import { useTheme } from "@/components/theme-provider"
 import {
@@ -12,7 +11,6 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { Skeleton } from "@/components/ui/skeleton"
-import { Switch } from "@/components/ui/switch"
 import {
   CurrentPageContext,
   PAGE_GROUPS,
@@ -23,28 +21,20 @@ import { PALETTES, PALETTE_STORAGE_KEY } from "@/showcase/palettes"
 import { useRoute } from "@/showcase/router"
 import { ShowcaseSearch } from "@/showcase/search"
 
-const DS_ONLY_STORAGE_KEY = "dsds-showcase-ds-only"
-
 /** The showcase runs in the AppShell block, with the pages as its nav. */
 export function ShowcaseApp() {
   const { slug } = useRoute()
   const page = findPage(slug) ?? PAGES[0]
-  const [dsOnly, setDsOnly] = React.useState(
-    () => localStorage.getItem(DS_ONLY_STORAGE_KEY) === "true"
-  )
-  const switchId = React.useId()
 
   const nav: AppShellNavGroup[] = PAGE_GROUPS.map((group) => ({
     label: group,
-    items: PAGES.filter((p) => p.group === group && (!dsOnly || p.origin !== "shadcn")).map(
-      (p) => ({
-        label: p.title,
-        href: `/${p.slug}`,
-        // The group already says which are DS; mark the extended shadcn ones.
-        badge: p.origin === "extended" ? "Ext" : undefined,
-      })
-    ),
-  })).filter((group) => group.items.length > 0)
+    items: PAGES.filter((p) => p.group === group).map((p) => ({
+      label: p.title,
+      href: `/${p.slug}`,
+      // Mark the core components that have DS variants.
+      badge: p.origin === "extended" ? "Ext" : undefined,
+    })),
+  }))
 
   return (
     <AppShell
@@ -59,22 +49,6 @@ export function ShowcaseApp() {
       renderLink={({ href, ...props }) => <a href={`#${href}`} {...props} />}
       collapsible="offcanvas"
       storageKey="showcase"
-      beforeNav={
-        <div className="flex items-center justify-between gap-2">
-          <Label htmlFor={switchId} className="text-xs font-normal text-muted-foreground">
-            DS-specific only
-          </Label>
-          <Switch
-            id={switchId}
-            size="sm"
-            checked={dsOnly}
-            onCheckedChange={(checked) => {
-              localStorage.setItem(DS_ONLY_STORAGE_KEY, String(checked))
-              setDsOnly(checked)
-            }}
-          />
-        </div>
-      }
       search={<ShowcaseSearch />}
       actions={<ShowcaseActions />}
     >
