@@ -5,7 +5,6 @@ export default function TabsPage() {
   return (
     <PageContent>
       <Demo name="tabs/variants" title="Variants" />
-      <Demo name="tabs/folder" title="Folder" />
     </PageContent>
   )
 }

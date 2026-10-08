@@ -77,9 +77,6 @@ Each item carries its own npm dependencies (e.g. `map` → `react-map-gl`,
 | `map`            | ui        | MapLibre map, token-free CARTO basemap, NM default extent     |
 | `navbar`         | ui        | Router-agnostic top nav chrome (`asChild` link slots)         |
 | `page`           | ui        | `PageShell` + `PageBody` (`bleed`) + `Container` (`wide`)     |
-| `filter-chip`    | ui        | `FilterChip` + `ActiveFilterBar` for applied filters          |
-| `facet-rail`     | ui        | `FacetCheckboxes` + `FacetRail` filter facets with counts     |
-| `stat-band`      | ui        | `StatBand` + `Stat` big-number KPI row                        |
 | `detail-list`    | ui        | `DetailSection` + `DetailList` / `DetailItem` label/value rows |
 | `app-shell`      | block     | Sidebar (icon rail) + top bar + scrolling content + side panel |
 | `top-nav`        | block     | Content-site nav bar: brand left, links right, menu on phones |
@@ -88,9 +85,6 @@ Each item carries its own npm dependencies (e.g. `map` → `react-map-gl`,
 | `button`         | ui        | Upstream button + `size="xl"`, `variant="inverse"`            |
 | `badge`          | ui        | Upstream badge + status, `tone-1`…`tone-6`, `on-image`        |
 | `alert`          | ui        | Upstream alert + `success`, `warning`, `info`                 |
-| `tabs`           | ui        | Upstream tabs + `TabsList variant="folder"`                   |
-| `card`           | ui        | Upstream card + `asChild` and `interactive` (whole-card link) |
-| `accordion`      | ui        | Upstream accordion + `AccordionTrigger variant="plain"`       |
 
 Install every component from `@dataservices`, including the shadcn
 primitives the DS hasn't changed (dialog, table, …). The registry publishes

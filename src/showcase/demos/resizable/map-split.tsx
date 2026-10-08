@@ -1,3 +1,4 @@
+import { Badge } from "@/components/ui/badge"
 import { Card } from "@/components/ui/card"
 import { Map, Marker } from "@/components/ui/map"
 import {
@@ -5,14 +6,13 @@ import {
   ResizablePanel,
   ResizablePanelGroup,
 } from "@/components/ui/resizable"
-import { StatusIndicator } from "@/components/ui/status-indicator"
 import { Example } from "@/showcase/example"
 
 const sources = [
-  { name: "warehouse-prod", status: "online" },
-  { name: "lakehouse-stg", status: "online" },
-  { name: "legacy-ora", status: "degraded" },
-  { name: "events-kafka", status: "offline" },
+  { name: "warehouse-prod", status: "online", variant: "success" },
+  { name: "lakehouse-stg", status: "online", variant: "success" },
+  { name: "legacy-ora", status: "degraded", variant: "warning" },
+  { name: "events-kafka", status: "offline", variant: "destructive" },
 ] as const
 
 export default function ResizableMapSplit() {
@@ -41,12 +41,7 @@ export default function ResizableMapSplit() {
                     className="flex items-center justify-between gap-2 text-sm"
                   >
                     <span className="font-medium">{source.name}</span>
-                    <StatusIndicator
-                      status={source.status}
-                      pulse={source.status === "degraded"}
-                    >
-                      {source.status}
-                    </StatusIndicator>
+                    <Badge variant={source.variant}>{source.status}</Badge>
                   </div>
                 ))}
               </div>

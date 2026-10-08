@@ -203,7 +203,7 @@
       "name": "switch",
       "type": "registry:ui",
       "title": "Switch",
-      "description": "On/off switch (Radix Switch) with sm/default sizes and pill/square shapes, themed to OcotilloUI.",
+      "description": "Upstream shadcn switch (Radix Switch).",
       "dependencies": ["radix-ui"],
       "files": [
         {
@@ -350,7 +350,7 @@
       "name": "tabs",
       "type": "registry:ui",
       "title": "Tabs",
-      "description": "Upstream shadcn tabs. Adds a folder TabsList variant: tabs that join a card panel below, for use on images and dark bands.",
+      "description": "Upstream shadcn tabs (Radix Tabs).",
       "dependencies": ["radix-ui", "class-variance-authority"],
       "files": [
         { "path": "src/components/ui/tabs.tsx", "type": "registry:ui" }
@@ -360,7 +360,7 @@
       "name": "card",
       "type": "registry:ui",
       "title": "Card",
-      "description": "Upstream shadcn card. Adds asChild and interactive for whole-card links (hover border and shadow, focus ring).",
+      "description": "Upstream shadcn card.",
       "dependencies": ["radix-ui"],
       "files": [
         { "path": "src/components/ui/card.tsx", "type": "registry:ui" }
@@ -370,7 +370,7 @@
       "name": "accordion",
       "type": "registry:ui",
       "title": "Accordion",
-      "description": "Upstream shadcn accordion. Adds AccordionTrigger variant=\"plain\" (no hover underline, centered chevron) for filter rails.",
+      "description": "Upstream shadcn accordion (Radix Accordion).",
       "dependencies": ["radix-ui", "lucide-react"],
       "files": [
         { "path": "src/components/ui/accordion.tsx", "type": "registry:ui" }
@@ -393,15 +393,6 @@
       "description": "Keyboard key and key group (upstream shadcn kbd), e.g. a ⌘K hint inside an input group.",
       "files": [
         { "path": "src/components/ui/kbd.tsx", "type": "registry:ui" }
-      ]
-    },
-    {
-      "name": "status-indicator",
-      "type": "registry:ui",
-      "title": "Status Indicator",
-      "description": "Colored dot + label for resource health: online / degraded / offline / error / info / pending, with optional pulse.",
-      "files": [
-        { "path": "src/components/ui/status-indicator.tsx", "type": "registry:ui" }
       ]
     },
     {
@@ -509,37 +500,6 @@
           "path": "src/components/ui/page.tsx",
           "type": "registry:ui"
         }
-      ]
-    },
-    {
-      "name": "filter-chip",
-      "type": "registry:ui",
-      "title": "Filter Chip",
-      "description": "FilterChip (removable \"Kind: value\" chip for an applied filter) and ActiveFilterBar (\"Filtered by\" strip with Clear all).",
-      "dependencies": ["lucide-react"],
-      "registryDependencies": ["@dataservices/button"],
-      "files": [
-        { "path": "src/components/ui/filter-chip.tsx", "type": "registry:ui" }
-      ]
-    },
-    {
-      "name": "facet-rail",
-      "type": "registry:ui",
-      "title": "Facet Rail",
-      "description": "FacetCheckboxes (fieldset checkbox list with result counts) and FacetRail (card of collapsible facets with \"N selected\" in each trigger).",
-      "dependencies": ["radix-ui"],
-      "registryDependencies": ["@dataservices/accordion", "@dataservices/checkbox", "@dataservices/label"],
-      "files": [
-        { "path": "src/components/ui/facet-rail.tsx", "type": "registry:ui" }
-      ]
-    },
-    {
-      "name": "stat-band",
-      "type": "registry:ui",
-      "title": "Stat Band",
-      "description": "StatBand and Stat: a row of big-number KPIs with hairline dividers that reflows by its own width (4 / 2×2 / 1).",
-      "files": [
-        { "path": "src/components/ui/stat-band.tsx", "type": "registry:ui" }
       ]
     },
     {
@@ -776,43 +736,6 @@
         {
           "path": "src/components/ui/filter-controls.tsx",
           "type": "registry:ui"
-        }
-      ]
-    },
-    {
-      "name": "onboarding-tour",
-      "type": "registry:component",
-      "title": "Onboarding Tour",
-      "description": "Dismissible getting-started tour shown once per browser (localStorage). Each step spotlights a target element (dim backdrop with a cut-out + pulsing ring) and anchors an explanatory card beside it. Keyboard: arrows navigate, Esc dismisses. Pass steps and a storageKey — fully presentational.",
-      "dependencies": ["lucide-react"],
-      "registryDependencies": ["@dataservices/button"],
-      "files": [
-        {
-          "path": "src/components/onboarding-tour.tsx",
-          "type": "registry:component",
-          "target": "components/onboarding-tour.tsx"
-        }
-      ]
-    },
-    {
-      "name": "top-loading-bar",
-      "type": "registry:component",
-      "title": "Top Loading Bar",
-      "description": "Thin indeterminate progress bar pinned to the top of the viewport while `active` is true (wire it to your data layer, e.g. useIsFetching() > 0). Lingers ~400ms after activity stops, then hides. Brings its own animate-loadingbar keyframe (also in theme-base).",
-      "cssVars": {
-        "theme": { "animate-loadingbar": "loadingbar 1.1s ease-in-out infinite" }
-      },
-      "css": {
-        "@keyframes loadingbar": {
-          "0%": { "transform": "translateX(-100%)" },
-          "100%": { "transform": "translateX(350%)" }
-        }
-      },
-      "files": [
-        {
-          "path": "src/components/top-loading-bar.tsx",
-          "type": "registry:component",
-          "target": "components/top-loading-bar.tsx"
         }
       ]
     }

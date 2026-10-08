@@ -5,7 +5,6 @@ export default function CardPage() {
   return (
     <PageContent>
       <Demo name="card/composition" title="Composition" />
-      <Demo name="card/interactive" title="Interactive" />
     </PageContent>
   )
 }

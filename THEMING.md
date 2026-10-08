@@ -186,14 +186,13 @@ Avoid passing a type step to them alongside a text color.
 
 ## Choosing a chip
 
-Three components cover every pill-shaped control. Pick by what the chip does,
+Two components cover every pill-shaped control. Pick by what the chip does,
 not how it looks:
 
 | Need | Use | Example |
 | --- | --- | --- |
 | A static label | `Badge` (`tone-*` for categories, `success`/`warning`/`info` for status, `on-image` over photos) | A dataset's topic |
 | An on/off choice | `Toggle` or `ToggleGroup` | Quick filters above a list |
-| An applied filter the user can remove | `FilterChip`, inside an `ActiveFilterBar` | "Topic: Water levels ×" |
 
 Don't build other chip styles in apps. If one of these doesn't fit, add a
 variant to it in the DS.
@@ -213,7 +212,7 @@ Raw colors still in components, and why:
 
 | Where | Colors | Status |
 | --- | --- | --- |
-| `dialog`, `sheet`, `alert-dialog`, `onboarding-tour` | `bg-black/10`, `bg-black/50` scrims | Kept: same as upstream shadcn |
+| `dialog`, `sheet`, `alert-dialog` | `bg-black/10`, `bg-black/50` scrims | Kept: same as upstream shadcn |
 | `basemap-selector` | `from-black/65` scrim behind thumbnail captions | Kept: a scrim, like the overlay ones |
 | `slider` | `bg-white` thumb | Kept: same as upstream shadcn |
 | `layer-selector` | `#ffffff` marker stroke, `#6b7280` color-input fallback | Kept: map data colors, not UI; `<input type="color">` needs hex |

@@ -1,8 +1,8 @@
 import { ActivityIcon, ArrowRightIcon } from "lucide-react"
 
+import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { DetailItem, DetailList, DetailSection } from "@/components/ui/detail-list"
-import { StatusIndicator } from "@/components/ui/status-indicator"
 import { DetailCard } from "@/blocks/detail-card"
 
 export default function WellDetailCard() {
@@ -22,7 +22,7 @@ export default function WellDetailCard() {
         <DetailSection title="Status">
           <DetailList>
             <DetailItem label="Well status">
-              <StatusIndicator status="online">Active</StatusIndicator>
+              <Badge variant="success">Active</Badge>
             </DetailItem>
             <DetailItem label="Monitoring frequency">Monthly</DetailItem>
             <DetailItem label="Last visit">

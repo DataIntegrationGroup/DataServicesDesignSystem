@@ -6,7 +6,6 @@ export default function AccordionPage() {
     <PageContent>
       <Demo name="accordion/single" title="Single" />
       <Demo name="accordion/multiple" title="Multiple" />
-      <Demo name="accordion/plain" title="Plain trigger" />
     </PageContent>
   )
 }
