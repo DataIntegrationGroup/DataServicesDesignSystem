@@ -158,14 +158,6 @@ export const PAGES: ShowcasePage[] = [
     registry: ["mode-toggle", "theme-provider"],
     component: page(() => import("./pages/mode-toggle")),
   },
-  {
-    slug: "navbar",
-    title: "NavBar",
-    group: "Custom",
-    origin: "ds",
-    registry: ["navbar"],
-    component: page(() => import("./pages/navbar")),
-  },
 
   // Core: the standard set, based on shadcn/ui (some with DS variants), A–Z
   {
@@ -361,6 +353,15 @@ export const PAGES: ShowcasePage[] = [
     upstream: "label",
     description: "A caption for a form control; clicking it focuses the control.",
     component: page(() => import("./pages/label")),
+  },
+  {
+    slug: "navigation-menu",
+    title: "Navigation menu",
+    group: "Core",
+    origin: "shadcn",
+    registry: ["navigation-menu"],
+    upstream: "navigation-menu",
+    component: page(() => import("./pages/navigation-menu")),
   },
   {
     slug: "popover",

@@ -7,7 +7,7 @@ const INSTALL = `# 1. Base styles and a theme (Ocotillo is the default)
 pnpm dlx shadcn@latest add @dataservices/theme-base @dataservices/theme-nmwdi
 
 # 2. Components
-pnpm dlx shadcn@latest add @dataservices/button @dataservices/navbar`
+pnpm dlx shadcn@latest add @dataservices/button @dataservices/top-nav`
 
 const UPDATE = `# See what changed
 pnpm dlx shadcn@latest add @dataservices/button --dry-run --diff

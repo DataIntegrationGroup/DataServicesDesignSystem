@@ -2,7 +2,7 @@ import { Demo } from "@/showcase/demo"
 import { PageContent } from "@/showcase/page-header"
 import { href } from "@/showcase/router"
 
-export default function NavBarPage() {
+export default function NavigationMenuPage() {
   return (
     <PageContent>
       <p className="max-w-3xl rounded-lg border bg-muted/40 px-4 py-3 text-sm">
@@ -10,11 +10,10 @@ export default function NavBarPage() {
         <a className="font-medium text-primary underline underline-offset-4" href={href("top-nav")}>
           Top nav
         </a>{" "}
-        block: it's built from NavBar, lines up with wide pages and moves the
-        links into a menu on phones. Use NavBar directly for custom bars.
+        block, which is built from this menu and moves the links into a sheet on
+        phones.
       </p>
-      <Demo name="navbar/above-page" title="Above page content" />
-      <Demo name="navbar/fluid" title="Fluid" />
+      <Demo name="navigation-menu/default" title="Links and a dropdown" />
     </PageContent>
   )
 }

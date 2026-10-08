@@ -478,19 +478,6 @@
       ]
     },
     {
-      "name": "navbar",
-      "type": "registry:ui",
-      "title": "NavBar",
-      "description": "Router-agnostic top navigation chrome. Link slots accept the app's router Link via asChild; active links get aria-current=\"page\". innerClassName styles the inner row; NavBarLink has size=\"lg\".",
-      "dependencies": ["radix-ui"],
-      "files": [
-        {
-          "path": "src/components/ui/navbar.tsx",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
       "name": "avatar",
       "type": "registry:ui",
       "title": "Avatar",
@@ -545,6 +532,14 @@
       "description": "Upstream shadcn label (Radix Label) for form controls.",
       "dependencies": ["radix-ui"],
       "files": [{ "path": "src/components/ui/label.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "navigation-menu",
+      "type": "registry:ui",
+      "title": "Navigation Menu",
+      "description": "Upstream shadcn navigation-menu (Radix NavigationMenu): site links with optional dropdown panels.",
+      "dependencies": ["radix-ui", "class-variance-authority", "lucide-react"],
+      "files": [{ "path": "src/components/ui/navigation-menu.tsx", "type": "registry:ui" }]
     },
     {
       "name": "popover",
@@ -637,9 +632,9 @@
       "name": "top-nav",
       "type": "registry:block",
       "title": "Top Nav",
-      "description": "Navigation bar for content sites (use app-shell for tool-style apps): brand on the left, links on the right, in a wide (max-w-7xl) row. Below the md breakpoint the links move into a menu sheet.",
+      "description": "Navigation bar for content sites (use app-shell for tool-style apps): brand on the left, NavigationMenu links on the right, in a wide (max-w-7xl) row. Below the md breakpoint the links move into a Sheet. Takes links, pathname and renderLink like app-shell.",
       "dependencies": ["lucide-react"],
-      "registryDependencies": ["@dataservices/navbar", "@dataservices/sheet", "@dataservices/button"],
+      "registryDependencies": ["@dataservices/navigation-menu", "@dataservices/sheet", "@dataservices/button"],
       "files": [
         { "path": "src/blocks/top-nav.tsx", "type": "registry:component" }
       ]

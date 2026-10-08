@@ -1,8 +1,15 @@
 import * as React from "react"
 import { MenuIcon } from "lucide-react"
 
+import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
-import { NavBar, NavBarActions, NavBarNav } from "@/components/ui/navbar"
+import {
+  NavigationMenu,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  navigationMenuTriggerStyle,
+} from "@/components/ui/navigation-menu"
 import {
   Sheet,
   SheetContent,
@@ -12,67 +19,114 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet"
 
-// A wide row: max-w-7xl with a gutter that grows with the window.
-// Both prefixes are needed to replace NavBar's px-4 sm:px-6.
-const WIDE_ROW = "max-w-7xl px-[clamp(1.25rem,4.4vw,3.5rem)] sm:px-[clamp(1.25rem,4.4vw,3.5rem)]"
+export type TopNavLink = { label: string; href: string }
+
+type LinkProps = {
+  href: string
+  className?: string
+  "aria-current"?: "page"
+  children: React.ReactNode
+}
+
+const defaultLink = (props: LinkProps) => <a {...props} />
 
 /**
  * TopNav block — the navigation bar for content sites (for tool-style apps,
- * use AppShell). The brand sits on the left and the links on the right;
- * below the md breakpoint the links move into a menu that opens from the
- * right. Pass NavBarLinks (with your router's Link via asChild) as
- * children; they render in both places, and picking one closes the menu.
- * `actions`, such as a mode toggle, go after the links.
+ * use AppShell). The brand sits on the left and the links on the right, in a
+ * NavigationMenu; below the md breakpoint they move into a Sheet that opens
+ * from the right. The link matching `pathname` is marked current. Pass your
+ * router's Link through `renderLink`; `actions`, such as a mode toggle, go
+ * after the links.
  *
- *   <TopNav brand={<NavBarBrand asChild><Link to="/">Weaver</Link></NavBarBrand>}>
- *     <NavBarLink asChild size="lg"><Link to="/datasets">Datasets</Link></NavBarLink>
- *   </TopNav>
+ *   <TopNav
+ *     brand="Weaver"
+ *     links={[{ label: "Datasets", href: "/datasets" }]}
+ *     pathname={location.pathname}
+ *     renderLink={({ href, ...props }) => <Link to={href} {...props} />}
+ *   />
  */
 export function TopNav({
   brand,
+  brandHref = "/",
+  links,
+  pathname,
+  renderLink = defaultLink,
   actions,
   className,
-  children,
 }: {
   brand: React.ReactNode
+  brandHref?: string
+  links: TopNavLink[]
+  pathname?: string
+  renderLink?: (props: LinkProps) => React.ReactElement
   actions?: React.ReactNode
   className?: string
-  children: React.ReactNode
 }) {
   const [open, setOpen] = React.useState(false)
+  const brandLink = renderLink({
+    href: brandHref,
+    className: "font-heading text-2xl leading-none font-bold text-primary",
+    children: brand,
+  })
+
   return (
-    <NavBar className={className} innerClassName={WIDE_ROW}>
-      {brand}
-      <div className="flex items-center gap-1 sm:gap-3">
-        <NavBarNav aria-label="Main" className="hidden md:flex">
-          {children}
-        </NavBarNav>
-        {actions && <NavBarActions>{actions}</NavBarActions>}
-        <Sheet open={open} onOpenChange={setOpen}>
-          <SheetTrigger asChild>
-            <Button variant="ghost" size="icon" className="-mr-2 md:hidden" aria-label="Open menu">
-              <MenuIcon />
-            </Button>
-          </SheetTrigger>
-          <SheetContent side="right" className="w-72">
-            <SheetHeader>
-              {/* brand can be a block element, which a heading can't hold. */}
-              <SheetTitle className="sr-only">Menu</SheetTitle>
-              <SheetDescription className="sr-only">Site navigation</SheetDescription>
-              {brand}
-            </SheetHeader>
-            <nav
-              aria-label="Main"
-              className="flex flex-col gap-1 px-4"
-              onClick={(event) => {
-                if ((event.target as HTMLElement).closest("a")) setOpen(false)
-              }}
-            >
-              {children}
-            </nav>
-          </SheetContent>
-        </Sheet>
+    <header className={cn("border-b bg-card", className)}>
+      {/* max-w-7xl with a gutter that grows with the window. */}
+      <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-[clamp(1.25rem,4.4vw,3.5rem)] py-3">
+        {brandLink}
+        <div className="flex items-center gap-1 sm:gap-3">
+          <NavigationMenu viewport={false} aria-label="Main" className="hidden md:flex">
+            <NavigationMenuList className="gap-1">
+              {links.map((link) => (
+                <NavigationMenuItem key={link.href}>
+                  <NavigationMenuLink
+                    asChild
+                    active={link.href === pathname}
+                    className={cn(
+                      navigationMenuTriggerStyle(),
+                      "text-base text-muted-foreground hover:text-foreground data-active:bg-muted data-active:text-foreground"
+                    )}
+                  >
+                    {renderLink({ href: link.href, children: link.label })}
+                  </NavigationMenuLink>
+                </NavigationMenuItem>
+              ))}
+            </NavigationMenuList>
+          </NavigationMenu>
+          {actions && <div className="flex items-center gap-1.5 sm:gap-3">{actions}</div>}
+          <Sheet open={open} onOpenChange={setOpen}>
+            <SheetTrigger asChild>
+              <Button variant="ghost" size="icon" className="-mr-2 md:hidden" aria-label="Open menu">
+                <MenuIcon />
+              </Button>
+            </SheetTrigger>
+            <SheetContent side="right" className="w-72">
+              <SheetHeader>
+                <SheetTitle className="sr-only">Menu</SheetTitle>
+                <SheetDescription className="sr-only">Site navigation</SheetDescription>
+                {brandLink}
+              </SheetHeader>
+              <nav aria-label="Main" className="flex flex-col gap-1 px-4">
+                {links.map((link) => (
+                  <Button
+                    key={link.href}
+                    asChild
+                    variant="ghost"
+                    className="justify-start text-base aria-[current=page]:bg-muted"
+                    onClick={() => setOpen(false)}
+                  >
+                    {renderLink({
+                      href: link.href,
+                      "aria-current": link.href === pathname ? "page" : undefined,
+                      children: link.label,
+                    })}
+                  </Button>
+                ))}
+              </nav>
+            </SheetContent>
+          </Sheet>
+        </div>
       </div>
-    </NavBar>
+    </header>
   )
 }

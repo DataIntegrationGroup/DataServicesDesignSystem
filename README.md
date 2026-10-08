@@ -75,7 +75,6 @@ Each item carries its own npm dependencies (e.g. `map` → `react-map-gl`,
 | `theme-provider` | component | Light/dark/system context, plus an optional `palette` prop    |
 | `mode-toggle`    | component | Light/dark toggle button                                      |
 | `map`            | ui        | MapLibre map, token-free CARTO basemap, NM default extent     |
-| `navbar`         | ui        | Router-agnostic top nav chrome (`asChild` link slots)         |
 | `app-shell`      | block     | Sidebar (icon rail) + top bar + scrolling content + side panel |
 | `top-nav`        | block     | Content-site nav bar: brand left, links right, menu on phones |
 | `button`         | ui        | Upstream button + `size="xl"`, `variant="inverse"`            |
