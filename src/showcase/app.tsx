@@ -40,7 +40,8 @@ export function ShowcaseApp() {
       (p) => ({
         label: p.title,
         href: `/${p.slug}`,
-        badge: p.origin === "ds" ? "DS" : p.origin === "extended" ? "Ext" : undefined,
+        // The group already says which are DS; mark the extended shadcn ones.
+        badge: p.origin === "extended" ? "Ext" : undefined,
       })
     ),
   })).filter((group) => group.items.length > 0)

@@ -10,7 +10,7 @@ import registry from "../../registry.json"
  */
 export type Origin = "ds" | "extended" | "shadcn"
 
-export type PageGroup = "Foundations" | "Components" | "Data & maps" | "Blocks"
+export type PageGroup = "Foundations" | "Built by Data Services" | "Components"
 
 export type ShowcasePage = {
   slug: string
@@ -55,36 +55,149 @@ export const PAGES: ShowcasePage[] = [
     component: page(() => import("./pages/typography")),
   },
 
-  // Blocks
+  // Built by Data Services: blocks, then components A–Z
   {
     slug: "app-shell",
     title: "App shell",
-    group: "Blocks",
+    group: "Built by Data Services",
     registry: ["app-shell"],
     component: page(() => import("./pages/app-shell")),
   },
   {
     slug: "top-nav",
     title: "Top nav",
-    group: "Blocks",
+    group: "Built by Data Services",
     registry: ["top-nav"],
     component: page(() => import("./pages/top-nav")),
   },
   {
     slug: "hero",
     title: "Hero",
-    group: "Blocks",
+    group: "Built by Data Services",
     registry: ["hero"],
     component: page(() => import("./pages/hero")),
   },
   {
     slug: "detail-card",
     title: "Detail card",
-    group: "Blocks",
+    group: "Built by Data Services",
     registry: ["detail-card"],
     component: page(() => import("./pages/detail-card")),
   },
-  // Components, A–Z
+  {
+    slug: "basemap-selector",
+    title: "Basemap selector",
+    group: "Built by Data Services",
+    origin: "ds",
+    registry: ["basemap-selector"],
+    component: page(() => import("./pages/basemap-selector")),
+  },
+  {
+    slug: "combobox",
+    title: "Combobox",
+    group: "Built by Data Services",
+    origin: "ds",
+    registry: ["combobox"],
+    component: page(() => import("./pages/combobox")),
+  },
+  {
+    slug: "data-grid",
+    title: "Data grid",
+    group: "Built by Data Services",
+    origin: "ds",
+    registry: ["data-grid"],
+    component: page(() => import("./pages/data-grid")),
+  },
+  {
+    slug: "data-table",
+    title: "Data table",
+    group: "Built by Data Services",
+    origin: "ds",
+    registry: ["data-table"],
+    component: page(() => import("./pages/data-table")),
+  },
+  {
+    slug: "date-picker",
+    title: "Date picker",
+    group: "Built by Data Services",
+    origin: "ds",
+    registry: ["date-picker", "calendar"],
+    component: page(() => import("./pages/date-picker")),
+  },
+  {
+    slug: "detail-list",
+    title: "Detail list",
+    group: "Built by Data Services",
+    origin: "ds",
+    registry: ["detail-list"],
+    component: page(() => import("./pages/detail-list")),
+  },
+  {
+    slug: "echart",
+    title: "EChart",
+    group: "Built by Data Services",
+    origin: "ds",
+    registry: ["echart", "use-css-vars"],
+    component: page(() => import("./pages/echart")),
+  },
+  {
+    slug: "field-value",
+    title: "Field value",
+    group: "Built by Data Services",
+    origin: "ds",
+    registry: ["field-value"],
+    component: page(() => import("./pages/field-value")),
+  },
+  {
+    slug: "filter-controls",
+    title: "Filter controls",
+    group: "Built by Data Services",
+    origin: "ds",
+    registry: ["filter-controls"],
+    component: page(() => import("./pages/filter-controls")),
+  },
+  {
+    slug: "layer-selector",
+    title: "Layer selector",
+    group: "Built by Data Services",
+    origin: "ds",
+    registry: ["layer-selector"],
+    component: page(() => import("./pages/layer-selector")),
+  },
+  {
+    slug: "map",
+    title: "Map",
+    group: "Built by Data Services",
+    origin: "ds",
+    registry: ["map"],
+    component: page(() => import("./pages/map")),
+  },
+  {
+    slug: "mode-toggle",
+    title: "Mode toggle",
+    group: "Built by Data Services",
+    origin: "ds",
+    registry: ["mode-toggle", "theme-provider"],
+    component: page(() => import("./pages/mode-toggle")),
+  },
+  {
+    slug: "navbar",
+    title: "NavBar",
+    group: "Built by Data Services",
+    origin: "ds",
+    registry: ["navbar"],
+    component: page(() => import("./pages/navbar")),
+  },
+  {
+    slug: "page",
+    title: "Page and container",
+    group: "Built by Data Services",
+    origin: "ds",
+    registry: ["page"],
+    component: page(() => import("./pages/page")),
+  },
+
+  // Components (shadcn, some with DS variants), A–Z
   {
     slug: "accordion",
     title: "Accordion",
@@ -174,6 +287,15 @@ export const PAGES: ShowcasePage[] = [
     component: page(() => import("./pages/card")),
   },
   {
+    slug: "chart",
+    title: "Chart",
+    group: "Components",
+    origin: "shadcn",
+    registry: ["chart"],
+    upstream: "chart",
+    component: page(() => import("./pages/chart")),
+  },
+  {
     slug: "checkbox",
     title: "Checkbox",
     group: "Components",
@@ -194,14 +316,6 @@ export const PAGES: ShowcasePage[] = [
     component: page(() => import("./pages/collapsible")),
   },
   {
-    slug: "combobox",
-    title: "Combobox",
-    group: "Components",
-    origin: "ds",
-    registry: ["combobox"],
-    component: page(() => import("./pages/combobox")),
-  },
-  {
     slug: "command",
     title: "Command",
     group: "Components",
@@ -209,22 +323,6 @@ export const PAGES: ShowcasePage[] = [
     registry: ["command"],
     upstream: "command",
     component: page(() => import("./pages/command")),
-  },
-  {
-    slug: "date-picker",
-    title: "Date picker",
-    group: "Components",
-    origin: "ds",
-    registry: ["date-picker", "calendar"],
-    component: page(() => import("./pages/date-picker")),
-  },
-  {
-    slug: "detail-list",
-    title: "Detail list",
-    group: "Components",
-    origin: "ds",
-    registry: ["detail-list"],
-    component: page(() => import("./pages/detail-list")),
   },
   {
     slug: "dialog",
@@ -297,30 +395,6 @@ export const PAGES: ShowcasePage[] = [
     upstream: "label",
     description: "A caption for a form control; clicking it focuses the control.",
     component: page(() => import("./pages/label")),
-  },
-  {
-    slug: "mode-toggle",
-    title: "Mode toggle",
-    group: "Components",
-    origin: "ds",
-    registry: ["mode-toggle", "theme-provider"],
-    component: page(() => import("./pages/mode-toggle")),
-  },
-  {
-    slug: "navbar",
-    title: "NavBar",
-    group: "Components",
-    origin: "ds",
-    registry: ["navbar"],
-    component: page(() => import("./pages/navbar")),
-  },
-  {
-    slug: "page",
-    title: "Page and container",
-    group: "Components",
-    origin: "ds",
-    registry: ["page"],
-    component: page(() => import("./pages/page")),
   },
   {
     slug: "popover",
@@ -429,6 +503,16 @@ export const PAGES: ShowcasePage[] = [
     component: page(() => import("./pages/switch")),
   },
   {
+    slug: "table",
+    title: "Table",
+    group: "Components",
+    origin: "shadcn",
+    registry: ["table"],
+    upstream: "table",
+    description: "A plain, static table for small sets of rows.",
+    component: page(() => import("./pages/table")),
+  },
+  {
     slug: "tabs",
     title: "Tabs",
     group: "Components",
@@ -468,95 +552,9 @@ export const PAGES: ShowcasePage[] = [
     description: "A short label shown on hover or focus.",
     component: page(() => import("./pages/tooltip")),
   },
-
-  // Data & maps
-  {
-    slug: "chart",
-    title: "Chart",
-    group: "Data & maps",
-    origin: "shadcn",
-    registry: ["chart"],
-    upstream: "chart",
-    component: page(() => import("./pages/chart")),
-  },
-  {
-    slug: "echart",
-    title: "EChart",
-    group: "Data & maps",
-    origin: "ds",
-    registry: ["echart", "use-css-vars"],
-    component: page(() => import("./pages/echart")),
-  },
-  {
-    slug: "table",
-    title: "Table",
-    group: "Data & maps",
-    origin: "shadcn",
-    registry: ["table"],
-    upstream: "table",
-    description: "A plain, static table for small sets of rows.",
-    component: page(() => import("./pages/table")),
-  },
-  {
-    slug: "data-table",
-    title: "Data table",
-    group: "Data & maps",
-    origin: "ds",
-    registry: ["data-table"],
-    component: page(() => import("./pages/data-table")),
-  },
-  {
-    slug: "data-grid",
-    title: "Data grid",
-    group: "Data & maps",
-    origin: "ds",
-    registry: ["data-grid"],
-    component: page(() => import("./pages/data-grid")),
-  },
-  {
-    slug: "field-value",
-    title: "Field value",
-    group: "Data & maps",
-    origin: "ds",
-    registry: ["field-value"],
-    component: page(() => import("./pages/field-value")),
-  },
-  {
-    slug: "map",
-    title: "Map",
-    group: "Data & maps",
-    origin: "ds",
-    registry: ["map"],
-    component: page(() => import("./pages/map")),
-  },
-  {
-    slug: "basemap-selector",
-    title: "Basemap selector",
-    group: "Data & maps",
-    origin: "ds",
-    registry: ["basemap-selector"],
-    component: page(() => import("./pages/basemap-selector")),
-  },
-  {
-    slug: "layer-selector",
-    title: "Layer selector",
-    group: "Data & maps",
-    origin: "ds",
-    registry: ["layer-selector"],
-    component: page(() => import("./pages/layer-selector")),
-  },
-  {
-    slug: "filter-controls",
-    title: "Filter controls",
-    group: "Data & maps",
-    origin: "ds",
-    registry: ["filter-controls"],
-    component: page(() => import("./pages/filter-controls")),
-  },
-
 ]
 
-export const PAGE_GROUPS: PageGroup[] = ["Foundations", "Blocks", "Components", "Data & maps"]
+export const PAGE_GROUPS: PageGroup[] = ["Foundations", "Built by Data Services", "Components"]
 
 const REGISTRY_DESCRIPTIONS: Record<string, string> = Object.fromEntries(
   registry.items.map((item) => [item.name, item.description ?? ""])
