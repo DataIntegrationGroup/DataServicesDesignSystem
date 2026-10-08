@@ -17,9 +17,10 @@ const root = join(import.meta.dirname, "..")
 const showcase = join(root, "src/showcase")
 const demosDir = join(showcase, "demos")
 
-// Registry items that are documented on the Foundations pages rather than a
-// page of their own.
+// Registry items that are documented on the Foundations pages (base on the
+// Introduction) rather than a page of their own.
 const FOUNDATION_ITEMS = new Set([
+  "base",
   "theme",
   "theme-base",
   "theme-ocotillo",

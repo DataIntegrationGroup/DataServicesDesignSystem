@@ -20,6 +20,6 @@
       "target": "~/src/styles/ds-base.css"
     }
   ],
-  "docs": "In your CSS entry, import ds-base.css and then one theme file, and remove the @import \"tailwindcss\", @theme inline and :root/.dark blocks that shadcn init created. Set data-theme on <html>. See THEMING.md in the DataServices design system.",
+  "docs": "Starting from @dataservices/base? This is already done. Otherwise, in your CSS entry, import ds-base.css and then one theme file, and remove the @import \"tailwindcss\", @theme inline and :root/.dark blocks that shadcn init created. Set data-theme on <html>. See THEMING.md in the DataServices design system.",
   "type": "registry:file"
 }

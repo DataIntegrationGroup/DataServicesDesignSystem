@@ -14,29 +14,27 @@ Open http://localhost:5173 to browse every component and block.
 
 ## Use it in an app
 
-These steps assume the app is already a shadcn project. To start one, run
-`pnpm dlx shadcn@latest init -t vite`.
+Start a new Vite app on the design system, then add the components you need:
 
-1. Add the registry to the app's `components.json`:
+```bash
+pnpm dlx shadcn@latest init -t vite -n my-app https://raw.githubusercontent.com/DataIntegrationGroup/DataServicesDesignSystem/main/public/r/base.json
+cd my-app
+pnpm dlx shadcn@latest add @dataservices/app-shell
+```
 
-   ```json
-   "registries": {
-     "@dataservices": "https://raw.githubusercontent.com/DataIntegrationGroup/DataServicesDesignSystem/main/public/r/{name}.json"
-   }
-   ```
+In an existing shadcn app, add the registry and a theme instead:
 
-2. Install a theme and the components you need:
+```bash
+pnpm dlx shadcn@latest registry add "@dataservices=https://raw.githubusercontent.com/DataIntegrationGroup/DataServicesDesignSystem/main/public/r/{name}.json"
+pnpm dlx shadcn@latest add @dataservices/theme-ocotillo
+```
 
-   ```bash
-   pnpm dlx shadcn@latest add @dataservices/theme-ocotillo @dataservices/app-shell
-   ```
+Then replace everything in `src/index.css` with:
 
-3. Replace everything in `src/index.css` with:
-
-   ```css
-   @import "./styles/ds-base.css";
-   @import "./styles/themes/ocotillo.css";
-   ```
+```css
+@import "./styles/ds-base.css";
+@import "./styles/themes/ocotillo.css";
+```
 
 Each showcase page has the install command for its component.
 [THEMING.md](THEMING.md) covers themes and tokens.

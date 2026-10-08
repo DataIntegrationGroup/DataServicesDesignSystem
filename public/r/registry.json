@@ -4,6 +4,24 @@
   "homepage": "https://github.com/DataIntegrationGroup/DataServicesDesignSystem",
   "items": [
     {
+      "name": "base",
+      "type": "registry:base",
+      "title": "DataServices base",
+      "description": "Starts a new app on the design system: pnpm dlx shadcn@latest init -t vite -n my-app <registry>/base.json. Sets up components.json with the @dataservices registry, installs the Ocotillo theme and the DS button, and writes src/index.css.",
+      "extends": "none",
+      "config": {
+        "style": "radix-nova",
+        "iconLibrary": "lucide",
+        "registries": {
+          "@dataservices": "https://raw.githubusercontent.com/DataIntegrationGroup/DataServicesDesignSystem/main/public/r/{name}.json"
+        }
+      },
+      "registryDependencies": ["@dataservices/theme-ocotillo", "@dataservices/button"],
+      "files": [
+        { "path": "registry/base/index.css", "type": "registry:file", "target": "src/index.css" }
+      ]
+    },
+    {
       "name": "theme",
       "type": "registry:theme",
       "title": "OcotilloUI Theme (legacy)",
@@ -96,7 +114,7 @@
       "files": [
         { "path": "src/styles/base.css", "type": "registry:file", "target": "~/src/styles/ds-base.css" }
       ],
-      "docs": "In your CSS entry, import ds-base.css and then one theme file, and remove the @import \"tailwindcss\", @theme inline and :root/.dark blocks that shadcn init created. Set data-theme on <html>. See THEMING.md in the DataServices design system."
+      "docs": "Starting from @dataservices/base? This is already done. Otherwise, in your CSS entry, import ds-base.css and then one theme file, and remove the @import \"tailwindcss\", @theme inline and :root/.dark blocks that shadcn init created. Set data-theme on <html>. See THEMING.md in the DataServices design system."
     },
     {
       "name": "utils",

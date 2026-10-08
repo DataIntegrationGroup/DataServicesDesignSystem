@@ -1,0 +1,27 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "extends": "none",
+  "name": "base",
+  "title": "DataServices base",
+  "description": "Starts a new app on the design system: pnpm dlx shadcn@latest init -t vite -n my-app <registry>/base.json. Sets up components.json with the @dataservices registry, installs the Ocotillo theme and the DS button, and writes src/index.css.",
+  "registryDependencies": [
+    "@dataservices/theme-ocotillo",
+    "@dataservices/button"
+  ],
+  "files": [
+    {
+      "path": "registry/base/index.css",
+      "content": "@import \"./styles/ds-base.css\";\n@import \"./styles/themes/ocotillo.css\";\n",
+      "type": "registry:file",
+      "target": "src/index.css"
+    }
+  ],
+  "type": "registry:base",
+  "config": {
+    "style": "radix-nova",
+    "iconLibrary": "lucide",
+    "registries": {
+      "@dataservices": "https://raw.githubusercontent.com/DataIntegrationGroup/DataServicesDesignSystem/main/public/r/{name}.json"
+    }
+  }
+}

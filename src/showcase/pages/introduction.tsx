@@ -2,11 +2,12 @@ import { PageContent } from "@/showcase/page-header"
 import { CodeBlock } from "@/showcase/code-block"
 import { DemoSection } from "@/showcase/demo-section"
 
-const REGISTRY = `"registries": {
-  "@dataservices": "https://raw.githubusercontent.com/DataIntegrationGroup/DataServicesDesignSystem/main/public/r/{name}.json"
-}`
+const NEW_APP = `pnpm dlx shadcn@latest init -t vite -n my-app https://raw.githubusercontent.com/DataIntegrationGroup/DataServicesDesignSystem/main/public/r/base.json
+cd my-app
+pnpm dlx shadcn@latest add @dataservices/app-shell`
 
-const INSTALL = `pnpm dlx shadcn@latest add @dataservices/theme-ocotillo @dataservices/app-shell`
+const EXISTING_APP = `pnpm dlx shadcn@latest registry add "@dataservices=https://raw.githubusercontent.com/DataIntegrationGroup/DataServicesDesignSystem/main/public/r/{name}.json"
+pnpm dlx shadcn@latest add @dataservices/theme-ocotillo`
 
 const CSS = `@import "./styles/ds-base.css";
 @import "./styles/themes/ocotillo.css";`
@@ -26,27 +27,18 @@ export default function IntroductionPage() {
     <PageContent>
       <DemoSection title="Getting started">
         <p className="max-w-3xl text-muted-foreground">
-          These steps assume your app is already a shadcn project. To start
-          one, run <code>pnpm dlx shadcn@latest init -t vite</code>.
+          Start a new Vite app on the design system, then add the components
+          you need:
         </p>
-        <ol className="max-w-3xl list-decimal space-y-4 pl-5 text-muted-foreground">
-          <li className="space-y-2">
-            <p>
-              Add the registry to your app's <code>components.json</code>:
-            </p>
-            <CodeBlock code={REGISTRY} lang="bash" />
-          </li>
-          <li className="space-y-2">
-            <p>Install a theme and the components you need:</p>
-            <CodeBlock code={INSTALL} lang="bash" />
-          </li>
-          <li className="space-y-2">
-            <p>
-              Replace everything in <code>src/index.css</code> with:
-            </p>
-            <CodeBlock code={CSS} lang="bash" />
-          </li>
-        </ol>
+        <CodeBlock code={NEW_APP} lang="bash" className="max-w-3xl" />
+        <p className="max-w-3xl text-muted-foreground">
+          In an existing shadcn app, add the registry and a theme instead:
+        </p>
+        <CodeBlock code={EXISTING_APP} lang="bash" className="max-w-3xl" />
+        <p className="max-w-3xl text-muted-foreground">
+          Then replace everything in <code>src/index.css</code> with:
+        </p>
+        <CodeBlock code={CSS} lang="bash" className="max-w-3xl" />
       </DemoSection>
       <DemoSection title="Why a registry">
         <ul className="max-w-3xl list-disc space-y-2 pl-5 text-muted-foreground">
