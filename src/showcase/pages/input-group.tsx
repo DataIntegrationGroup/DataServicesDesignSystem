@@ -4,7 +4,6 @@ import { PageContent } from "@/showcase/page-header"
 export default function InputGroupPage() {
   return (
     <PageContent>
-      <Demo name="input-group/size-and-variant" title="Size and variant" />
       <Demo name="input-group/addons" title="Addons" />
     </PageContent>
   )

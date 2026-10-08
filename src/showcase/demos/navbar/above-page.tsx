@@ -7,18 +7,17 @@ import {
   NavBarLink,
   NavBarNav,
 } from "@/components/ui/navbar"
-import { PageBody, PageShell } from "@/components/ui/page"
 import { Example } from "@/showcase/example"
 
-export default function NavBarInPageShell() {
+export default function NavBarAbovePage() {
   return (
     <div className="flex flex-col gap-4">
       <Example
-        label="PageShell + NavBar (NavBarBrand, NavBarNav, NavBarLink active, NavBarActions) + PageBody"
+        label="NavBar (NavBarBrand, NavBarNav, NavBarLink active, NavBarActions) above page content"
         className="items-stretch"
       >
         <Card className="overflow-hidden p-0">
-          <PageShell className="h-[280px]">
+          <div className="flex h-[280px] flex-col">
             <NavBar>
               <NavBarBrand asChild>
                 <a href="#/navbar">Weaver</a>
@@ -36,13 +35,11 @@ export default function NavBarInPageShell() {
                 </Button>
               </NavBarActions>
             </NavBar>
-            <PageBody>
+            <div className="flex-1 space-y-2 overflow-auto p-6">
               <h3 className="!text-xl">Datasets</h3>
-              <p className="text-muted-foreground">
-                PageBody scrolls and centers its content column.
-              </p>
-            </PageBody>
-          </PageShell>
+              <p className="text-muted-foreground">The page scrolls below the bar.</p>
+            </div>
+          </div>
         </Card>
       </Example>
     </div>

@@ -56,7 +56,7 @@ The consuming app must already be a shadcn/ui project (`npx shadcn init`).
 3. Add the components you need:
 
    ```bash
-   npx shadcn add @dataservices/navbar @dataservices/page @dataservices/map
+   npx shadcn add @dataservices/app-shell @dataservices/map
    npx shadcn add @dataservices/mode-toggle   # pulls theme-provider + button
    ```
 
@@ -76,12 +76,8 @@ Each item carries its own npm dependencies (e.g. `map` → `react-map-gl`,
 | `mode-toggle`    | component | Light/dark toggle button                                      |
 | `map`            | ui        | MapLibre map, token-free CARTO basemap, NM default extent     |
 | `navbar`         | ui        | Router-agnostic top nav chrome (`asChild` link slots)         |
-| `page`           | ui        | `PageShell` + `PageBody` (`bleed`) + `Container` (`wide`)     |
-| `detail-list`    | ui        | `DetailSection` + `DetailList` / `DetailItem` label/value rows |
 | `app-shell`      | block     | Sidebar (icon rail) + top bar + scrolling content + side panel |
 | `top-nav`        | block     | Content-site nav bar: brand left, links right, menu on phones |
-| `hero`           | block     | Landing hero: eyebrow, display title, tagline, actions        |
-| `detail-card`    | block     | Record detail card (well, dataset) with a loading state       |
 | `button`         | ui        | Upstream button + `size="xl"`, `variant="inverse"`            |
 | `badge`          | ui        | Upstream badge + status, `tone-1`…`tone-6`, `on-image`        |
 | `alert`          | ui        | Upstream alert + `success`, `warning`, `info`                 |

@@ -13,7 +13,7 @@ export default function NavBarPage() {
         block: it's built from NavBar, lines up with wide pages and moves the
         links into a menu on phones. Use NavBar directly for custom bars.
       </p>
-      <Demo name="navbar/page-shell" title="In a page shell" />
+      <Demo name="navbar/above-page" title="Above page content" />
       <Demo name="navbar/fluid" title="Fluid" />
     </PageContent>
   )

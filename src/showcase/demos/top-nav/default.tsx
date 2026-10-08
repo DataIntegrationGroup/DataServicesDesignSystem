@@ -1,5 +1,4 @@
 import { NavBarBrand, NavBarLink } from "@/components/ui/navbar"
-import { Container } from "@/components/ui/page"
 import { TopNav } from "@/blocks/top-nav"
 
 export default function TopNavDemo() {
@@ -22,13 +21,12 @@ export default function TopNavDemo() {
           About
         </NavBarLink>
       </TopNav>
-      <Container size="wide" className="space-y-2 py-10">
+      <div className="mx-auto max-w-7xl space-y-2 px-[clamp(1.25rem,4.4vw,3.5rem)] py-10">
         <h2 className="!text-3xl">Datasets</h2>
         <p className="text-muted-foreground">
-          The bar lines up with Container size="wide". Below the md
-          breakpoint, the links move into the menu.
+          Below the md breakpoint, the links move into the menu.
         </p>
-      </Container>
+      </div>
     </div>
   )
 }

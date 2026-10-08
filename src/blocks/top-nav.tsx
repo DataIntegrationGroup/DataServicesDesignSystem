@@ -12,7 +12,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet"
 
-// Matches Container size="wide", so the bar lines up with wide pages.
+// A wide row: max-w-7xl with a gutter that grows with the window.
 // Both prefixes are needed to replace NavBar's px-4 sm:px-6.
 const WIDE_ROW = "max-w-7xl px-[clamp(1.25rem,4.4vw,3.5rem)] sm:px-[clamp(1.25rem,4.4vw,3.5rem)]"
 

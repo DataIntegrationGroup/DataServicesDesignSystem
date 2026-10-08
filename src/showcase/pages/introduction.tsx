@@ -56,7 +56,7 @@ export default function IntroductionPage() {
         <dl className="grid max-w-3xl gap-x-6 gap-y-3 sm:grid-cols-[auto_1fr]">
           <dt><OriginBadge origin="ds" /></dt>
           <dd className="text-muted-foreground">
-            Written for the design system, e.g. NavBar, Map, Stat band.
+            Written for the design system, e.g. App shell, Map, Data table.
           </dd>
           <dt><OriginBadge origin="extended" /></dt>
           <dd className="text-muted-foreground">

@@ -71,20 +71,6 @@ export const PAGES: ShowcasePage[] = [
     component: page(() => import("./pages/top-nav")),
   },
   {
-    slug: "hero",
-    title: "Hero",
-    group: "Custom",
-    registry: ["hero"],
-    component: page(() => import("./pages/hero")),
-  },
-  {
-    slug: "detail-card",
-    title: "Detail card",
-    group: "Custom",
-    registry: ["detail-card"],
-    component: page(() => import("./pages/detail-card")),
-  },
-  {
     slug: "basemap-selector",
     title: "Basemap selector",
     group: "Custom",
@@ -123,14 +109,6 @@ export const PAGES: ShowcasePage[] = [
     origin: "ds",
     registry: ["date-picker", "calendar"],
     component: page(() => import("./pages/date-picker")),
-  },
-  {
-    slug: "detail-list",
-    title: "Detail list",
-    group: "Custom",
-    origin: "ds",
-    registry: ["detail-list"],
-    component: page(() => import("./pages/detail-list")),
   },
   {
     slug: "echart",
@@ -187,14 +165,6 @@ export const PAGES: ShowcasePage[] = [
     origin: "ds",
     registry: ["navbar"],
     component: page(() => import("./pages/navbar")),
-  },
-  {
-    slug: "page",
-    title: "Page and container",
-    group: "Custom",
-    origin: "ds",
-    registry: ["page"],
-    component: page(() => import("./pages/page")),
   },
 
   // Core: the standard set, based on shadcn/ui (some with DS variants), A–Z
@@ -368,13 +338,9 @@ export const PAGES: ShowcasePage[] = [
     title: "Input group",
     group: "Core",
     description: "An input or textarea with icons, text, buttons or key hints attached.",
-    origin: "extended",
+    origin: "shadcn",
     registry: ["input-group"],
     upstream: "input-group",
-    additions: [
-      'size="lg": a taller row with 18px text, for hero and page search',
-      'variant="prominent": primary border, card fill and a wider focus ring',
-    ],
     component: page(() => import("./pages/input-group")),
   },
   {

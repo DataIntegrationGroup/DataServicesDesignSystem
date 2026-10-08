@@ -380,7 +380,7 @@
       "name": "input-group",
       "type": "registry:ui",
       "title": "Input Group",
-      "description": "Input or textarea with addons, buttons and text (upstream shadcn input-group). Adds size=\"lg\" (taller row, 18px text, larger icons) and variant=\"prominent\" (primary border, card fill, wider focus ring) for hero and page search.",
+      "description": "Upstream shadcn input-group: an input or textarea with addons, buttons and text.",
       "registryDependencies": ["@dataservices/button", "@dataservices/input", "@dataservices/textarea"],
       "files": [
         { "path": "src/components/ui/input-group.tsx", "type": "registry:ui" }
@@ -488,27 +488,6 @@
           "path": "src/components/ui/navbar.tsx",
           "type": "registry:ui"
         }
-      ]
-    },
-    {
-      "name": "page",
-      "type": "registry:ui",
-      "title": "Page Shell",
-      "description": "Full-viewport app chrome — PageShell (flex column) plus PageBody (scrollable, width-capped content column; bleed drops the column for full-width bands), and Container (centered column, size=\"wide\" for marketing pages).",
-      "files": [
-        {
-          "path": "src/components/ui/page.tsx",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
-      "name": "detail-list",
-      "type": "registry:ui",
-      "title": "Detail List",
-      "description": "DetailSection (eyebrow heading over content) and DetailList / DetailItem (label/value pairs, side by side from sm) for record detail panels.",
-      "files": [
-        { "path": "src/components/ui/detail-list.tsx", "type": "registry:ui" }
       ]
     },
     {
@@ -658,32 +637,11 @@
       "name": "top-nav",
       "type": "registry:block",
       "title": "Top Nav",
-      "description": "Navigation bar for content sites (use app-shell for tool-style apps): brand on the left, links on the right, aligned to Container size=\"wide\". Below the md breakpoint the links move into a menu sheet.",
+      "description": "Navigation bar for content sites (use app-shell for tool-style apps): brand on the left, links on the right, in a wide (max-w-7xl) row. Below the md breakpoint the links move into a menu sheet.",
       "dependencies": ["lucide-react"],
       "registryDependencies": ["@dataservices/navbar", "@dataservices/sheet", "@dataservices/button"],
       "files": [
         { "path": "src/blocks/top-nav.tsx", "type": "registry:component" }
-      ]
-    },
-    {
-      "name": "hero",
-      "type": "registry:block",
-      "title": "Hero",
-      "description": "Landing-page hero on the dark brand color: eyebrow, text-display title, tagline, description and room for a search or calls to action. Needs theme-base for the type steps.",
-      "registryDependencies": ["@dataservices/page"],
-      "files": [
-        { "path": "src/blocks/hero.tsx", "type": "registry:component" }
-      ]
-    },
-    {
-      "name": "detail-card",
-      "type": "registry:block",
-      "title": "Detail Card",
-      "description": "Record detail panel (a well, a dataset): icon title, description and badge, DetailSections in the body, one action, and a loading state.",
-      "dependencies": ["lucide-react"],
-      "registryDependencies": ["@dataservices/card", "@dataservices/badge", "@dataservices/detail-list", "@dataservices/skeleton"],
-      "files": [
-        { "path": "src/blocks/detail-card.tsx", "type": "registry:component" }
       ]
     },
     {
