@@ -4,3 +4,35 @@
 .dark .shiki span {
     color: var(--shiki-dark) !important;
 }
+
+/* The showcase's own heading sizes. Not part of theme-base: apps size
+   headings with utilities (text-5xl…). In the base layer so
+   utilities on a heading still win. */
+@layer base {
+    h1 {
+        font-weight: 700;
+        font-size: 48px;
+        line-height: 1.4;
+    }
+    h2 {
+        font-weight: 600;
+        font-size: 36px;
+        line-height: 1.5;
+    }
+    h3 {
+        font-weight: 500;
+        font-size: 28px;
+        line-height: 1.5;
+    }
+    h4 {
+        font-weight: 500;
+        font-size: 22px;
+        line-height: 1.6;
+    }
+    @media (max-width: 600px) {
+        h1 { font-size: 36px; }
+        h2 { font-size: 28px; }
+        h3 { font-size: 24px; line-height: 1.6; }
+        h4 { font-size: 20px; }
+    }
+}

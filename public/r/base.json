@@ -3,9 +3,10 @@
   "extends": "none",
   "name": "base",
   "title": "DataServices base",
-  "description": "Starts a new app on the design system: pnpm dlx shadcn@latest init -t vite -n my-app <registry>/base.json. Sets up components.json with the @dataservices registry and installs theme-base, the Ocotillo theme, the theme provider and the DS button, whose CSS the CLI merges into src/index.css.",
+  "description": "Starts a new app on the design system: pnpm dlx shadcn@latest init -t vite -n my-app <registry>/base.json. Sets up components.json with the @dataservices registry and installs theme-base, the Ocotillo theme, the DS cn() (lib/utils.ts), the theme provider and the DS button, whose CSS the CLI merges into src/index.css.",
   "registryDependencies": [
     "@dataservices/theme-ocotillo",
+    "@dataservices/utils",
     "@dataservices/theme-provider",
     "@dataservices/button"
   ],

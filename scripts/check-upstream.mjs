@@ -15,6 +15,7 @@ import { readFileSync } from "node:fs"
 import { fileURLToPath } from "node:url"
 
 const root = fileURLToPath(new URL("..", import.meta.url))
+const registry = JSON.parse(readFileSync(new URL("../registry.json", import.meta.url), "utf8"))
 const pages = readFileSync(new URL("../src/showcase/pages.ts", import.meta.url), "utf8")
 
 const names = [...pages.matchAll(/\{\s*slug: "[^"]+",([\s\S]*?)\n {2}\}/g)]
@@ -26,36 +27,44 @@ const names = [...pages.matchAll(/\{\s*slug: "[^"]+",([\s\S]*?)\n {2}\}/g)]
 
 console.log(`Comparing ${names.length} unchanged components with shadcn upstream…`)
 
-// The CLI shows at most five files per run, so ask for one item at a time.
-// Its sections start with "├ <path> (overwrite)"; diff lines follow as
+// The CLI diffs at most five files per run, and an item's dependencies can
+// fill those five before its own file. So diff each of the item's files by
+// path (taken from registry.json). Diff lines come out as
 // "│ │ +…" / "│ │ -…".
 const changed = new Map()
+const missing = []
 for (const name of names) {
-  const output = execFileSync("pnpm", ["exec", "shadcn", "add", name, "--dry-run", "--diff"], {
-    cwd: root,
-    encoding: "utf8",
-    stdio: ["ignore", "pipe", "pipe"],
-  })
-  let inItem = false
-  for (const line of output.split("\n")) {
-    const file = line.match(/^├ \S*\/([\w-]+)\.tsx? /)
-    if (file) {
-      inItem = file[1] === name
+  const item = registry.items.find((i) => i.name === name)
+  for (const { path } of item?.files ?? []) {
+    const output = execFileSync(
+      "pnpm",
+      ["exec", "shadcn", "add", name, "--dry-run", "--diff", path],
+      { cwd: root, encoding: "utf8", stdio: ["ignore", "pipe", "pipe"] }
+    )
+    if (output.includes("No file matching")) {
+      missing.push(`${name} (${path})`)
       continue
     }
-    const diff = line.match(/^│ │ ([+-])(?![+-]{2} [ab]\/)(.*)$/)
-    if (!inItem || !diff) continue
-    const text = diff[2].trim()
-    if (!text || text.startsWith("import ") || text === '"use client"') continue
-    if (!changed.has(name)) changed.set(name, [])
-    changed.get(name).push(`${diff[1]} ${text}`)
+    for (const line of output.split("\n")) {
+      const diff = line.match(/^│ │ ([+-])(?![+-]{2} [ab]\/)(.*)$/)
+      if (!diff) continue
+      const text = diff[2].trim()
+      if (!text || text.startsWith("import ") || text === '"use client"') continue
+      if (!changed.has(name)) changed.set(name, [])
+      changed.get(name).push(`${diff[1]} ${text}`)
+    }
   }
   process.stdout.write(".")
 }
 console.log()
 
-const same = names.filter((name) => !changed.has(name))
+const same = names.filter(
+  (name) => !changed.has(name) && !missing.some((m) => m.startsWith(`${name} `))
+)
 console.log(`\nSame as upstream (apart from imports): ${same.join(", ") || "none"}`)
+if (missing.length) {
+  console.log(`\nNo upstream file to compare (item removed or renamed upstream): ${missing.join(", ")}`)
+}
 if (changed.size === 0) process.exit(0)
 console.log("\nDiffer from upstream (- this repo, + upstream):")
 for (const [name, lines] of changed) {

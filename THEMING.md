@@ -8,7 +8,7 @@ brand or raw palette color, so every component works under every theme.
 
 | File | What it holds |
 | --- | --- |
-| `src/index.css` | The CSS entry `components.json` points to. Structure shared by every app: imports, the `dark` variant, fonts, type steps, the `@theme inline` token-to-utility mappings, the radius scale and base type styles. Sets no colors. Also imports every theme, for the showcase switcher. |
+| `src/index.css` | The CSS entry `components.json` points to. Structure shared by every app: imports, the `dark` variant, fonts, type steps, the `@theme inline` token-to-utility mappings, the radius scale and minimal base styles (body colors and font, heading font). Sets no colors or heading sizes. Also imports every theme, for the showcase switcher. |
 | `src/themes/<name>.css` | One theme: token values only, light and dark. |
 
 Apps don't copy these files. `scripts/registry-css.mjs` (run by `pnpm
@@ -19,7 +19,7 @@ fails if `registry.json` is out of date.
 
 `theme-base` is a `registry:style`, installed once with a theme (or by
 `base` at init). Components don't depend on it: the CLI merges a style's
-`css` (base type styles, the `dark` variant) again on every add, which
+`css` (base styles, the `dark` variant) again on every add, which
 would undo an app's edits. Instead, the script gives each component the
 DS-only tokens its classes use (`success-soft`, `tone-1-strong`,
 `on-image`…) as its own `cssVars`: the `@theme inline` mapping plus the
@@ -185,16 +185,19 @@ They don't depend on the theme.
 | `text-display` | 64–104px, fluid | Hero heading | `font-heading` |
 | `text-eyebrow` | 12px, tracked | Small label above a heading | `uppercase` |
 
-Everything else uses the built-in scale. Large section headings use the
-`h1` styles or `text-5xl` (48px); big KPI numbers use `text-5xl font-bold
+Everything else uses the built-in scale. Large section headings use
+`text-5xl` (48px); big KPI numbers use `text-5xl font-bold
 tabular-nums`; intro paragraphs use `text-lg` (18px). For UI text at 13
 or 15px, use the nearest standard step (`text-xs`, `text-sm`, `text-base`)
 rather than an arbitrary size.
 
 **Use the DS `cn()`.** Stock tailwind-merge treats an unknown `text-*` class
 as a color, so `cn("text-display text-primary")` silently drops
-`text-display`. `@dataservices/utils` (a dependency of `theme-base`) lists
-the steps so `cn()` merges them as font sizes. To add a step, add its
+`text-display`. `@dataservices/utils` lists the steps so `cn()` merges
+them as font sizes. New apps get it from `base`. It replaces
+`lib/utils.ts`, so themes don't depend on it: in an existing app whose
+`lib/utils.ts` has other helpers, copy the `extendTailwindMerge` call from
+`src/lib/utils.ts` into it instead of adding the item. To add a step, add its
 `--text-*` tokens to `src/index.css` and its name to `TYPE_STEPS` in
 `src/lib/utils.ts`.
 

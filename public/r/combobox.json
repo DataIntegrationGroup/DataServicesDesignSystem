@@ -4,7 +4,7 @@
   "title": "Combobox",
   "description": "Upstream shadcn combobox (Base UI Combobox): a searchable input with a filtered list, for single or multiple selection with chips.",
   "dependencies": [
-    "@base-ui/react@^1.8.0",
+    "@base-ui/react@~1.8.0",
     "lucide-react"
   ],
   "registryDependencies": [

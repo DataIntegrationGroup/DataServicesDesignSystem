@@ -132,38 +132,10 @@
     }
     body {
         @apply bg-background text-foreground font-sans;
-        font-size: 16px;
-        line-height: 1.5;
     }
+    /* Only the family: sizes and colors are left to utilities, so a heading
+       inherits its container's color (text-primary-foreground on a banner). */
     h1, h2, h3, h4, h5, h6 {
         font-family: var(--font-heading);
-        color: var(--foreground);
-    }
-    h1 {
-        font-weight: 700;
-        font-size: 48px;
-        line-height: 1.4;
-    }
-    h2 {
-        font-weight: 600;
-        font-size: 36px;
-        line-height: 1.5;
-    }
-    h3 {
-        font-weight: 500;
-        font-size: 28px;
-        line-height: 1.5;
-    }
-    h4 {
-        font-weight: 500;
-        font-size: 22px;
-        line-height: 1.6;
-    }
-    @media (max-width: 600px) {
-        h1 { font-size: 36px; }
-        h2 { font-size: 28px; }
-        h3 { font-size: 24px; line-height: 1.6; }
-        h4 { font-size: 20px; }
-        body { font-size: 14px; }
     }
 }

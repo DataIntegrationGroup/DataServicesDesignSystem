@@ -7,7 +7,7 @@
       "name": "base",
       "type": "registry:base",
       "title": "DataServices base",
-      "description": "Starts a new app on the design system: pnpm dlx shadcn@latest init -t vite -n my-app <registry>/base.json. Sets up components.json with the @dataservices registry and installs theme-base, the Ocotillo theme, the theme provider and the DS button, whose CSS the CLI merges into src/index.css.",
+      "description": "Starts a new app on the design system: pnpm dlx shadcn@latest init -t vite -n my-app <registry>/base.json. Sets up components.json with the @dataservices registry and installs theme-base, the Ocotillo theme, the DS cn() (lib/utils.ts), the theme provider and the DS button, whose CSS the CLI merges into src/index.css.",
       "extends": "none",
       "config": {
         "style": "radix-nova",
@@ -16,7 +16,7 @@
           "@dataservices": "https://raw.githubusercontent.com/DataIntegrationGroup/DataServicesDesignSystem/main/public/r/{name}.json"
         }
       },
-      "registryDependencies": ["@dataservices/theme-ocotillo", "@dataservices/theme-provider", "@dataservices/button"]
+      "registryDependencies": ["@dataservices/theme-ocotillo", "@dataservices/utils", "@dataservices/theme-provider", "@dataservices/button"]
     },
     {
       "name": "theme",
@@ -105,10 +105,9 @@
       "name": "theme-base",
       "type": "registry:style",
       "title": "Theme base",
-      "description": "Shared design-system CSS: imports, dark variant, fonts, type steps, @theme inline token mappings, radius scale and base type styles. Sets no colors; add a theme too.",
+      "description": "Shared design-system CSS: imports, dark variant, fonts, type steps, @theme inline token mappings, radius scale and minimal base styles (body colors, heading font). Sets no colors; add a theme too.",
       "dependencies": ["@fontsource-variable/outfit", "@fontsource-variable/public-sans"],
       "devDependencies": ["shadcn", "tw-animate-css"],
-      "registryDependencies": ["@dataservices/utils"],
       "docs": "The CLI merged the design system's base CSS into your CSS entry. It sets no colors, so the app also needs a theme such as @dataservices/theme-ocotillo. It defines the dark variant as (&:is(.dark *)), like shadcn's templates; if your CSS already had a different @custom-variant dark, delete one of the two. See THEMING.md in the DataServices design system.",
       "cssVars": {
         "theme": {
@@ -222,22 +221,9 @@
             "@apply border-border outline-ring/50": {}
           },
           "body": {
-            "@apply bg-background text-foreground font-sans": {},
-            "font-size": "16px",
-            "line-height": "1.5"
+            "@apply bg-background text-foreground font-sans": {}
           },
-          "h1, h2, h3, h4, h5, h6": { "font-family": "var(--font-heading)", "color": "var(--foreground)" },
-          "h1": { "font-weight": "700", "font-size": "48px", "line-height": "1.4" },
-          "h2": { "font-weight": "600", "font-size": "36px", "line-height": "1.5" },
-          "h3": { "font-weight": "500", "font-size": "28px", "line-height": "1.5" },
-          "h4": { "font-weight": "500", "font-size": "22px", "line-height": "1.6" },
-          "@media (max-width: 600px)": {
-            "h1": { "font-size": "36px" },
-            "h2": { "font-size": "28px" },
-            "h3": { "font-size": "24px", "line-height": "1.6" },
-            "h4": { "font-size": "20px" },
-            "body": { "font-size": "14px" }
-          }
+          "h1, h2, h3, h4, h5, h6": { "font-family": "var(--font-heading)" }
         }
       }
     },
@@ -727,8 +713,9 @@
       "name": "command",
       "type": "registry:ui",
       "title": "Command",
-      "description": "Command palette / list primitives over cmdk: Command, CommandInput, CommandList, CommandEmpty, CommandGroup, CommandItem, CommandSeparator.",
+      "description": "Command palette / list primitives over cmdk: Command, CommandDialog, CommandInput, CommandList, CommandEmpty, CommandGroup, CommandItem, CommandShortcut, CommandSeparator.",
       "dependencies": ["cmdk", "lucide-react"],
+      "registryDependencies": ["@dataservices/dialog", "@dataservices/input-group"],
       "files": [
         { "path": "src/components/ui/command.tsx", "type": "registry:ui" }
       ]
@@ -738,7 +725,7 @@
       "type": "registry:ui",
       "title": "Combobox",
       "description": "Upstream shadcn combobox (Base UI Combobox): a searchable input with a filtered list, for single or multiple selection with chips.",
-      "dependencies": ["@base-ui/react@^1.8.0", "lucide-react"],
+      "dependencies": ["@base-ui/react@~1.8.0", "lucide-react"],
       "registryDependencies": ["@dataservices/button", "@dataservices/input-group"],
       "files": [
         { "path": "src/components/ui/combobox.tsx", "type": "registry:ui" }

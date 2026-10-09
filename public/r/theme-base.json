@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "theme-base",
   "title": "Theme base",
-  "description": "Shared design-system CSS: imports, dark variant, fonts, type steps, @theme inline token mappings, radius scale and base type styles. Sets no colors; add a theme too.",
+  "description": "Shared design-system CSS: imports, dark variant, fonts, type steps, @theme inline token mappings, radius scale and minimal base styles (body colors, heading font). Sets no colors; add a theme too.",
   "dependencies": [
     "@fontsource-variable/outfit",
     "@fontsource-variable/public-sans"
@@ -10,9 +10,6 @@
   "devDependencies": [
     "shadcn",
     "tw-animate-css"
-  ],
-  "registryDependencies": [
-    "@dataservices/utils"
   ],
   "cssVars": {
     "theme": {
@@ -126,51 +123,10 @@
         "@apply border-border outline-ring/50": {}
       },
       "body": {
-        "@apply bg-background text-foreground font-sans": {},
-        "font-size": "16px",
-        "line-height": "1.5"
+        "@apply bg-background text-foreground font-sans": {}
       },
       "h1, h2, h3, h4, h5, h6": {
-        "font-family": "var(--font-heading)",
-        "color": "var(--foreground)"
-      },
-      "h1": {
-        "font-weight": "700",
-        "font-size": "48px",
-        "line-height": "1.4"
-      },
-      "h2": {
-        "font-weight": "600",
-        "font-size": "36px",
-        "line-height": "1.5"
-      },
-      "h3": {
-        "font-weight": "500",
-        "font-size": "28px",
-        "line-height": "1.5"
-      },
-      "h4": {
-        "font-weight": "500",
-        "font-size": "22px",
-        "line-height": "1.6"
-      },
-      "@media (max-width: 600px)": {
-        "h1": {
-          "font-size": "36px"
-        },
-        "h2": {
-          "font-size": "28px"
-        },
-        "h3": {
-          "font-size": "24px",
-          "line-height": "1.6"
-        },
-        "h4": {
-          "font-size": "20px"
-        },
-        "body": {
-          "font-size": "14px"
-        }
+        "font-family": "var(--font-heading)"
       }
     }
   },

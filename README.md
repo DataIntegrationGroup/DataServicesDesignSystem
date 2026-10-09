@@ -44,6 +44,10 @@ it's mid-migration from MUI, so move over a piece at a time:
   The CLI merges the theme into `src/index.css`'s existing `@theme inline`,
   `:root` and `.dark` blocks and keeps its plugins and app styles. Keep
   `src/theme.ts` in step with the theme until MUI is gone.
+- **`cn()`:** themes leave `lib/utils.ts` alone. Before merging
+  `text-display` or `text-eyebrow` with other classes in `cn()`, add the
+  type steps to its tailwind-merge config (see "Use the DS `cn()`" in
+  THEMING.md).
 - **Components it already has** (18 in `src/components/ui`): replace one at a
   time. Run `add @dataservices/<name> --dry-run --diff` first, so you can keep
   any local changes.

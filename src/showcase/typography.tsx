@@ -91,9 +91,10 @@ export function TypographyShowcase() {
       <section className="space-y-6">
         <h2>Headings</h2>
         <p className="text-muted-foreground">
-          Base element styles from <code>theme-base</code>. Headings use
-          <code>--font-heading</code>; sizes step down on screens
-          under 600px.
+          <code>theme-base</code> sets only the heading font
+          (<code>--font-heading</code>); size, weight and color come from
+          utilities, so a heading inherits its container&apos;s color. The
+          sizes below are the showcase&apos;s own.
         </p>
         <div className="space-y-5">
           <Specimen as="h1" label="<h1>">
