@@ -3,6 +3,9 @@
   "name": "field-value",
   "title": "Field Value",
   "description": "Renders a feature/record attribute value: URLs become a clickable host link, 'CODE: Label' coded values render the code as a chip beside its label, USGS-style approval states (Approved/Provisional) render as a colored status chip, and everything else is plain text.",
+  "registryDependencies": [
+    "@dataservices/theme-base"
+  ],
   "files": [
     {
       "path": "src/components/ui/field-value.tsx",

@@ -7,6 +7,9 @@
     "radix-ui",
     "class-variance-authority"
   ],
+  "registryDependencies": [
+    "@dataservices/theme-base"
+  ],
   "files": [
     {
       "path": "src/components/ui/button.tsx",

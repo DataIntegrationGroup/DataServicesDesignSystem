@@ -780,6 +780,7 @@
       "title": "Button",
       "description": "Upstream shadcn button. Adds size=\"xl\" (48px call to action) and variant=\"inverse\" (light button for dark bands and images).",
       "dependencies": ["radix-ui", "class-variance-authority"],
+      "registryDependencies": ["@dataservices/theme-base"],
       "files": [
         { "path": "src/components/ui/button.tsx", "type": "registry:ui" }
       ]
@@ -790,6 +791,7 @@
       "title": "Badge",
       "description": "Upstream shadcn badge. Adds status variants (success, warning, info), category tones (tone-1 … tone-6) and an on-image outline variant.",
       "dependencies": ["radix-ui", "class-variance-authority"],
+      "registryDependencies": ["@dataservices/theme-base"],
       "files": [
         { "path": "src/components/ui/badge.tsx", "type": "registry:ui" }
       ]
@@ -800,6 +802,7 @@
       "title": "Alert",
       "description": "Upstream shadcn alert. Adds success, warning and info variants on the status tokens.",
       "dependencies": ["class-variance-authority"],
+      "registryDependencies": ["@dataservices/theme-base"],
       "files": [
         { "path": "src/components/ui/alert.tsx", "type": "registry:ui" }
       ]
@@ -1103,6 +1106,7 @@
       "title": "Basemap Selector",
       "description": "Grid of selectable basemap thumbnails. Presentational and map-library agnostic — the consumer owns the style list and applies the chosen id to its map. Pairs with the Map primitive.",
       "dependencies": ["lucide-react", "maplibre-gl"],
+      "registryDependencies": ["@dataservices/theme-base"],
       "files": [
         {
           "path": "src/components/ui/basemap-selector.tsx",
@@ -1129,6 +1133,7 @@
       "type": "registry:ui",
       "title": "Field Value",
       "description": "Renders a feature/record attribute value: URLs become a clickable host link, 'CODE: Label' coded values render the code as a chip beside its label, USGS-style approval states (Approved/Provisional) render as a colored status chip, and everything else is plain text.",
+      "registryDependencies": ["@dataservices/theme-base"],
       "files": [
         {
           "path": "src/components/ui/field-value.tsx",
