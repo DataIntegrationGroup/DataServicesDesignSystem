@@ -4,7 +4,8 @@
   "title": "Toggle",
   "description": "Two-state pressable toggle button (Radix Toggle) with default/outline variants and sm/default/lg sizes.",
   "dependencies": [
-    "radix-ui"
+    "radix-ui",
+    "class-variance-authority"
   ],
   "files": [
     {

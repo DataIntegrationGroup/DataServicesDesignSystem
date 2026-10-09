@@ -5,6 +5,7 @@
   "description": "Collapsible app sidebar (offcanvas/icon), with provider, keyboard shortcut, cookie-persisted state, mobile Sheet fallback, and a full set of menu/group primitives. Themed via the OcotilloUI --sidebar tokens.",
   "dependencies": [
     "radix-ui",
+    "class-variance-authority",
     "lucide-react"
   ],
   "registryDependencies": [

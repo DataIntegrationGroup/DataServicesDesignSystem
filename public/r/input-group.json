@@ -3,6 +3,9 @@
   "name": "input-group",
   "title": "Input Group",
   "description": "Upstream shadcn input-group: an input or textarea with addons, buttons and text.",
+  "dependencies": [
+    "class-variance-authority"
+  ],
   "registryDependencies": [
     "@dataservices/button",
     "@dataservices/input",

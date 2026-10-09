@@ -4,7 +4,8 @@
   "title": "Toggle Group",
   "description": "Segmented set of toggles (Radix ToggleGroup) sharing variant/size; single or multiple selection.",
   "dependencies": [
-    "radix-ui"
+    "radix-ui",
+    "class-variance-authority"
   ],
   "registryDependencies": [
     "@dataservices/toggle"

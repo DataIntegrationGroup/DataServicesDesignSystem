@@ -4,8 +4,7 @@
   "title": "Resizable",
   "description": "Resizable split panes (react-resizable-panels) — pair with Map for split map/table layouts.",
   "dependencies": [
-    "react-resizable-panels",
-    "lucide-react"
+    "react-resizable-panels"
   ],
   "files": [
     {

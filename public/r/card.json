@@ -3,9 +3,6 @@
   "name": "card",
   "title": "Card",
   "description": "Upstream shadcn card.",
-  "dependencies": [
-    "radix-ui"
-  ],
   "files": [
     {
       "path": "src/components/ui/card.tsx",

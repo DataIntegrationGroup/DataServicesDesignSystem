@@ -235,7 +235,7 @@
       "type": "registry:ui",
       "title": "Toggle",
       "description": "Two-state pressable toggle button (Radix Toggle) with default/outline variants and sm/default/lg sizes.",
-      "dependencies": ["radix-ui"],
+      "dependencies": ["radix-ui", "class-variance-authority"],
       "files": [
         {
           "path": "src/components/ui/toggle.tsx",
@@ -248,7 +248,7 @@
       "type": "registry:ui",
       "title": "Toggle Group",
       "description": "Segmented set of toggles (Radix ToggleGroup) sharing variant/size; single or multiple selection.",
-      "dependencies": ["radix-ui"],
+      "dependencies": ["radix-ui", "class-variance-authority"],
       "registryDependencies": ["@dataservices/toggle"],
       "files": [
         {
@@ -262,7 +262,7 @@
       "type": "registry:ui",
       "title": "Radio Group",
       "description": "Single-select radio options (Radix RadioGroup) themed to OcotilloUI.",
-      "dependencies": ["radix-ui", "lucide-react"],
+      "dependencies": ["radix-ui"],
       "files": [
         {
           "path": "src/components/ui/radio-group.tsx",
@@ -329,7 +329,7 @@
       "type": "registry:ui",
       "title": "Resizable",
       "description": "Resizable split panes (react-resizable-panels) — pair with Map for split map/table layouts.",
-      "dependencies": ["react-resizable-panels", "lucide-react"],
+      "dependencies": ["react-resizable-panels"],
       "files": [
         { "path": "src/components/ui/resizable.tsx", "type": "registry:ui" }
       ]
@@ -379,7 +379,6 @@
       "type": "registry:ui",
       "title": "Card",
       "description": "Upstream shadcn card.",
-      "dependencies": ["radix-ui"],
       "files": [
         { "path": "src/components/ui/card.tsx", "type": "registry:ui" }
       ]
@@ -399,6 +398,7 @@
       "type": "registry:ui",
       "title": "Input Group",
       "description": "Upstream shadcn input-group: an input or textarea with addons, buttons and text.",
+      "dependencies": ["class-variance-authority"],
       "registryDependencies": ["@dataservices/button", "@dataservices/input", "@dataservices/textarea"],
       "files": [
         { "path": "src/components/ui/input-group.tsx", "type": "registry:ui" }
@@ -467,7 +467,7 @@
       "type": "registry:ui",
       "title": "Sidebar",
       "description": "Collapsible app sidebar (offcanvas/icon), with provider, keyboard shortcut, cookie-persisted state, mobile Sheet fallback, and a full set of menu/group primitives. Themed via the OcotilloUI --sidebar tokens.",
-      "dependencies": ["radix-ui", "lucide-react"],
+      "dependencies": ["radix-ui", "class-variance-authority", "lucide-react"],
       "registryDependencies": ["@dataservices/button", "@dataservices/input", "@dataservices/separator", "@dataservices/skeleton", "@dataservices/tooltip", "@dataservices/sheet", "@dataservices/use-mobile"],
       "files": [
         { "path": "src/components/ui/sidebar.tsx", "type": "registry:ui" }

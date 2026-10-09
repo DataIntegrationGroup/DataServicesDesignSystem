@@ -4,8 +4,7 @@
   "title": "Radio Group",
   "description": "Single-select radio options (Radix RadioGroup) themed to OcotilloUI.",
   "dependencies": [
-    "radix-ui",
-    "lucide-react"
+    "radix-ui"
   ],
   "files": [
     {
