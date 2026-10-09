@@ -619,7 +619,7 @@
       "name": "table",
       "type": "registry:ui",
       "title": "Table",
-      "description": "Upstream shadcn table: a plain, static table.",
+      "description": "Shadcn table with a containerClassName prop for the scrolling wrapper: a plain, static table.",
       "files": [{ "path": "src/components/ui/table.tsx", "type": "registry:ui" }]
     },
     {

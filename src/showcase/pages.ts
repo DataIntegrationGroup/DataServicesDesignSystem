@@ -5,7 +5,7 @@ import registry from "../../registry.json"
 /**
  * Where a component comes from:
  * - `ds`: written for the DS.
- * - `extended`: upstream shadcn with DS variants added (see `additions`).
+ * - `extended`: upstream shadcn with DS changes (see `additions`).
  * - `shadcn`: upstream shadcn, unchanged apart from theme tokens.
  */
 export type Origin = "ds" | "extended" | "shadcn"
@@ -23,7 +23,7 @@ export type ShowcasePage = {
   upstream?: string
   /** For pages without a registry item (or to override its description). */
   description?: string
-  /** For `extended` components: what the DS adds. */
+  /** For `extended` components: what the DS changes. */
   additions?: string[]
   component: React.LazyExoticComponent<React.ComponentType>
 }
@@ -185,9 +185,13 @@ export const PAGES: ShowcasePage[] = [
     slug: "alert-dialog",
     title: "Alert dialog",
     group: "Core",
-    origin: "shadcn",
+    origin: "extended",
     registry: ["alert-dialog"],
     upstream: "alert-dialog",
+    additions: [
+      "Action and Cancel styled with buttonVariants (default and outline)",
+      "Built on an older upstream version: no size prop, AlertDialogMedia, AlertDialogPortal or AlertDialogOverlay",
+    ],
     component: page(() => import("./pages/alert-dialog")),
   },
   {
@@ -425,18 +429,25 @@ export const PAGES: ShowcasePage[] = [
     slug: "sheet",
     title: "Sheet",
     group: "Core",
-    origin: "shadcn",
+    origin: "extended",
     registry: ["sheet"],
     upstream: "sheet",
+    additions: [
+      "Borders under the header and above the footer, and a ring around the panel",
+      "Built on an older upstream version: no SheetPortal or SheetOverlay exports",
+    ],
     component: page(() => import("./pages/sheet")),
   },
   {
     slug: "sidebar",
     title: "Sidebar",
     group: "Core",
-    origin: "shadcn",
+    origin: "extended",
     registry: ["sidebar", "use-mobile"],
     upstream: "sidebar",
+    additions: [
+      "useIsMobile reads the viewport with useSyncExternalStore, so the first render already has the right value",
+    ],
     component: page(() => import("./pages/sidebar")),
   },
   {
@@ -473,10 +484,13 @@ export const PAGES: ShowcasePage[] = [
     slug: "table",
     title: "Table",
     group: "Core",
-    origin: "shadcn",
+    origin: "extended",
     registry: ["table"],
     upstream: "table",
     description: "A plain, static table for small sets of rows.",
+    additions: [
+      "containerClassName styles the scrolling wrapper",
+    ],
     component: page(() => import("./pages/table")),
   },
   {

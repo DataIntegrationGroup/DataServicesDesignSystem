@@ -77,7 +77,7 @@ export function PageHeader({ page }: { page: ShowcasePage }) {
       )}
       {page.additions && (
         <div className="max-w-3xl rounded-lg border border-info/30 bg-info-soft px-4 py-3 text-sm text-info-strong">
-          <div className="font-semibold">Added by the DS</div>
+          <div className="font-semibold">Changed by the DS</div>
           <ul className="mt-1 list-disc space-y-0.5 pl-5">
             {page.additions.map((addition) => (
               <li key={addition}>{addition}</li>

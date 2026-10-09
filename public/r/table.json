@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "table",
   "title": "Table",
-  "description": "Upstream shadcn table: a plain, static table.",
+  "description": "Shadcn table with a containerClassName prop for the scrolling wrapper: a plain, static table.",
   "files": [
     {
       "path": "src/components/ui/table.tsx",
