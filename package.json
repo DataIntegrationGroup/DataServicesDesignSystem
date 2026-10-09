@@ -16,6 +16,7 @@
     "registry:build": "node scripts/registry-css.mjs && shadcn build"
   },
   "dependencies": {
+    "@base-ui/react": "~1.8.0",
     "@fontsource-variable/outfit": "^5.2.8",
     "@fontsource-variable/public-sans": "^5.2.7",
     "@glideapps/glide-data-grid": "^6.0.3",

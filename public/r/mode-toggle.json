@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "mode-toggle",
   "title": "Mode Toggle",
-  "description": "Light/dark toggle button. Tracks system preference when theme is 'system'.",
+  "description": "Light/dark toggle button. Reads resolvedTheme from the theme provider, so it follows the system preference when theme is 'system'.",
   "dependencies": [
     "lucide-react"
   ],
@@ -13,7 +13,7 @@
   "files": [
     {
       "path": "src/components/mode-toggle.tsx",
-      "content": "import { useSyncExternalStore } from \"react\"\nimport { Moon, Sun } from \"lucide-react\"\nimport { Button } from \"@/components/ui/button\"\nimport { useTheme } from \"@/components/theme-provider\"\n\nexport function ModeToggle() {\n  const { theme, setTheme } = useTheme()\n  const systemDark = useSyncExternalStore(\n    (cb) => {\n      const mq = window.matchMedia(\"(prefers-color-scheme: dark)\")\n      mq.addEventListener(\"change\", cb)\n      return () => mq.removeEventListener(\"change\", cb)\n    },\n    () => window.matchMedia(\"(prefers-color-scheme: dark)\").matches,\n    () => false\n  )\n  const isDark = theme === \"dark\" || (theme === \"system\" && systemDark)\n\n  return (\n    <Button\n      variant=\"outline\"\n      size=\"icon\"\n      aria-label={isDark ? \"Switch to light mode\" : \"Switch to dark mode\"}\n      onClick={() => setTheme(isDark ? \"light\" : \"dark\")}\n    >\n      {isDark ? <Moon className=\"h-5 w-5\" /> : <Sun className=\"h-5 w-5\" />}\n    </Button>\n  )\n}\n",
+      "content": "import { Moon, Sun } from \"lucide-react\"\nimport { Button } from \"@/components/ui/button\"\nimport { useTheme } from \"@/components/theme-provider\"\n\nexport function ModeToggle() {\n  const { resolvedTheme, setTheme } = useTheme()\n  const isDark = resolvedTheme === \"dark\"\n\n  return (\n    <Button\n      variant=\"outline\"\n      size=\"icon\"\n      aria-label={isDark ? \"Switch to light mode\" : \"Switch to dark mode\"}\n      onClick={() => setTheme(isDark ? \"light\" : \"dark\")}\n    >\n      {isDark ? <Moon className=\"h-5 w-5\" /> : <Sun className=\"h-5 w-5\" />}\n    </Button>\n  )\n}\n",
       "type": "registry:component",
       "target": "components/mode-toggle.tsx"
     }

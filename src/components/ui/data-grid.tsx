@@ -201,7 +201,7 @@ export function DataGrid<T extends Record<string, unknown>>({
         getCellContent={getCellContent}
         onCellEdited={onRowsChange ? onCellEdited : undefined}
         width="100%"
-        height={height}
+        height="100%"
         smoothScrollX
         smoothScrollY
         {...props}

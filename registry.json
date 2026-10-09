@@ -592,7 +592,7 @@
       "name": "theme-provider",
       "type": "registry:component",
       "title": "Theme Provider",
-      "description": "Light/dark/system theme context with localStorage persistence (storageKey 'dsds-theme'). Exposes useTheme().",
+      "description": "Light/dark/system theme context with localStorage persistence (storageKey 'dsds-theme'). Exposes useTheme(), including resolvedTheme (\"system\" resolved from the OS).",
       "files": [
         {
           "path": "src/components/theme-provider.tsx",
@@ -605,7 +605,7 @@
       "name": "mode-toggle",
       "type": "registry:component",
       "title": "Mode Toggle",
-      "description": "Light/dark toggle button. Tracks system preference when theme is 'system'.",
+      "description": "Light/dark toggle button. Reads resolvedTheme from the theme provider, so it follows the system preference when theme is 'system'.",
       "dependencies": ["lucide-react"],
       "registryDependencies": ["@dataservices/button", "@dataservices/theme-provider"],
       "files": [
@@ -735,9 +735,9 @@
       "name": "combobox",
       "type": "registry:ui",
       "title": "Combobox",
-      "description": "Searchable single-select built on Popover + Command. Scales to long option lists where a plain Select doesn't.",
-      "dependencies": ["lucide-react"],
-      "registryDependencies": ["@dataservices/button", "@dataservices/popover", "@dataservices/command"],
+      "description": "Upstream shadcn combobox (Base UI Combobox): a searchable input with a filtered list, for single or multiple selection with chips.",
+      "dependencies": ["@base-ui/react", "lucide-react"],
+      "registryDependencies": ["@dataservices/button", "@dataservices/input-group"],
       "files": [
         { "path": "src/components/ui/combobox.tsx", "type": "registry:ui" }
       ]
@@ -980,6 +980,15 @@
       "files": [{ "path": "src/components/ui/dropdown-menu.tsx", "type": "registry:ui" }]
     },
     {
+      "name": "field",
+      "type": "registry:ui",
+      "title": "Field",
+      "description": "Upstream shadcn field: label, description and error layout for form controls, vertical or horizontal (Field, FieldGroup, FieldSet, FieldLabel, FieldTitle, FieldDescription, FieldError, FieldSeparator).",
+      "dependencies": ["class-variance-authority"],
+      "registryDependencies": ["@dataservices/label", "@dataservices/separator"],
+      "files": [{ "path": "src/components/ui/field.tsx", "type": "registry:ui" }]
+    },
+    {
       "name": "input",
       "type": "registry:ui",
       "title": "Input",
@@ -1042,6 +1051,14 @@
       "files": [{ "path": "src/components/ui/skeleton.tsx", "type": "registry:ui" }]
     },
     {
+      "name": "spinner",
+      "type": "registry:ui",
+      "title": "Spinner",
+      "description": "Upstream shadcn spinner: an animated loading indicator with role=\"status\".",
+      "dependencies": ["lucide-react"],
+      "files": [{ "path": "src/components/ui/spinner.tsx", "type": "registry:ui" }]
+    },
+    {
       "name": "slider",
       "type": "registry:ui",
       "title": "Slider",
@@ -1093,7 +1110,7 @@
       "name": "top-nav",
       "type": "registry:block",
       "title": "Top Nav",
-      "description": "Navigation bar for content sites (use app-shell for tool-style apps): brand on the left, NavigationMenu links on the right, in a wide (max-w-7xl) row. Below the md breakpoint the links move into a Sheet. Takes links, pathname and renderLink like app-shell.",
+      "description": "Navigation bar for content sites (use app-shell for tool-style apps): brand on the left, NavigationMenu links on the right, in a wide (max-w-7xl) row. Below the md breakpoint the links move into a Sheet. Takes links, pathname and renderLink like app-shell; the most specific link containing pathname is marked current.",
       "dependencies": ["lucide-react"],
       "registryDependencies": ["@dataservices/navigation-menu", "@dataservices/sheet", "@dataservices/button"],
       "files": [
@@ -1104,9 +1121,9 @@
       "name": "basemap-selector",
       "type": "registry:ui",
       "title": "Basemap Selector",
-      "description": "Grid of selectable basemap thumbnails. Presentational and map-library agnostic — the consumer owns the style list and applies the chosen id to its map. Pairs with the Map primitive.",
-      "dependencies": ["lucide-react", "maplibre-gl"],
-      "registryDependencies": ["@dataservices/theme-base"],
+      "description": "Grid of selectable basemap thumbnails, built on RadioGroup so arrow keys move the selection. Presentational and map-library agnostic — the consumer owns the style list and applies the chosen id to its map. Pairs with the Map primitive.",
+      "dependencies": ["lucide-react", "maplibre-gl", "radix-ui"],
+      "registryDependencies": ["@dataservices/radio-group", "@dataservices/theme-base"],
       "files": [
         {
           "path": "src/components/ui/basemap-selector.tsx",
@@ -1120,7 +1137,7 @@
       "title": "Layer Selector",
       "description": "Checkable list of map layers, each with a legend swatch, opacity slider, and a settings popover for attribute filters, categorical facet chips, no-data and clustering toggles, and color overrides. Presentational — the consumer owns the catalog and visibility state. Exports LayerSelector and PointSwatch.",
       "dependencies": ["lucide-react"],
-      "registryDependencies": ["@dataservices/switch", "@dataservices/slider", "@dataservices/input", "@dataservices/tooltip", "@dataservices/popover"],
+      "registryDependencies": ["@dataservices/button", "@dataservices/field", "@dataservices/input", "@dataservices/popover", "@dataservices/slider", "@dataservices/spinner", "@dataservices/switch", "@dataservices/toggle-group", "@dataservices/tooltip"],
       "files": [
         {
           "path": "src/components/ui/layer-selector.tsx",
@@ -1132,8 +1149,8 @@
       "name": "field-value",
       "type": "registry:ui",
       "title": "Field Value",
-      "description": "Renders a feature/record attribute value: URLs become a clickable host link, 'CODE: Label' coded values render the code as a chip beside its label, USGS-style approval states (Approved/Provisional) render as a colored status chip, and everything else is plain text.",
-      "registryDependencies": ["@dataservices/theme-base"],
+      "description": "Renders a feature/record attribute value: URLs become a clickable host link, 'CODE: Label' coded values render the code as an outline Badge beside its label, USGS-style approval states (Approved/Provisional) render as a success/warning Badge, and everything else is plain text.",
+      "registryDependencies": ["@dataservices/badge"],
       "files": [
         {
           "path": "src/components/ui/field-value.tsx",
@@ -1147,7 +1164,7 @@
       "title": "Filter Controls",
       "description": "Filter-to-map-extent switch plus a debounced text attribute filter (commits ~250ms after typing stops), with an info tooltip. Controlled via bbox/q props and onBboxChange/onQueryChange callbacks.",
       "dependencies": ["lucide-react"],
-      "registryDependencies": ["@dataservices/switch", "@dataservices/input", "@dataservices/label", "@dataservices/tooltip"],
+      "registryDependencies": ["@dataservices/button", "@dataservices/field", "@dataservices/input", "@dataservices/switch", "@dataservices/tooltip"],
       "files": [
         {
           "path": "src/components/ui/filter-controls.tsx",

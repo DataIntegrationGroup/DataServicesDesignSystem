@@ -1,9 +1,18 @@
 import * as React from "react"
 
-import { Combobox } from "@/components/ui/combobox"
+import {
+  Combobox,
+  ComboboxContent,
+  ComboboxEmpty,
+  ComboboxInput,
+  ComboboxItem,
+  ComboboxList,
+} from "@/components/ui/combobox"
 import { Example } from "@/showcase/example"
 
-const sourceKinds = [
+type SourceKind = { value: string; label: string }
+
+const sourceKinds: SourceKind[] = [
   { value: "postgres", label: "PostgreSQL" },
   { value: "oracle", label: "Oracle" },
   { value: "kafka", label: "Kafka" },
@@ -13,33 +22,53 @@ const sourceKinds = [
 ]
 
 export default function ComboboxStates() {
-  const [kind, setKind] = React.useState("")
-  const [selected, setSelected] = React.useState("kafka")
+  const [kind, setKind] = React.useState<SourceKind | null>(null)
+  const [selected, setSelected] = React.useState<SourceKind | null>(sourceKinds[2])
   return (
     <div className="flex flex-wrap items-start gap-x-6 gap-y-4">
       <Example label="default" className="w-56 items-stretch">
-        <Combobox
-          options={sourceKinds}
-          value={kind}
-          onValueChange={setKind}
-          placeholder="Select source type"
-          searchPlaceholder="Search types…"
-        />
+        <Combobox items={sourceKinds} value={kind} onValueChange={setKind}>
+          <ComboboxInput placeholder="Select source type" aria-label="Source type" />
+          <ComboboxContent>
+            <ComboboxEmpty>No source types found.</ComboboxEmpty>
+            <ComboboxList>
+              {(item: SourceKind) => (
+                <ComboboxItem key={item.value} value={item}>
+                  {item.label}
+                </ComboboxItem>
+              )}
+            </ComboboxList>
+          </ComboboxContent>
+        </Combobox>
       </Example>
-      <Example label='value="kafka"' className="w-56 items-stretch">
-        <Combobox
-          options={sourceKinds}
-          value={selected}
-          onValueChange={setSelected}
-          searchPlaceholder="Search types…"
-        />
+      <Example label="showClear" className="w-56 items-stretch">
+        <Combobox items={sourceKinds} value={selected} onValueChange={setSelected}>
+          <ComboboxInput placeholder="Select source type" aria-label="Source type" showClear />
+          <ComboboxContent>
+            <ComboboxEmpty>No source types found.</ComboboxEmpty>
+            <ComboboxList>
+              {(item: SourceKind) => (
+                <ComboboxItem key={item.value} value={item}>
+                  {item.label}
+                </ComboboxItem>
+              )}
+            </ComboboxList>
+          </ComboboxContent>
+        </Combobox>
       </Example>
       <Example label="disabled" className="w-56 items-stretch">
-        <Combobox
-          options={sourceKinds}
-          placeholder="Select source type"
-          disabled
-        />
+        <Combobox items={sourceKinds} disabled>
+          <ComboboxInput placeholder="Select source type" aria-label="Source type" disabled />
+          <ComboboxContent>
+            <ComboboxList>
+              {(item: SourceKind) => (
+                <ComboboxItem key={item.value} value={item}>
+                  {item.label}
+                </ComboboxItem>
+              )}
+            </ComboboxList>
+          </ComboboxContent>
+        </Combobox>
       </Example>
     </div>
   )

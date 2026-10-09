@@ -55,6 +55,7 @@ export function DatePicker({
         <Calendar
           mode="single"
           selected={value}
+          defaultMonth={value}
           onSelect={(date) => {
             onValueChange?.(date)
             setOpen(false)
@@ -116,6 +117,7 @@ export function DateRangePicker({
         <Calendar
           mode="range"
           selected={value}
+          defaultMonth={value?.from}
           onSelect={onValueChange}
           numberOfMonths={2}
           autoFocus

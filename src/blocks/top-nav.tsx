@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/navigation-menu"
 import {
   Sheet,
+  SheetClose,
   SheetContent,
   SheetDescription,
   SheetHeader,
@@ -30,11 +31,21 @@ type LinkProps = {
 
 const defaultLink = (props: LinkProps) => <a {...props} />
 
+/** The most specific link that contains the pathname, so /datasets/42 still
+ *  marks "Datasets" current. Matches AppShell. */
+function currentHref(pathname: string | undefined, links: TopNavLink[]) {
+  if (!pathname) return undefined
+  return links
+    .map((link) => link.href)
+    .filter((href) => pathname === href || pathname.startsWith(`${href}/`))
+    .sort((a, b) => b.length - a.length)[0]
+}
+
 /**
  * TopNav block — the navigation bar for content sites (for tool-style apps,
  * use AppShell). The brand sits on the left and the links on the right, in a
  * NavigationMenu; below the md breakpoint they move into a Sheet that opens
- * from the right. The link matching `pathname` is marked current. Pass your
+ * from the right. The link containing `pathname` is marked current. Pass your
  * router's Link through `renderLink`; `actions`, such as a mode toggle, go
  * after the links.
  *
@@ -62,7 +73,7 @@ export function TopNav({
   actions?: React.ReactNode
   className?: string
 }) {
-  const [open, setOpen] = React.useState(false)
+  const active = currentHref(pathname, links)
   const brandLink = renderLink({
     href: brandHref,
     className: "font-heading text-2xl leading-none font-bold text-primary",
@@ -81,7 +92,7 @@ export function TopNav({
                 <NavigationMenuItem key={link.href}>
                   <NavigationMenuLink
                     asChild
-                    active={link.href === pathname}
+                    active={link.href === active}
                     className={cn(
                       navigationMenuTriggerStyle(),
                       "text-base text-muted-foreground hover:text-foreground data-active:bg-muted data-active:text-foreground"
@@ -94,7 +105,7 @@ export function TopNav({
             </NavigationMenuList>
           </NavigationMenu>
           {actions && <div className="flex items-center gap-1.5 sm:gap-3">{actions}</div>}
-          <Sheet open={open} onOpenChange={setOpen}>
+          <Sheet>
             <SheetTrigger asChild>
               <Button variant="ghost" size="icon" className="-mr-2 md:hidden" aria-label="Open menu">
                 <MenuIcon />
@@ -104,23 +115,23 @@ export function TopNav({
               <SheetHeader>
                 <SheetTitle className="sr-only">Menu</SheetTitle>
                 <SheetDescription className="sr-only">Site navigation</SheetDescription>
-                {brandLink}
+                <SheetClose asChild>{brandLink}</SheetClose>
               </SheetHeader>
               <nav aria-label="Main" className="flex flex-col gap-1 px-4">
                 {links.map((link) => (
-                  <Button
-                    key={link.href}
-                    asChild
-                    variant="ghost"
-                    className="justify-start text-base aria-[current=page]:bg-muted"
-                    onClick={() => setOpen(false)}
-                  >
-                    {renderLink({
-                      href: link.href,
-                      "aria-current": link.href === pathname ? "page" : undefined,
-                      children: link.label,
-                    })}
-                  </Button>
+                  <SheetClose key={link.href} asChild>
+                    <Button
+                      asChild
+                      variant="ghost"
+                      className="justify-start text-base aria-[current=page]:bg-muted"
+                    >
+                      {renderLink({
+                        href: link.href,
+                        "aria-current": link.href === active ? "page" : undefined,
+                        children: link.label,
+                      })}
+                    </Button>
+                  </SheetClose>
                 ))}
               </nav>
             </SheetContent>

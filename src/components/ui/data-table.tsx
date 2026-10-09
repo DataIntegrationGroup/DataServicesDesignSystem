@@ -1,5 +1,6 @@
 import * as React from "react"
 import {
+  type Column,
   type ColumnDef,
   type SortingState,
   type ColumnFiltersState,
@@ -48,13 +49,12 @@ import {
  *   { accessorKey: "name",
  *     header: ({ column }) => <DataTableColumnHeader column={column} title="Name" /> }
  */
-export function DataTableColumnHeader({
+export function DataTableColumnHeader<TData, TValue>({
   column,
   title,
   className,
 }: {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  column: any
+  column: Column<TData, TValue>
   title: string
   className?: string
 }) {

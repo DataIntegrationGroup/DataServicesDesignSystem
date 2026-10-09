@@ -68,8 +68,6 @@ function buildTheme(t: ReturnType<typeof toThemeTokens>) {
   }
 }
 
-let themeSeq = 0
-
 export interface EChartProps {
   /** ECharts option object. */
   option: EChartsOption
@@ -106,16 +104,20 @@ export function EChart({
   const chartRef = React.useRef<ECharts | null>(null)
   const tokens = useCssVars(TOKENS)
 
-  // Init / dispose. Re-init when the tokens change so the registered theme
-  // updates.
+  const themedTokens = React.useRef(tokens)
+
+  // Init / dispose, once. Theme changes go through setTheme below, so the
+  // instance — and its event handlers, loading state and zoom — survives a
+  // mode or data-theme switch.
   React.useEffect(() => {
     const el = containerRef.current
     if (!el) return
 
-    const themeName = `dataservices-${themeSeq++}`
-    echarts.registerTheme(themeName, buildTheme(toThemeTokens(tokens)))
-    const chart = echarts.init(el, themeName, { renderer: "canvas" })
+    const chart = echarts.init(el, buildTheme(toThemeTokens(tokens)), {
+      renderer: "canvas",
+    })
     chartRef.current = chart
+    themedTokens.current = tokens
     onInit?.(chart)
 
     const ro = new ResizeObserver(() => chart.resize())
@@ -127,13 +129,21 @@ export function EChart({
       chartRef.current = null
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [tokens])
+  }, [])
 
   // Apply option.
   React.useEffect(() => {
     chartRef.current?.setOption(option, setOptionOpts)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [option, tokens])
+  }, [option])
+
+  // Re-theme in place when the tokens change.
+  React.useEffect(() => {
+    const chart = chartRef.current
+    if (!chart || themedTokens.current === tokens) return
+    themedTokens.current = tokens
+    chart.setTheme(buildTheme(toThemeTokens(tokens)))
+  }, [tokens])
 
   // Loading state.
   React.useEffect(() => {

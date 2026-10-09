@@ -11,7 +11,14 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-import { Combobox } from "@/components/ui/combobox"
+import {
+  Combobox,
+  ComboboxContent,
+  ComboboxEmpty,
+  ComboboxInput,
+  ComboboxItem,
+  ComboboxList,
+} from "@/components/ui/combobox"
 import {
   Form,
   FormControl,
@@ -88,16 +95,29 @@ function SourceForm() {
           render={({ field }) => (
             <FormItem>
               <FormLabel>Kind</FormLabel>
-              <FormControl>
-                <Combobox
-                  options={sourceKinds}
-                  value={field.value}
-                  onValueChange={field.onChange}
-                  placeholder="Select source type"
-                  searchPlaceholder="Search types…"
-                  className="w-full"
-                />
-              </FormControl>
+              <Combobox
+                items={sourceKinds}
+                value={sourceKinds.find((k) => k.value === field.value) ?? null}
+                onValueChange={(kind) => field.onChange(kind?.value ?? "")}
+              >
+                <FormControl>
+                  <ComboboxInput
+                    placeholder="Select source type"
+                    className="w-full"
+                    onBlur={field.onBlur}
+                  />
+                </FormControl>
+                <ComboboxContent>
+                  <ComboboxEmpty>No source types found.</ComboboxEmpty>
+                  <ComboboxList>
+                    {(item: (typeof sourceKinds)[number]) => (
+                      <ComboboxItem key={item.value} value={item}>
+                        {item.label}
+                      </ComboboxItem>
+                    )}
+                  </ComboboxList>
+                </ComboboxContent>
+              </Combobox>
               <FormMessage />
             </FormItem>
           )}

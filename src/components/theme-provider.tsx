@@ -1,4 +1,10 @@
-import { createContext, useContext, useEffect, useState } from "react"
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  useSyncExternalStore,
+} from "react"
 
 type Theme = "dark" | "light" | "system"
 
@@ -17,6 +23,8 @@ type ThemeProviderProps = {
 type ThemeProviderState = {
   theme: Theme
   setTheme: (theme: Theme) => void
+  /** The mode actually applied: `theme`, with "system" resolved from the OS. */
+  resolvedTheme: "dark" | "light"
   palette: Palette | undefined
   setPalette: (palette: Palette) => void
 }
@@ -24,11 +32,20 @@ type ThemeProviderState = {
 const initialState: ThemeProviderState = {
   theme: "system",
   setTheme: () => null,
+  resolvedTheme: "light",
   palette: undefined,
   setPalette: () => null,
 }
 
 const ThemeProviderContext = createContext<ThemeProviderState>(initialState)
+
+const DARK_QUERY = "(prefers-color-scheme: dark)"
+
+function subscribeSystemDark(cb: () => void) {
+  const query = window.matchMedia(DARK_QUERY)
+  query.addEventListener("change", cb)
+  return () => query.removeEventListener("change", cb)
+}
 
 export function ThemeProvider({
   children,
@@ -47,27 +64,24 @@ export function ThemeProvider({
     if (palette) document.documentElement.setAttribute("data-theme", palette)
   }, [palette])
 
+  // Follow the OS setting, including changes while the page is open.
+  const systemDark = useSyncExternalStore(
+    subscribeSystemDark,
+    () => window.matchMedia(DARK_QUERY).matches,
+    () => false
+  )
+  const resolvedTheme =
+    theme === "system" ? (systemDark ? "dark" : "light") : theme
+
   useEffect(() => {
     const root = window.document.documentElement
     root.classList.remove("light", "dark")
-
-    if (theme === "system") {
-      // Follow the OS setting, including changes while the page is open.
-      const query = window.matchMedia("(prefers-color-scheme: dark)")
-      const apply = () => {
-        root.classList.remove("light", "dark")
-        root.classList.add(query.matches ? "dark" : "light")
-      }
-      apply()
-      query.addEventListener("change", apply)
-      return () => query.removeEventListener("change", apply)
-    }
-
-    root.classList.add(theme)
-  }, [theme])
+    root.classList.add(resolvedTheme)
+  }, [resolvedTheme])
 
   const value = {
     theme,
+    resolvedTheme,
     setTheme: (theme: Theme) => {
       localStorage.setItem(storageKey, theme)
       setTheme(theme)
