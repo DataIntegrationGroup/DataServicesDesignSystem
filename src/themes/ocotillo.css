@@ -5,12 +5,12 @@
    (v4) or brand step named alongside. Tokens OcotilloUI doesn't define
    (soft/strong, tones, charts, on-image) are filled in from the same ramps.
 
-   This is the default theme: it also matches <html> with no data-theme, so
-   apps that never set one keep this look. Defines the whole token contract
-   (see THEMING.md). */
+   This is the default theme, so it sits in the plain :root and .dark blocks
+   shadcn uses: it applies whenever <html> has no data-theme (or one no
+   theme defines), and other themes override it by data-theme. Defines the
+   whole token contract (see THEMING.md). */
 
-:root:not([data-theme]),
-:root[data-theme="ocotillo"] {
+:root {
     --background: #fafafa;        /* neutral-50 */
     --foreground: #0f1521;        /* slate-900 */
     --card: #ffffff;              /* white (paper) */
@@ -33,8 +33,6 @@
     --accent: #ebebeb;           /* neutral-150 (hover) */
     --accent-foreground: #0f1521;
     --destructive: #e7000b;      /* red-600 */
-    --warning-light: #fdba74;    /* orange-300 */
-    --warning-dark: #c2410c;     /* orange-700 */
 
     --success: #007a55; /* emerald-700 */
     --success-foreground: #ffffff;
@@ -98,9 +96,6 @@
     --sidebar-border: #dedede;
     --sidebar-ring: #0e6da8;
 
-    --font-heading: 'Outfit Variable', system-ui, sans-serif;
-    --font-sans: 'Public Sans Variable', system-ui, sans-serif;
-
     /* Content on photos and dark bands. Same in light and dark. */
     --on-image: #ffffff;
     --on-image-muted: #e2e8f0; /* slate-200 */
@@ -110,8 +105,7 @@
     --accent-on-dark: #fcd34d; /* amber-300 */
 }
 
-:root:not([data-theme]).dark,
-:root[data-theme="ocotillo"].dark {
+.dark {
     --background: #181818;        /* neutral-900 */
     --foreground: #f0f4f8;        /* slate-100 */
     --card: #404040;              /* neutral-700 (paper) */
@@ -137,8 +131,6 @@
     --accent: #272727;           /* neutral-800 */
     --accent-foreground: #f0f4f8;
     --destructive: #ff6467;      /* red-400 */
-    --warning-light: #fdba74;    /* orange-300 */
-    --warning-dark: #c2410c;     /* orange-700 */
 
     --success: #5ee9b5; /* emerald-300 */
     --success-foreground: #181818;

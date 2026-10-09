@@ -29,12 +29,8 @@ pnpm dlx shadcn@latest registry add "@dataservices=https://raw.githubusercontent
 pnpm dlx shadcn@latest add @dataservices/theme-ocotillo
 ```
 
-Then replace everything in `src/index.css` with:
-
-```css
-@import "./styles/ds-base.css";
-@import "./styles/themes/ocotillo.css";
-```
+The CLI merges the design system's CSS into your `src/index.css`, as it does
+for any shadcn theme.
 
 Each showcase page has the install command for its component.
 [THEMING.md](THEMING.md) covers themes and tokens.
@@ -44,10 +40,10 @@ Each showcase page has the install command for its component.
 OcotilloUI is already a shadcn project in the same style (`radix-nova`), but
 it's mid-migration from MUI, so move over a piece at a time:
 
-- **CSS:** don't replace `src/index.css`. Swap its token blocks (`@theme
-  inline`, `:root`, `.dark`) for the two imports above, and keep its plugins
-  and app styles below them. Keep `src/theme.ts` in step with the theme until
-  MUI is gone.
+- **CSS:** run `add @dataservices/theme-ocotillo --dry-run --diff` first.
+  The CLI merges the theme into `src/index.css`'s existing `@theme inline`,
+  `:root` and `.dark` blocks and keeps its plugins and app styles. Keep
+  `src/theme.ts` in step with the theme until MUI is gone.
 - **Components it already has** (18 in `src/components/ui`): replace one at a
   time. Run `add @dataservices/<name> --dry-run --diff` first, so you can keep
   any local changes.
@@ -59,13 +55,15 @@ it's mid-migration from MUI, so move over a piece at a time:
 
 ## Change the registry
 
-After editing a component or `registry.json`:
+After editing a component, a theme or `registry.json`:
 
 ```bash
 pnpm lint
 pnpm registry:build
 ```
 
-Commit the regenerated `public/r/` files; they're what apps install.
+`registry:build` also copies `src/index.css` and `src/themes/` into
+`registry.json`. Commit the regenerated files; `public/r/` is what apps
+install.
 Showcase pages are listed in `src/showcase/pages.ts`, with their examples in
 `src/showcase/demos/`.

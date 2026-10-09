@@ -8,9 +8,14 @@ brand or raw palette color, so every component works under every theme.
 
 | File | What it holds |
 | --- | --- |
-| `src/styles/base.css` | Structure shared by every app: imports, the `dark` variant, the `@theme inline` token-to-utility mappings, the radius scale, base type styles and DS keyframes. Sets no colors. |
+| `src/index.css` | The CSS entry `components.json` points to. Structure shared by every app: imports, the `dark` variant, fonts, type steps, the `@theme inline` token-to-utility mappings, the radius scale and base type styles. Sets no colors. Also imports every theme, for the showcase switcher. |
 | `src/themes/<name>.css` | One theme: token values only, light and dark. |
-| `src/index.css` | Showcase entry: base plus every theme. |
+
+Apps don't copy these files. `scripts/registry-css.mjs` (run by `pnpm
+registry:build`) copies them into `registry.json` as `cssVars` and `css` on
+the `theme-base` and `theme-<name>` items, and `shadcn add` merges those
+into the app's own CSS entry, as it does for any shadcn theme. `pnpm lint`
+fails if `registry.json` is out of date.
 
 Themes today:
 
@@ -21,32 +26,32 @@ Themes today:
 
 ## Selecting a theme
 
-Set the theme on `<html>`; light/dark stays the `.dark` class on the same element.
+Ocotillo is the default theme. It fills the plain `:root` and `.dark` blocks,
+exactly like a stock shadcn theme, so it needs no attribute. Every other theme
+is scoped to a `data-theme` value on `<html>`; light/dark stays the `.dark`
+class on the same element.
 
 ```html
 <html data-theme="nmwdi">
 ```
-
-Each theme scopes its values like this:
 
 ```css
 :root[data-theme="nmwdi"] { /* light */ }
 :root[data-theme="nmwdi"].dark { /* dark */ }
 ```
 
-- `[data-theme]` selectors are more specific than a plain `:root` / `.dark`, so
-  the theme wins regardless of load order. That includes the `:root` / `.dark`
-  blocks `shadcn init` or `shadcn add` write into an app's CSS.
+- `[data-theme]` selectors are more specific than `:root` / `.dark`, so the
+  theme wins over Ocotillo regardless of load order.
 - The light block also applies in dark mode, and the dark block overrides it.
-  A token missing from the dark block falls back to the same theme's light
-  value, never to another theme.
-- Ocotillo also matches `:root:not([data-theme])`, so an app that never sets
-  the attribute keeps today's look.
+  A theme must set every color token in both blocks (see below), so nothing
+  falls through to Ocotillo.
+- With no `data-theme`, or one no theme defines, the page shows Ocotillo.
+- `ThemeProvider` sets the attribute from its `palette` prop.
 
 ## Token contract
 
 Every theme defines every token below. Color tokens are required in both the
-light and dark blocks, even when the value is the same. Shape, type and
+light and dark blocks, even when the value is the same. Shape and
 on-image tokens don't vary by mode, so they're required in the light block
 only.
 
@@ -104,7 +109,6 @@ Status colors and category tones use the same four tokens:
 | `success` (+ `-foreground`, `-soft`, `-strong`) | Success, healthy, approved |
 | `warning` (+ `-foreground`, `-soft`, `-strong`) | Warnings, degraded, provisional |
 | `info` (+ `-foreground`, `-soft`, `-strong`) | Neutral information |
-| `warning-light` / `warning-dark` | Older warning fill and text. Prefer `warning-soft` / `warning-strong`. |
 
 ### Category tones
 
@@ -130,13 +134,11 @@ numbers once. Tones 1 and 2 follow the theme's primary and secondary hues.
 | `sidebar-accent` / `sidebar-accent-foreground` | Hovered item |
 | `sidebar-border` / `sidebar-ring` | Sidebar border and focus ring |
 
-### Shape and type (light block only)
+### Shape (light block only)
 
 | Token | Purpose |
 | --- | --- |
 | `radius` | Base corner radius; `rounded-sm` … `rounded-4xl` scale from it |
-| `font-heading` | Headings (`h1`–`h6`, `font-heading`) |
-| `font-sans` | Body and UI text |
 
 ### On image (light block only)
 
@@ -152,13 +154,19 @@ mode, because a photo looks the same in light and dark.
 | `on-image-ring` | Focus ring |
 | `accent-on-dark` | Highlight color for headings on dark bands |
 
-Fonts listed in a theme must be loaded by the app. Base imports Outfit and
-Public Sans, which both current themes use.
+## Fonts
+
+Fonts are shared by every theme: `--font-heading` (Outfit, for `h1`–`h6`
+and `font-heading`) and `--font-sans` (Public Sans, for body and UI text),
+in the `@theme inline` block of `src/index.css`. They stay in the CSS entry
+because the shadcn CLI reads `--font-heading` there when it installs a
+component. Without it, the CLI strips `font-heading` from upstream
+components such as `CardTitle`.
 
 ## Type steps
 
 Named steps for sizes the default Tailwind scale doesn't cover, shared by
-every app. They're `--text-*` tokens in `base.css`, so each one is a normal
+every app. They're `--text-*` tokens in `src/index.css`, so each one is a normal
 `text-*` utility that sets size, line height, tracking and weight together.
 They don't depend on the theme.
 
@@ -177,7 +185,7 @@ rather than an arbitrary size.
 as a color, so `cn("text-display text-primary")` silently drops
 `text-display`. `@dataservices/utils` (a dependency of `theme-base`) lists
 the steps so `cn()` merges them as font sizes. To add a step, add its
-`--text-*` tokens to `base.css` and its name to `TYPE_STEPS` in
+`--text-*` tokens to `src/index.css` and its name to `TYPE_STEPS` in
 `src/lib/utils.ts`.
 
 Upstream shadcn components installed from now on import `cn` from the `cn`
@@ -219,17 +227,18 @@ Raw colors still in components, and why:
 
 ## Adding a theme
 
-1. Copy `src/themes/ocotillo.css` to `src/themes/<name>.css`.
+1. Copy `src/themes/nmwdi.css` to `src/themes/<name>.css`.
 2. Change the selectors to `:root[data-theme="<name>"]` and
    `:root[data-theme="<name>"].dark`.
 3. Set every token in the contract.
-4. Import it in `src/index.css`, and add it to `PALETTES` in `src/App.tsx`
-   so it appears in the showcase switcher.
-5. Add a `theme-<name>` item to `registry.json`, copying `theme-nmwdi`.
+4. Import it in `src/index.css`, and add it to `PALETTES` in
+   `src/showcase/palettes.ts` so it appears in the showcase switcher.
+5. Add a `theme-<name>` item to `registry.json`, copying `theme-nmwdi`
+   without its `css`, then run `pnpm registry:build` to fill it in.
 6. Run `pnpm check:themes`. It fails on a missing token and warns on any
    key text/background pair below WCAG AA (4.5:1). `--strict` makes those
    warnings fail too.
 
 If you add a token to the contract, update this file, the lists at the top
 of `scripts/check-themes.mjs`, the `@theme inline` block in
-`src/styles/base.css`, and every theme.
+`src/index.css`, and every theme, then run `pnpm registry:build`.

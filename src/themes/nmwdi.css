@@ -1,6 +1,6 @@
 /* NMWDI theme: the New Mexico Water Data Initiative palette (teal,
    terracotta, sand), used by Weaver. Values not specific to NMWDI (page
-   background, foreground, light surfaces, radius, fonts) match Ocotillo.
+   background, foreground, light surfaces) match Ocotillo.
    Defines the whole token contract (see THEMING.md). */
 
 :root[data-theme="nmwdi"] {
@@ -26,8 +26,6 @@
     --accent: #e7f0f2; /* light teal tint */
     --accent-foreground: #04323f;
     --destructive: #b1422f; /* terracotta (brand red) */
-    --warning-light: #fdba74; /* orange-300 */
-    --warning-dark: #c2410c; /* orange-700 */
 
     --success: #2f7a4a; /* forest green */
     --success-foreground: #ffffff;
@@ -91,9 +89,6 @@
     --sidebar-border: #cdd9dc;
     --sidebar-ring: #006d8b;
 
-    --font-heading: 'Outfit Variable', system-ui, sans-serif;
-    --font-sans: 'Public Sans Variable', system-ui, sans-serif;
-
     /* Content on photos and dark bands. Same in light and dark. */
     --on-image: #ffffff;
     --on-image-muted: #dbe9ec; /* Weaver on-photo-muted */
@@ -128,8 +123,6 @@
     --accent: #2a3b40; /* dark teal tint */
     --accent-foreground: #e7f0f2;
     --destructive: #e06a56; /* terracotta (brighter on dark) */
-    --warning-light: #fdba74; /* orange-300 */
-    --warning-dark: #c2410c; /* orange-700 */
 
     --success: #5fb47e;
     --success-foreground: #0c2416;

@@ -91,8 +91,8 @@ export function TypographyShowcase() {
       <section className="space-y-6">
         <h2>Headings</h2>
         <p className="text-muted-foreground">
-          Base element styles from <code>ds-base.css</code>. Headings use the
-          theme's <code>--font-heading</code>; sizes step down on screens
+          Base element styles from <code>theme-base</code>. Headings use
+          <code>--font-heading</code>; sizes step down on screens
           under 600px.
         </p>
         <div className="space-y-5">

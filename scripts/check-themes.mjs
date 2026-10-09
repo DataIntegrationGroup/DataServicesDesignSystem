@@ -28,7 +28,6 @@ const COLOR_TOKENS = [
   "success", "success-foreground", "success-soft", "success-strong",
   "warning", "warning-foreground", "warning-soft", "warning-strong",
   "info", "info-foreground", "info-soft", "info-strong",
-  "warning-light", "warning-dark",
   // Category tones
   ...[1, 2, 3, 4, 5, 6].flatMap((n) =>
     ["", "-foreground", "-soft", "-strong"].map((s) => `tone-${n}${s}`)
@@ -39,10 +38,10 @@ const COLOR_TOKENS = [
   "sidebar", "sidebar-foreground", "sidebar-primary", "sidebar-primary-foreground",
   "sidebar-accent", "sidebar-accent-foreground", "sidebar-border", "sidebar-ring",
 ]
-// Shape, type and on-image tokens don't vary by mode: required in the light
-// block only.
+// Shape and on-image tokens don't vary by mode: required in the light block
+// only. Fonts are shared by every theme, in src/index.css.
 const LIGHT_ONLY_TOKENS = [
-  "radius", "font-heading", "font-sans",
+  "radius",
   "on-image", "on-image-muted", "on-image-surface", "on-image-border",
   "on-image-ring", "accent-on-dark",
 ]

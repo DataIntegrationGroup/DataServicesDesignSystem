@@ -1,0 +1,6 @@
+/* Showcase code blocks: Shiki writes light colors inline and dark ones as
+   --shiki-dark variables; switch to those in dark mode. */
+.dark .shiki,
+.dark .shiki span {
+    color: var(--shiki-dark) !important;
+}

@@ -9,9 +9,6 @@ pnpm dlx shadcn@latest add @dataservices/app-shell`
 const EXISTING_APP = `pnpm dlx shadcn@latest registry add "@dataservices=https://raw.githubusercontent.com/DataIntegrationGroup/DataServicesDesignSystem/main/public/r/{name}.json"
 pnpm dlx shadcn@latest add @dataservices/theme-ocotillo`
 
-const CSS = `@import "./styles/ds-base.css";
-@import "./styles/themes/ocotillo.css";`
-
 const UPDATE = `# See what changed
 pnpm dlx shadcn@latest add @dataservices/button --dry-run --diff
 
@@ -36,9 +33,9 @@ export default function IntroductionPage() {
         </p>
         <CodeBlock code={EXISTING_APP} lang="bash" className="max-w-3xl" />
         <p className="max-w-3xl text-muted-foreground">
-          Then replace everything in <code>src/index.css</code> with:
+          The CLI merges the design system's CSS into your{" "}
+          <code>src/index.css</code>, as it does for any shadcn theme.
         </p>
-        <CodeBlock code={CSS} lang="bash" className="max-w-3xl" />
       </DemoSection>
       <DemoSection title="Why a registry">
         <ul className="max-w-3xl list-disc space-y-2 pl-5 text-muted-foreground">

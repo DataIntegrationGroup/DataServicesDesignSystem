@@ -2,24 +2,176 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "theme-base",
   "title": "Theme base",
-  "description": "Shared design-system CSS: imports, dark variant, @theme inline token mappings, radius scale, base type styles and DS keyframes. Sets no colors; load one theme file after it.",
+  "description": "Shared design-system CSS: imports, dark variant, fonts, type steps, @theme inline token mappings, radius scale and base type styles. Sets no colors; add a theme too.",
   "dependencies": [
     "@fontsource-variable/outfit",
     "@fontsource-variable/public-sans",
     "tw-animate-css",
-    "shadcn"
+    "shadcn@~4.20.1"
   ],
   "registryDependencies": [
     "@dataservices/utils"
   ],
-  "files": [
-    {
-      "path": "src/styles/base.css",
-      "content": "/* DataServices design system base: the structure every app shares.\n   Imports, the dark variant, token-to-utility mappings, the radius scale,\n   base type styles and the keyframes DS components need.\n\n   This file sets no colors. Load exactly one theme after it (src/themes/*.css)\n   and set <html data-theme=\"…\">. See THEMING.md for the token contract. */\n\n@import \"tailwindcss\";\n@import \"tw-animate-css\";\n@import \"shadcn/tailwind.css\";\n\n@import \"@fontsource-variable/public-sans\";\n@import \"@fontsource-variable/outfit\";\n\n@custom-variant dark (&:is(.dark *));\n\n/* Fonts are a plain @theme (not inline) so utilities read var(--font-*) and a\n   theme file can override them. These are the defaults. */\n@theme {\n    --font-heading: 'Outfit Variable', system-ui, sans-serif;\n    --font-sans: 'Public Sans Variable', system-ui, sans-serif;\n\n    /* Named type steps for sizes the standard scale doesn't cover, shared\n       by every app. Each sets size, line height, tracking and weight; pair\n       with font-heading or uppercase as noted in THEMING.md. Register new\n       steps in src/lib/utils.ts so cn() treats them as font sizes. */\n    --text-display: clamp(4rem, 2.4rem + 4vw, 6.5rem);              /* 64–104px hero h1 */\n    --text-display--line-height: 0.9;\n    --text-display--letter-spacing: -0.02em;\n    --text-display--font-weight: 700;\n    --text-eyebrow: 0.75rem;                                        /* 12px label above a heading */\n    --text-eyebrow--line-height: 1.4;\n    --text-eyebrow--letter-spacing: 0.08em;\n    --text-eyebrow--font-weight: 600;\n\n    /* TopLoadingBar */\n    --animate-loadingbar: loadingbar 1.1s ease-in-out infinite;\n    @keyframes loadingbar {\n        0% { transform: translateX(-100%); }\n        100% { transform: translateX(350%); }\n    }\n}\n\n@theme inline {\n    --color-sidebar-ring: var(--sidebar-ring);\n    --color-sidebar-border: var(--sidebar-border);\n    --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);\n    --color-sidebar-accent: var(--sidebar-accent);\n    --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);\n    --color-sidebar-primary: var(--sidebar-primary);\n    --color-sidebar-foreground: var(--sidebar-foreground);\n    --color-sidebar: var(--sidebar);\n    --color-chart-5: var(--chart-5);\n    --color-chart-4: var(--chart-4);\n    --color-chart-3: var(--chart-3);\n    --color-chart-2: var(--chart-2);\n    --color-chart-1: var(--chart-1);\n    --color-ring: var(--ring);\n    --color-input: var(--input);\n    --color-border: var(--border);\n    --color-destructive: var(--destructive);\n    --color-primary-light: var(--primary-light);\n    --color-primary-dark: var(--primary-dark);\n    --color-secondary-strong: var(--secondary-strong);\n    --color-secondary-dark: var(--secondary-dark);\n    --color-warning-light: var(--warning-light);\n    --color-warning-dark: var(--warning-dark);\n    --color-success: var(--success);\n    --color-success-foreground: var(--success-foreground);\n    --color-success-soft: var(--success-soft);\n    --color-success-strong: var(--success-strong);\n    --color-warning: var(--warning);\n    --color-warning-foreground: var(--warning-foreground);\n    --color-warning-soft: var(--warning-soft);\n    --color-warning-strong: var(--warning-strong);\n    --color-info: var(--info);\n    --color-info-foreground: var(--info-foreground);\n    --color-info-soft: var(--info-soft);\n    --color-info-strong: var(--info-strong);\n    --color-destructive-foreground: var(--destructive-foreground);\n    --color-destructive-soft: var(--destructive-soft);\n    --color-destructive-strong: var(--destructive-strong);\n    --color-on-image: var(--on-image);\n    --color-on-image-muted: var(--on-image-muted);\n    --color-on-image-surface: var(--on-image-surface);\n    --color-on-image-border: var(--on-image-border);\n    --color-on-image-ring: var(--on-image-ring);\n    --color-accent-on-dark: var(--accent-on-dark);\n    --color-tone-1: var(--tone-1);\n    --color-tone-1-foreground: var(--tone-1-foreground);\n    --color-tone-1-soft: var(--tone-1-soft);\n    --color-tone-1-strong: var(--tone-1-strong);\n    --color-tone-2: var(--tone-2);\n    --color-tone-2-foreground: var(--tone-2-foreground);\n    --color-tone-2-soft: var(--tone-2-soft);\n    --color-tone-2-strong: var(--tone-2-strong);\n    --color-tone-3: var(--tone-3);\n    --color-tone-3-foreground: var(--tone-3-foreground);\n    --color-tone-3-soft: var(--tone-3-soft);\n    --color-tone-3-strong: var(--tone-3-strong);\n    --color-tone-4: var(--tone-4);\n    --color-tone-4-foreground: var(--tone-4-foreground);\n    --color-tone-4-soft: var(--tone-4-soft);\n    --color-tone-4-strong: var(--tone-4-strong);\n    --color-tone-5: var(--tone-5);\n    --color-tone-5-foreground: var(--tone-5-foreground);\n    --color-tone-5-soft: var(--tone-5-soft);\n    --color-tone-5-strong: var(--tone-5-strong);\n    --color-tone-6: var(--tone-6);\n    --color-tone-6-foreground: var(--tone-6-foreground);\n    --color-tone-6-soft: var(--tone-6-soft);\n    --color-tone-6-strong: var(--tone-6-strong);\n    --color-accent-foreground: var(--accent-foreground);\n    --color-accent: var(--accent);\n    --color-muted-foreground: var(--muted-foreground);\n    --color-muted: var(--muted);\n    --color-secondary-foreground: var(--secondary-foreground);\n    --color-secondary: var(--secondary);\n    --color-primary-foreground: var(--primary-foreground);\n    --color-primary: var(--primary);\n    --color-popover-foreground: var(--popover-foreground);\n    --color-popover: var(--popover);\n    --color-card-foreground: var(--card-foreground);\n    --color-card: var(--card);\n    --color-foreground: var(--foreground);\n    --color-background: var(--background);\n    --radius-sm: calc(var(--radius) * 0.6);\n    --radius-md: calc(var(--radius) * 0.8);\n    --radius-lg: var(--radius);\n    --radius-xl: calc(var(--radius) * 1.4);\n    --radius-2xl: calc(var(--radius) * 1.8);\n    --radius-3xl: calc(var(--radius) * 2.2);\n    --radius-4xl: calc(var(--radius) * 2.6);\n}\n\n@layer base {\n    * {\n        @apply border-border outline-ring/50;\n    }\n    body {\n        @apply bg-background text-foreground font-sans;\n        font-size: 16px;\n        line-height: 1.5;\n    }\n    h1, h2, h3, h4, h5, h6 {\n        font-family: var(--font-heading);\n        color: var(--foreground);\n    }\n    h1 {\n        font-weight: 700;\n        font-size: 48px;\n        line-height: 1.4;\n    }\n    h2 {\n        font-weight: 600;\n        font-size: 36px;\n        line-height: 1.5;\n    }\n    h3 {\n        font-weight: 500;\n        font-size: 28px;\n        line-height: 1.5;\n    }\n    h4 {\n        font-weight: 500;\n        font-size: 22px;\n        line-height: 1.6;\n    }\n    @media (max-width: 600px) {\n        h1 { font-size: 36px; }\n        h2 { font-size: 28px; }\n        h3 { font-size: 24px; line-height: 1.6; }\n        h4 { font-size: 20px; }\n        body { font-size: 14px; }\n    }\n}\n",
-      "type": "registry:file",
-      "target": "~/src/styles/ds-base.css"
+  "cssVars": {
+    "theme": {
+      "font-heading": "'Outfit Variable', system-ui, sans-serif",
+      "font-sans": "'Public Sans Variable', system-ui, sans-serif",
+      "text-display": "clamp(4rem, 2.4rem + 4vw, 6.5rem)",
+      "text-display--line-height": "0.9",
+      "text-display--letter-spacing": "-0.02em",
+      "text-display--font-weight": "700",
+      "text-eyebrow": "0.75rem",
+      "text-eyebrow--line-height": "1.4",
+      "text-eyebrow--letter-spacing": "0.08em",
+      "text-eyebrow--font-weight": "600",
+      "color-sidebar-ring": "var(--sidebar-ring)",
+      "color-sidebar-border": "var(--sidebar-border)",
+      "color-sidebar-accent-foreground": "var(--sidebar-accent-foreground)",
+      "color-sidebar-accent": "var(--sidebar-accent)",
+      "color-sidebar-primary-foreground": "var(--sidebar-primary-foreground)",
+      "color-sidebar-primary": "var(--sidebar-primary)",
+      "color-sidebar-foreground": "var(--sidebar-foreground)",
+      "color-sidebar": "var(--sidebar)",
+      "color-chart-5": "var(--chart-5)",
+      "color-chart-4": "var(--chart-4)",
+      "color-chart-3": "var(--chart-3)",
+      "color-chart-2": "var(--chart-2)",
+      "color-chart-1": "var(--chart-1)",
+      "color-ring": "var(--ring)",
+      "color-input": "var(--input)",
+      "color-border": "var(--border)",
+      "color-destructive": "var(--destructive)",
+      "color-primary-light": "var(--primary-light)",
+      "color-primary-dark": "var(--primary-dark)",
+      "color-secondary-strong": "var(--secondary-strong)",
+      "color-secondary-dark": "var(--secondary-dark)",
+      "color-success": "var(--success)",
+      "color-success-foreground": "var(--success-foreground)",
+      "color-success-soft": "var(--success-soft)",
+      "color-success-strong": "var(--success-strong)",
+      "color-warning": "var(--warning)",
+      "color-warning-foreground": "var(--warning-foreground)",
+      "color-warning-soft": "var(--warning-soft)",
+      "color-warning-strong": "var(--warning-strong)",
+      "color-info": "var(--info)",
+      "color-info-foreground": "var(--info-foreground)",
+      "color-info-soft": "var(--info-soft)",
+      "color-info-strong": "var(--info-strong)",
+      "color-destructive-foreground": "var(--destructive-foreground)",
+      "color-destructive-soft": "var(--destructive-soft)",
+      "color-destructive-strong": "var(--destructive-strong)",
+      "color-on-image": "var(--on-image)",
+      "color-on-image-muted": "var(--on-image-muted)",
+      "color-on-image-surface": "var(--on-image-surface)",
+      "color-on-image-border": "var(--on-image-border)",
+      "color-on-image-ring": "var(--on-image-ring)",
+      "color-accent-on-dark": "var(--accent-on-dark)",
+      "color-tone-1": "var(--tone-1)",
+      "color-tone-1-foreground": "var(--tone-1-foreground)",
+      "color-tone-1-soft": "var(--tone-1-soft)",
+      "color-tone-1-strong": "var(--tone-1-strong)",
+      "color-tone-2": "var(--tone-2)",
+      "color-tone-2-foreground": "var(--tone-2-foreground)",
+      "color-tone-2-soft": "var(--tone-2-soft)",
+      "color-tone-2-strong": "var(--tone-2-strong)",
+      "color-tone-3": "var(--tone-3)",
+      "color-tone-3-foreground": "var(--tone-3-foreground)",
+      "color-tone-3-soft": "var(--tone-3-soft)",
+      "color-tone-3-strong": "var(--tone-3-strong)",
+      "color-tone-4": "var(--tone-4)",
+      "color-tone-4-foreground": "var(--tone-4-foreground)",
+      "color-tone-4-soft": "var(--tone-4-soft)",
+      "color-tone-4-strong": "var(--tone-4-strong)",
+      "color-tone-5": "var(--tone-5)",
+      "color-tone-5-foreground": "var(--tone-5-foreground)",
+      "color-tone-5-soft": "var(--tone-5-soft)",
+      "color-tone-5-strong": "var(--tone-5-strong)",
+      "color-tone-6": "var(--tone-6)",
+      "color-tone-6-foreground": "var(--tone-6-foreground)",
+      "color-tone-6-soft": "var(--tone-6-soft)",
+      "color-tone-6-strong": "var(--tone-6-strong)",
+      "color-accent-foreground": "var(--accent-foreground)",
+      "color-accent": "var(--accent)",
+      "color-muted-foreground": "var(--muted-foreground)",
+      "color-muted": "var(--muted)",
+      "color-secondary-foreground": "var(--secondary-foreground)",
+      "color-secondary": "var(--secondary)",
+      "color-primary-foreground": "var(--primary-foreground)",
+      "color-primary": "var(--primary)",
+      "color-popover-foreground": "var(--popover-foreground)",
+      "color-popover": "var(--popover)",
+      "color-card-foreground": "var(--card-foreground)",
+      "color-card": "var(--card)",
+      "color-foreground": "var(--foreground)",
+      "color-background": "var(--background)",
+      "radius-sm": "calc(var(--radius) * 0.6)",
+      "radius-md": "calc(var(--radius) * 0.8)",
+      "radius-lg": "var(--radius)",
+      "radius-xl": "calc(var(--radius) * 1.4)",
+      "radius-2xl": "calc(var(--radius) * 1.8)",
+      "radius-3xl": "calc(var(--radius) * 2.2)",
+      "radius-4xl": "calc(var(--radius) * 2.6)"
     }
-  ],
-  "docs": "Starting from @dataservices/base? This is already done. Otherwise, in your CSS entry, import ds-base.css and then one theme file, and remove the @import \"tailwindcss\", @theme inline and :root/.dark blocks that shadcn init created. Set data-theme on <html>. See THEMING.md in the DataServices design system.",
-  "type": "registry:file"
+  },
+  "css": {
+    "@import \"tw-animate-css\"": {},
+    "@import \"shadcn/tailwind.css\"": {},
+    "@import \"@fontsource-variable/public-sans\"": {},
+    "@import \"@fontsource-variable/outfit\"": {},
+    "@custom-variant dark (&:is(.dark *))": {},
+    "@layer base": {
+      "*": {
+        "@apply border-border outline-ring/50": {}
+      },
+      "body": {
+        "@apply bg-background text-foreground font-sans": {},
+        "font-size": "16px",
+        "line-height": "1.5"
+      },
+      "h1, h2, h3, h4, h5, h6": {
+        "font-family": "var(--font-heading)",
+        "color": "var(--foreground)"
+      },
+      "h1": {
+        "font-weight": "700",
+        "font-size": "48px",
+        "line-height": "1.4"
+      },
+      "h2": {
+        "font-weight": "600",
+        "font-size": "36px",
+        "line-height": "1.5"
+      },
+      "h3": {
+        "font-weight": "500",
+        "font-size": "28px",
+        "line-height": "1.5"
+      },
+      "h4": {
+        "font-weight": "500",
+        "font-size": "22px",
+        "line-height": "1.6"
+      },
+      "@media (max-width: 600px)": {
+        "h1": {
+          "font-size": "36px"
+        },
+        "h2": {
+          "font-size": "28px"
+        },
+        "h3": {
+          "font-size": "24px",
+          "line-height": "1.6"
+        },
+        "h4": {
+          "font-size": "20px"
+        },
+        "body": {
+          "font-size": "14px"
+        }
+      }
+    }
+  },
+  "docs": "The CLI merged the design system's base CSS into your CSS entry. It sets no colors, so the app also needs a theme such as @dataservices/theme-ocotillo. See THEMING.md in the DataServices design system.",
+  "type": "registry:style"
 }

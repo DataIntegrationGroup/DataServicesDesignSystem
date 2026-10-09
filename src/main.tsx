@@ -1,6 +1,7 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
+import './showcase/showcase.css'
 import { ShowcaseApp } from './showcase/app.tsx'
 import { DemoFrame } from './showcase/frame.tsx'
 import { PALETTES, PALETTE_STORAGE_KEY } from './showcase/palettes.ts'

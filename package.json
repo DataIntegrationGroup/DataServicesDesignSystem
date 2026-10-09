@@ -7,12 +7,13 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "lint": "eslint . && pnpm check:themes && pnpm check:showcase",
+    "lint": "eslint . && pnpm check:themes && pnpm check:registry && pnpm check:showcase",
     "check:themes": "node scripts/check-themes.mjs",
+    "check:registry": "node scripts/registry-css.mjs --check",
     "check:showcase": "node --disable-warning=ExperimentalWarning scripts/check-showcase.ts",
     "check:upstream": "node scripts/check-upstream.mjs",
     "preview": "vite preview",
-    "registry:build": "shadcn build"
+    "registry:build": "node scripts/registry-css.mjs && shadcn build"
   },
   "dependencies": {
     "@fontsource-variable/outfit": "^5.2.8",
@@ -56,6 +57,7 @@
     "eslint-plugin-react-hooks": "^7.1.1",
     "eslint-plugin-react-refresh": "^0.5.2",
     "globals": "^17.6.0",
+    "postcss": "8.5.28",
     "shiki": "~4.4.3",
     "typescript": "~6.0.2",
     "typescript-eslint": "^8.59.2",
