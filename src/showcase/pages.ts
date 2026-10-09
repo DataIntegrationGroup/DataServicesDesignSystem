@@ -185,13 +185,9 @@ export const PAGES: ShowcasePage[] = [
     slug: "alert-dialog",
     title: "Alert dialog",
     group: "Core",
-    origin: "extended",
+    origin: "shadcn",
     registry: ["alert-dialog"],
     upstream: "alert-dialog",
-    additions: [
-      "Action and Cancel styled with buttonVariants (default and outline)",
-      "Built on an older upstream version: no size prop, AlertDialogMedia, AlertDialogPortal or AlertDialogOverlay",
-    ],
     component: page(() => import("./pages/alert-dialog")),
   },
   {
@@ -432,10 +428,7 @@ export const PAGES: ShowcasePage[] = [
     origin: "extended",
     registry: ["sheet"],
     upstream: "sheet",
-    additions: [
-      "Borders under the header and above the footer, and a ring around the panel",
-      "Built on an older upstream version: no SheetPortal or SheetOverlay exports",
-    ],
+    additions: ["Borders under SheetHeader and above SheetFooter"],
     component: page(() => import("./pages/sheet")),
   },
   {

@@ -757,7 +757,7 @@
       "name": "alert-dialog",
       "type": "registry:ui",
       "title": "Alert Dialog",
-      "description": "Accessible confirm dialog (Radix AlertDialog) for destructive actions, with themed Action/Cancel buttons.",
+      "description": "Upstream shadcn alert-dialog (Radix AlertDialog): a confirm dialog for destructive actions.",
       "dependencies": ["radix-ui"],
       "registryDependencies": ["@dataservices/button"],
       "files": [
