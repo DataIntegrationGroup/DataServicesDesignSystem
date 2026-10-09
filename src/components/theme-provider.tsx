@@ -52,12 +52,15 @@ export function ThemeProvider({
     root.classList.remove("light", "dark")
 
     if (theme === "system") {
-      const systemTheme = window.matchMedia("(prefers-color-scheme: dark)")
-        .matches
-        ? "dark"
-        : "light"
-      root.classList.add(systemTheme)
-      return
+      // Follow the OS setting, including changes while the page is open.
+      const query = window.matchMedia("(prefers-color-scheme: dark)")
+      const apply = () => {
+        root.classList.remove("light", "dark")
+        root.classList.add(query.matches ? "dark" : "light")
+      }
+      apply()
+      query.addEventListener("change", apply)
+      return () => query.removeEventListener("change", apply)
     }
 
     root.classList.add(theme)
