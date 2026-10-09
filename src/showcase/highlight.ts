@@ -3,10 +3,10 @@ import { createJavaScriptRegexEngine } from "shiki/engine/javascript"
 
 let highlighter: Promise<HighlighterCore> | undefined
 
-/** TSX and shell highlighting with light and dark themes. Loaded on first use, so it
+/** TSX, shell and JSON highlighting with light and dark themes. Loaded on first use, so it
  *  stays out of the initial bundle. The dark colors apply under `.dark`
  *  (see index.css). */
-export type CodeLang = "tsx" | "bash"
+export type CodeLang = "tsx" | "bash" | "json"
 
 export async function highlight(code: string, lang: CodeLang = "tsx") {
   highlighter ??= createHighlighterCore({
@@ -14,7 +14,11 @@ export async function highlight(code: string, lang: CodeLang = "tsx") {
       import("@shikijs/themes/github-light"),
       import("@shikijs/themes/github-dark"),
     ],
-    langs: [import("@shikijs/langs/tsx"), import("@shikijs/langs/shellscript")],
+    langs: [
+      import("@shikijs/langs/tsx"),
+      import("@shikijs/langs/shellscript"),
+      import("@shikijs/langs/json"),
+    ],
     engine: createJavaScriptRegexEngine(),
   })
   return (await highlighter).codeToHtml(code, {

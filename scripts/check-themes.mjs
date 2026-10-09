@@ -10,8 +10,9 @@
 
 import { readFileSync, readdirSync } from "node:fs"
 import { join, basename } from "node:path"
+import { fileURLToPath } from "node:url"
 
-const root = new URL("..", import.meta.url).pathname
+const root = fileURLToPath(new URL("..", import.meta.url))
 const themesDir = join(root, "src/themes")
 
 // Keep in sync with THEMING.md.

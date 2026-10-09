@@ -7,9 +7,6 @@
     "radix-ui",
     "class-variance-authority"
   ],
-  "registryDependencies": [
-    "@dataservices/theme-base"
-  ],
   "files": [
     {
       "path": "src/components/ui/button.tsx",
@@ -17,5 +14,20 @@
       "type": "registry:ui"
     }
   ],
+  "cssVars": {
+    "theme": {
+      "color-primary-dark": "var(--primary-dark)",
+      "color-on-image": "var(--on-image)",
+      "color-on-image-ring": "var(--on-image-ring)"
+    },
+    "light": {
+      "primary-dark": "#0f5786",
+      "on-image": "#ffffff",
+      "on-image-ring": "rgb(255 255 255 / 0.7)"
+    },
+    "dark": {
+      "primary-dark": "#0f5786"
+    }
+  },
   "type": "registry:ui"
 }

@@ -63,7 +63,17 @@ pnpm registry:build
 ```
 
 `registry:build` also copies `src/index.css` and `src/themes/` into
-`registry.json`. Commit the regenerated files; `public/r/` is what apps
-install.
+`registry.json`, and gives each component the DS-only tokens it uses (see
+THEMING.md). Commit the regenerated files; `public/r/` is what apps
+install. `pnpm lint` fails if `public/r/` is stale or an item imports a
+package or registry file it doesn't declare.
+
+Give a dependency a version (`pkg@^8.21.3`) only when the latest major
+would break the component. The CLI reinstalls every versioned dependency
+on each add, and rewrites the app's version range to match.
+
+`data-grid` uses Glide Data Grid 6.0.3, which declares React 16–18 as
+peers. It works on React 19, but npm apps need an `overrides` entry for
+it; the data grid page in the showcase shows it.
 Showcase pages are listed in `src/showcase/pages.ts`, with their examples in
 `src/showcase/demos/`.

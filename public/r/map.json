@@ -4,8 +4,8 @@
   "title": "Map",
   "description": "MapLibre map primitive with a token-free CARTO basemap, New Mexico default extent, and nav/scale controls. Re-exports react-map-gl/maplibre primitives.",
   "dependencies": [
-    "react-map-gl",
-    "maplibre-gl"
+    "react-map-gl@^8.0.0",
+    "maplibre-gl@^5.0.0"
   ],
   "files": [
     {

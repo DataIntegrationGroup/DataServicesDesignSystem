@@ -7,9 +7,6 @@
     "radix-ui",
     "class-variance-authority"
   ],
-  "registryDependencies": [
-    "@dataservices/theme-base"
-  ],
   "files": [
     {
       "path": "src/components/ui/badge.tsx",
@@ -17,5 +14,75 @@
       "type": "registry:ui"
     }
   ],
+  "cssVars": {
+    "theme": {
+      "color-success-soft": "var(--success-soft)",
+      "color-success-strong": "var(--success-strong)",
+      "color-warning-soft": "var(--warning-soft)",
+      "color-warning-strong": "var(--warning-strong)",
+      "color-info-soft": "var(--info-soft)",
+      "color-info-strong": "var(--info-strong)",
+      "color-on-image": "var(--on-image)",
+      "color-on-image-surface": "var(--on-image-surface)",
+      "color-on-image-border": "var(--on-image-border)",
+      "color-on-image-ring": "var(--on-image-ring)",
+      "color-tone-1-soft": "var(--tone-1-soft)",
+      "color-tone-1-strong": "var(--tone-1-strong)",
+      "color-tone-2-soft": "var(--tone-2-soft)",
+      "color-tone-2-strong": "var(--tone-2-strong)",
+      "color-tone-3-soft": "var(--tone-3-soft)",
+      "color-tone-3-strong": "var(--tone-3-strong)",
+      "color-tone-4-soft": "var(--tone-4-soft)",
+      "color-tone-4-strong": "var(--tone-4-strong)",
+      "color-tone-5-soft": "var(--tone-5-soft)",
+      "color-tone-5-strong": "var(--tone-5-strong)",
+      "color-tone-6-soft": "var(--tone-6-soft)",
+      "color-tone-6-strong": "var(--tone-6-strong)"
+    },
+    "light": {
+      "success-soft": "#d1fae5",
+      "success-strong": "#065f46",
+      "warning-soft": "#ffedd5",
+      "warning-strong": "#9a3412",
+      "info-soft": "#cbfbf1",
+      "info-strong": "#005f5a",
+      "on-image": "#ffffff",
+      "on-image-surface": "rgb(255 255 255 / 0.12)",
+      "on-image-border": "rgb(255 255 255 / 0.5)",
+      "on-image-ring": "rgb(255 255 255 / 0.7)",
+      "tone-1-soft": "#dceffb",
+      "tone-1-strong": "#12496e",
+      "tone-2-soft": "#fef3c7",
+      "tone-2-strong": "#92400e",
+      "tone-3-soft": "#d1fae5",
+      "tone-3-strong": "#065f46",
+      "tone-4-soft": "#f1f5f9",
+      "tone-4-strong": "#1e293b",
+      "tone-5-soft": "#ede9fe",
+      "tone-5-strong": "#5b21b6",
+      "tone-6-soft": "#cbfbf1",
+      "tone-6-strong": "#005f5a"
+    },
+    "dark": {
+      "success-soft": "#064e3b",
+      "success-strong": "#a7f3d0",
+      "warning-soft": "#7c2d12",
+      "warning-strong": "#fed7aa",
+      "info-soft": "#0b4f4a",
+      "info-strong": "#96f7e4",
+      "tone-1-soft": "#143d5b",
+      "tone-1-strong": "#b8dff6",
+      "tone-2-soft": "#78350f",
+      "tone-2-strong": "#fde68a",
+      "tone-3-soft": "#064e3b",
+      "tone-3-strong": "#a7f3d0",
+      "tone-4-soft": "#334155",
+      "tone-4-strong": "#e2e8f0",
+      "tone-5-soft": "#4c1d95",
+      "tone-5-strong": "#ddd6fe",
+      "tone-6-soft": "#0b4f4a",
+      "tone-6-strong": "#96f7e4"
+    }
+  },
   "type": "registry:ui"
 }

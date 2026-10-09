@@ -12,8 +12,9 @@
 
 import { execFileSync } from "node:child_process"
 import { readFileSync } from "node:fs"
+import { fileURLToPath } from "node:url"
 
-const root = new URL("..", import.meta.url).pathname
+const root = fileURLToPath(new URL("..", import.meta.url))
 const pages = readFileSync(new URL("../src/showcase/pages.ts", import.meta.url), "utf8")
 
 const names = [...pages.matchAll(/\{\s*slug: "[^"]+",([\s\S]*?)\n {2}\}/g)]

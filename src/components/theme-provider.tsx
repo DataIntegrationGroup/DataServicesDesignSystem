@@ -29,15 +29,9 @@ type ThemeProviderState = {
   setPalette: (palette: Palette) => void
 }
 
-const initialState: ThemeProviderState = {
-  theme: "system",
-  setTheme: () => null,
-  resolvedTheme: "light",
-  palette: undefined,
-  setPalette: () => null,
-}
-
-const ThemeProviderContext = createContext<ThemeProviderState>(initialState)
+const ThemeProviderContext = createContext<ThemeProviderState | undefined>(
+  undefined
+)
 
 const DARK_QUERY = "(prefers-color-scheme: dark)"
 
@@ -59,6 +53,14 @@ export function ThemeProvider({
   const [palette, setPalette] = useState<Palette | undefined>(
     () => initialPalette ?? document.documentElement.dataset.theme
   )
+
+  // Follow the prop when it changes, e.g. a palette that loads after the
+  // first render. setPalette can still change it in between.
+  const [lastPalette, setLastPalette] = useState(initialPalette)
+  if (initialPalette !== lastPalette) {
+    setLastPalette(initialPalette)
+    if (initialPalette) setPalette(initialPalette)
+  }
 
   useEffect(() => {
     if (palette) document.documentElement.setAttribute("data-theme", palette)

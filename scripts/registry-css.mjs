@@ -9,6 +9,13 @@
 // - src/themes/<name>.css -> theme-<name>: plain :root and .dark blocks
 //   become cssVars.light / cssVars.dark; any other selector (data-theme
 //   scopes) goes into css as written.
+// - Every other item that ships files -> its own cssVars: the DS-only tokens
+//   (ones stock shadcn doesn't define) its files use, as @theme inline
+//   mappings plus light/dark values from the Ocotillo theme. `shadcn add`
+//   only fills in variables an app doesn't have yet, so a component works
+//   in a plain shadcn app without overriding a DS theme. Components never
+//   depend on theme-base: that's a registry:style, and the CLI merges a
+//   style's css (base styles, @custom-variant) again on every add.
 //
 // Only those fields of those items are rewritten; everything else in
 // registry.json is left as is.
@@ -18,9 +25,10 @@
 
 import { readFileSync, readdirSync, writeFileSync } from "node:fs"
 import { basename, join } from "node:path"
+import { fileURLToPath } from "node:url"
 import postcss from "postcss"
 
-const root = new URL("..", import.meta.url).pathname
+const root = fileURLToPath(new URL("..", import.meta.url))
 const registryPath = join(root, "registry.json")
 const check = process.argv.includes("--check")
 
@@ -46,23 +54,79 @@ function toVars(node) {
   return out
 }
 
+/** Merges b into a, so a repeated block (a second @layer base) adds to the first. */
+function mergeCss(a, b) {
+  for (const [key, value] of Object.entries(b)) {
+    if (typeof value === "object" && typeof a[key] === "object") mergeCss(a[key], value)
+    else a[key] = value
+  }
+  return a
+}
+
 function readBase() {
   const ast = postcss.parse(readFileSync(join(root, "src/index.css"), "utf8"))
   const css = {}
   let theme = {}
   for (const node of ast.nodes) {
-    if (node.type !== "atrule") continue
-    if (node.name === "import") {
+    if (node.type === "rule") {
+      mergeCss(css, { [node.selector]: toCssObject(node) })
+    } else if (node.type !== "atrule") {
+      continue
+    } else if (node.name === "import") {
       const path = node.params.replace(/^["']|["']$/g, "")
       if (path === "tailwindcss" || path.startsWith(".")) continue
       css[`@import ${node.params}`] = {}
     } else if (node.name === "theme" && node.params === "inline") {
-      theme = toVars(node)
+      Object.assign(theme, toVars(node))
     } else {
-      css[`@${node.name} ${node.params}`] = node.nodes ? toCssObject(node) : {}
+      mergeCss(css, { [`@${node.name} ${node.params}`]: node.nodes ? toCssObject(node) : {} })
     }
   }
   return { cssVars: { theme }, css }
+}
+
+// Color tokens a stock shadcn app already defines (radix-nova's index.css).
+const STOCK_COLORS = new Set([
+  "background", "foreground", "card", "card-foreground", "popover", "popover-foreground",
+  "primary", "primary-foreground", "secondary", "secondary-foreground",
+  "muted", "muted-foreground", "accent", "accent-foreground", "destructive",
+  "border", "input", "ring",
+  "chart-1", "chart-2", "chart-3", "chart-4", "chart-5",
+  "sidebar", "sidebar-foreground", "sidebar-primary", "sidebar-primary-foreground",
+  "sidebar-accent", "sidebar-accent-foreground", "sidebar-border", "sidebar-ring",
+])
+
+// Utility prefixes that take a color, e.g. bg-success-soft or ring-on-image-ring/50.
+const COLOR_UTILITY = "(?:bg|text|border(?:-[xytrblse])?|ring|ring-offset|inset-ring|outline|fill|stroke|from|via|to|decoration|divide|caret|accent|shadow|placeholder)"
+const escape = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")
+const used = (source, utility, token) =>
+  new RegExp(`(?<![\\w-])${utility}-${escape(token)}(?:/[\\w.]+)?(?![\\w-])`).test(source) ||
+  source.includes(`var(--${token})`)
+
+/**
+ * The DS-only tokens an item's files use, as cssVars: color mappings and
+ * light/dark values from the default theme, and the type steps it uses.
+ */
+function readItemTokens(item, base, defaults) {
+  const source = (item.files ?? []).map((f) => readFileSync(join(root, f.path), "utf8")).join("\n")
+  const theme = {}
+  const light = {}
+  const dark = {}
+  for (const [key, value] of Object.entries(base.cssVars.theme)) {
+    const color = key.match(/^color-(.+)$/)?.[1]
+    if (color && !STOCK_COLORS.has(color) && used(source, COLOR_UTILITY, color)) {
+      theme[key] = value
+      // .dark only lists what changes from :root.
+      if (color in defaults.light) light[color] = defaults.light[color]
+      if (color in defaults.dark) dark[color] = defaults.dark[color]
+    }
+    const step = key.match(/^text-([a-z]+)(?:--|$)/)?.[1]
+    if (step && used(source, "text", step)) theme[key] = value
+  }
+  if (Object.keys(theme).length === 0) return { cssVars: undefined }
+  const cssVars = { theme, light, dark }
+  for (const key of ["light", "dark"]) if (!Object.keys(cssVars[key]).length) delete cssVars[key]
+  return { cssVars }
 }
 
 function readTheme(file) {
@@ -100,13 +164,23 @@ function format(value, depth) {
     .join(",\n")}\n${pad}}`
 }
 
-const generated = { "theme-base": readBase() }
+const base = readBase()
+const generated = { "theme-base": base }
 const themesDir = join(root, "src/themes")
 for (const file of readdirSync(themesDir).filter((f) => f.endsWith(".css")).sort()) {
   generated[`theme-${basename(file, ".css")}`] = readTheme(join(themesDir, file))
 }
 
 const before = readFileSync(registryPath, "utf8")
+const defaults = generated["theme-ocotillo"].cssVars
+for (const item of JSON.parse(before).items) {
+  // The legacy `theme` item is checked against ocotillo.css by check-themes.
+  if (item.name in generated || item.name === "theme" || !item.files) continue
+  if (item.type === "registry:lib" || item.type === "registry:hook") continue
+  const fields = readItemTokens(item, base, defaults)
+  if (fields.cssVars || item.cssVars) generated[item.name] = fields
+}
+
 let after = before
 for (const [name, fields] of Object.entries(generated)) {
   // Items sit at four spaces: find the one with this name and replace it.
@@ -114,9 +188,13 @@ for (const [name, fields] of Object.entries(generated)) {
   if (at === -1) throw new Error(`registry.json has no "${name}" item`)
   const start = after.lastIndexOf("\n    {", at) + 1
   const end = after.indexOf("\n    }", at) + "\n    }".length
-  const item = JSON.parse(after.slice(start, end))
-  delete item.cssVars
-  delete item.css
+  const old = JSON.parse(after.slice(start, end))
+  // Keep the item's key order; a new field goes in before files.
+  const item = {}
+  for (const [key, value] of Object.entries(old)) {
+    if (key === "files") Object.assign(item, fields)
+    if (!(key in fields)) item[key] = value
+  }
   Object.assign(item, fields)
   after = after.slice(0, start) + "    " + format(item, 2) + after.slice(end)
 }
@@ -124,9 +202,9 @@ for (const [name, fields] of Object.entries(generated)) {
 if (after === before) {
   console.log("registry.json CSS is up to date.")
 } else if (check) {
-  console.error("registry.json CSS is out of date. Run: node scripts/registry-css.mjs")
+  console.error("registry.json CSS is out of date. Run: pnpm registry:build")
   process.exit(1)
 } else {
   writeFileSync(registryPath, after)
-  console.log(`Updated ${Object.keys(generated).join(", ")} in registry.json.`)
+  console.log("Updated the CSS in registry.json.")
 }

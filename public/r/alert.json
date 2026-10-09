@@ -6,9 +6,6 @@
   "dependencies": [
     "class-variance-authority"
   ],
-  "registryDependencies": [
-    "@dataservices/theme-base"
-  ],
   "files": [
     {
       "path": "src/components/ui/alert.tsx",
@@ -16,5 +13,40 @@
       "type": "registry:ui"
     }
   ],
+  "cssVars": {
+    "theme": {
+      "color-success": "var(--success)",
+      "color-success-soft": "var(--success-soft)",
+      "color-success-strong": "var(--success-strong)",
+      "color-warning": "var(--warning)",
+      "color-warning-soft": "var(--warning-soft)",
+      "color-warning-strong": "var(--warning-strong)",
+      "color-info": "var(--info)",
+      "color-info-soft": "var(--info-soft)",
+      "color-info-strong": "var(--info-strong)"
+    },
+    "light": {
+      "success": "#007a55",
+      "success-soft": "#d1fae5",
+      "success-strong": "#065f46",
+      "warning": "#fa7005",
+      "warning-soft": "#ffedd5",
+      "warning-strong": "#9a3412",
+      "info": "#00786f",
+      "info-soft": "#cbfbf1",
+      "info-strong": "#005f5a"
+    },
+    "dark": {
+      "success": "#5ee9b5",
+      "success-soft": "#064e3b",
+      "success-strong": "#a7f3d0",
+      "warning": "#ffb86a",
+      "warning-soft": "#7c2d12",
+      "warning-strong": "#fed7aa",
+      "info": "#5eead4",
+      "info-soft": "#0b4f4a",
+      "info-strong": "#96f7e4"
+    }
+  },
   "type": "registry:ui"
 }

@@ -7,7 +7,7 @@
       "name": "base",
       "type": "registry:base",
       "title": "DataServices base",
-      "description": "Starts a new app on the design system: pnpm dlx shadcn@latest init -t vite -n my-app <registry>/base.json. Sets up components.json with the @dataservices registry and installs theme-base, the Ocotillo theme and the DS button, whose CSS the CLI merges into src/index.css.",
+      "description": "Starts a new app on the design system: pnpm dlx shadcn@latest init -t vite -n my-app <registry>/base.json. Sets up components.json with the @dataservices registry and installs theme-base, the Ocotillo theme, the theme provider and the DS button, whose CSS the CLI merges into src/index.css.",
       "extends": "none",
       "config": {
         "style": "radix-nova",
@@ -16,7 +16,7 @@
           "@dataservices": "https://raw.githubusercontent.com/DataIntegrationGroup/DataServicesDesignSystem/main/public/r/{name}.json"
         }
       },
-      "registryDependencies": ["@dataservices/theme-ocotillo", "@dataservices/button"]
+      "registryDependencies": ["@dataservices/theme-ocotillo", "@dataservices/theme-provider", "@dataservices/button"]
     },
     {
       "name": "theme",
@@ -106,9 +106,10 @@
       "type": "registry:style",
       "title": "Theme base",
       "description": "Shared design-system CSS: imports, dark variant, fonts, type steps, @theme inline token mappings, radius scale and base type styles. Sets no colors; add a theme too.",
-      "dependencies": ["@fontsource-variable/outfit", "@fontsource-variable/public-sans", "tw-animate-css", "shadcn@~4.20.1"],
+      "dependencies": ["@fontsource-variable/outfit", "@fontsource-variable/public-sans"],
+      "devDependencies": ["shadcn", "tw-animate-css"],
       "registryDependencies": ["@dataservices/utils"],
-      "docs": "The CLI merged the design system's base CSS into your CSS entry. It sets no colors, so the app also needs a theme such as @dataservices/theme-ocotillo. See THEMING.md in the DataServices design system.",
+      "docs": "The CLI merged the design system's base CSS into your CSS entry. It sets no colors, so the app also needs a theme such as @dataservices/theme-ocotillo. It defines the dark variant as (&:is(.dark *)), like shadcn's templates; if your CSS already had a different @custom-variant dark, delete one of the two. See THEMING.md in the DataServices design system.",
       "cssVars": {
         "theme": {
           "font-heading": "'Outfit Variable', system-ui, sans-serif",
@@ -621,7 +622,7 @@
       "type": "registry:ui",
       "title": "Map",
       "description": "MapLibre map primitive with a token-free CARTO basemap, New Mexico default extent, and nav/scale controls. Re-exports react-map-gl/maplibre primitives.",
-      "dependencies": ["react-map-gl", "maplibre-gl"],
+      "dependencies": ["react-map-gl@^8.0.0", "maplibre-gl@^5.0.0"],
       "files": [
         {
           "path": "src/components/ui/map.tsx",
@@ -634,7 +635,7 @@
       "type": "registry:ui",
       "title": "Data Table",
       "description": "Generic client-side table over @tanstack/react-table — sortable headers (DataTableColumnHeader), column filter, column visibility, and pagination built in.",
-      "dependencies": ["@tanstack/react-table", "lucide-react"],
+      "dependencies": ["@tanstack/react-table@^8.21.3", "lucide-react"],
       "registryDependencies": ["@dataservices/table", "@dataservices/button", "@dataservices/input", "@dataservices/dropdown-menu"],
       "files": [
         {
@@ -648,7 +649,8 @@
       "type": "registry:ui",
       "title": "Data Grid (editable)",
       "description": "Canvas-based editable spreadsheet grid (Glide Data Grid) with a row-object API and light/dark theming built from the current theme's tokens. Pass columns keyed to row fields plus rows; provide onRowsChange for editing.",
-      "dependencies": ["@glideapps/glide-data-grid"],
+      "dependencies": ["@glideapps/glide-data-grid@~6.0.3"],
+      "docs": "Glide Data Grid 6.0.3 declares React 16–18 as peers. It runs on React 19, but npm refuses the install. If it did, add \"overrides\": { \"@glideapps/glide-data-grid\": { \"react\": \"$react\", \"react-dom\": \"$react-dom\" } } to package.json and run the add again. pnpm and yarn only warn.",
       "registryDependencies": ["@dataservices/use-css-vars"],
       "files": [
         {
@@ -736,7 +738,7 @@
       "type": "registry:ui",
       "title": "Combobox",
       "description": "Upstream shadcn combobox (Base UI Combobox): a searchable input with a filtered list, for single or multiple selection with chips.",
-      "dependencies": ["@base-ui/react", "lucide-react"],
+      "dependencies": ["@base-ui/react@^1.8.0", "lucide-react"],
       "registryDependencies": ["@dataservices/button", "@dataservices/input-group"],
       "files": [
         { "path": "src/components/ui/combobox.tsx", "type": "registry:ui" }
@@ -780,7 +782,11 @@
       "title": "Button",
       "description": "Upstream shadcn button. Adds size=\"xl\" (48px call to action) and variant=\"inverse\" (light button for dark bands and images).",
       "dependencies": ["radix-ui", "class-variance-authority"],
-      "registryDependencies": ["@dataservices/theme-base"],
+      "cssVars": {
+        "theme": { "color-primary-dark": "var(--primary-dark)", "color-on-image": "var(--on-image)", "color-on-image-ring": "var(--on-image-ring)" },
+        "light": { "primary-dark": "#0f5786", "on-image": "#ffffff", "on-image-ring": "rgb(255 255 255 / 0.7)" },
+        "dark": { "primary-dark": "#0f5786" }
+      },
       "files": [
         { "path": "src/components/ui/button.tsx", "type": "registry:ui" }
       ]
@@ -791,7 +797,76 @@
       "title": "Badge",
       "description": "Upstream shadcn badge. Adds status variants (success, warning, info), category tones (tone-1 … tone-6) and an on-image outline variant.",
       "dependencies": ["radix-ui", "class-variance-authority"],
-      "registryDependencies": ["@dataservices/theme-base"],
+      "cssVars": {
+        "theme": {
+          "color-success-soft": "var(--success-soft)",
+          "color-success-strong": "var(--success-strong)",
+          "color-warning-soft": "var(--warning-soft)",
+          "color-warning-strong": "var(--warning-strong)",
+          "color-info-soft": "var(--info-soft)",
+          "color-info-strong": "var(--info-strong)",
+          "color-on-image": "var(--on-image)",
+          "color-on-image-surface": "var(--on-image-surface)",
+          "color-on-image-border": "var(--on-image-border)",
+          "color-on-image-ring": "var(--on-image-ring)",
+          "color-tone-1-soft": "var(--tone-1-soft)",
+          "color-tone-1-strong": "var(--tone-1-strong)",
+          "color-tone-2-soft": "var(--tone-2-soft)",
+          "color-tone-2-strong": "var(--tone-2-strong)",
+          "color-tone-3-soft": "var(--tone-3-soft)",
+          "color-tone-3-strong": "var(--tone-3-strong)",
+          "color-tone-4-soft": "var(--tone-4-soft)",
+          "color-tone-4-strong": "var(--tone-4-strong)",
+          "color-tone-5-soft": "var(--tone-5-soft)",
+          "color-tone-5-strong": "var(--tone-5-strong)",
+          "color-tone-6-soft": "var(--tone-6-soft)",
+          "color-tone-6-strong": "var(--tone-6-strong)"
+        },
+        "light": {
+          "success-soft": "#d1fae5",
+          "success-strong": "#065f46",
+          "warning-soft": "#ffedd5",
+          "warning-strong": "#9a3412",
+          "info-soft": "#cbfbf1",
+          "info-strong": "#005f5a",
+          "on-image": "#ffffff",
+          "on-image-surface": "rgb(255 255 255 / 0.12)",
+          "on-image-border": "rgb(255 255 255 / 0.5)",
+          "on-image-ring": "rgb(255 255 255 / 0.7)",
+          "tone-1-soft": "#dceffb",
+          "tone-1-strong": "#12496e",
+          "tone-2-soft": "#fef3c7",
+          "tone-2-strong": "#92400e",
+          "tone-3-soft": "#d1fae5",
+          "tone-3-strong": "#065f46",
+          "tone-4-soft": "#f1f5f9",
+          "tone-4-strong": "#1e293b",
+          "tone-5-soft": "#ede9fe",
+          "tone-5-strong": "#5b21b6",
+          "tone-6-soft": "#cbfbf1",
+          "tone-6-strong": "#005f5a"
+        },
+        "dark": {
+          "success-soft": "#064e3b",
+          "success-strong": "#a7f3d0",
+          "warning-soft": "#7c2d12",
+          "warning-strong": "#fed7aa",
+          "info-soft": "#0b4f4a",
+          "info-strong": "#96f7e4",
+          "tone-1-soft": "#143d5b",
+          "tone-1-strong": "#b8dff6",
+          "tone-2-soft": "#78350f",
+          "tone-2-strong": "#fde68a",
+          "tone-3-soft": "#064e3b",
+          "tone-3-strong": "#a7f3d0",
+          "tone-4-soft": "#334155",
+          "tone-4-strong": "#e2e8f0",
+          "tone-5-soft": "#4c1d95",
+          "tone-5-strong": "#ddd6fe",
+          "tone-6-soft": "#0b4f4a",
+          "tone-6-strong": "#96f7e4"
+        }
+      },
       "files": [
         { "path": "src/components/ui/badge.tsx", "type": "registry:ui" }
       ]
@@ -802,7 +877,41 @@
       "title": "Alert",
       "description": "Upstream shadcn alert. Adds success, warning and info variants on the status tokens.",
       "dependencies": ["class-variance-authority"],
-      "registryDependencies": ["@dataservices/theme-base"],
+      "cssVars": {
+        "theme": {
+          "color-success": "var(--success)",
+          "color-success-soft": "var(--success-soft)",
+          "color-success-strong": "var(--success-strong)",
+          "color-warning": "var(--warning)",
+          "color-warning-soft": "var(--warning-soft)",
+          "color-warning-strong": "var(--warning-strong)",
+          "color-info": "var(--info)",
+          "color-info-soft": "var(--info-soft)",
+          "color-info-strong": "var(--info-strong)"
+        },
+        "light": {
+          "success": "#007a55",
+          "success-soft": "#d1fae5",
+          "success-strong": "#065f46",
+          "warning": "#fa7005",
+          "warning-soft": "#ffedd5",
+          "warning-strong": "#9a3412",
+          "info": "#00786f",
+          "info-soft": "#cbfbf1",
+          "info-strong": "#005f5a"
+        },
+        "dark": {
+          "success": "#5ee9b5",
+          "success-soft": "#064e3b",
+          "success-strong": "#a7f3d0",
+          "warning": "#ffb86a",
+          "warning-soft": "#7c2d12",
+          "warning-strong": "#fed7aa",
+          "info": "#5eead4",
+          "info-soft": "#0b4f4a",
+          "info-strong": "#96f7e4"
+        }
+      },
       "files": [
         { "path": "src/components/ui/alert.tsx", "type": "registry:ui" }
       ]
@@ -830,7 +939,7 @@
       "name": "accordion",
       "type": "registry:ui",
       "title": "Accordion",
-      "description": "Upstream shadcn accordion (Radix Accordion).",
+      "description": "Upstream shadcn accordion (Radix Accordion). An open item doesn't clip overflowing content, so a dropdown inside it can escape the item's box.",
       "dependencies": ["radix-ui", "lucide-react"],
       "files": [
         { "path": "src/components/ui/accordion.tsx", "type": "registry:ui" }
@@ -1122,13 +1231,14 @@
       "type": "registry:ui",
       "title": "Basemap Selector",
       "description": "Grid of selectable basemap thumbnails, built on RadioGroup so arrow keys move the selection. Presentational and map-library agnostic — the consumer owns the style list and applies the chosen id to its map. Pairs with the Map primitive.",
-      "dependencies": ["lucide-react", "maplibre-gl", "radix-ui"],
-      "registryDependencies": ["@dataservices/radio-group", "@dataservices/theme-base"],
+      "dependencies": ["lucide-react", "maplibre-gl@^5.0.0", "radix-ui"],
+      "registryDependencies": ["@dataservices/radio-group"],
+      "cssVars": {
+        "theme": { "color-on-image": "var(--on-image)" },
+        "light": { "on-image": "#ffffff" }
+      },
       "files": [
-        {
-          "path": "src/components/ui/basemap-selector.tsx",
-          "type": "registry:ui"
-        }
+        { "path": "src/components/ui/basemap-selector.tsx", "type": "registry:ui" }
       ]
     },
     {

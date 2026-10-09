@@ -5,12 +5,11 @@
   "description": "Grid of selectable basemap thumbnails, built on RadioGroup so arrow keys move the selection. Presentational and map-library agnostic — the consumer owns the style list and applies the chosen id to its map. Pairs with the Map primitive.",
   "dependencies": [
     "lucide-react",
-    "maplibre-gl",
+    "maplibre-gl@^5.0.0",
     "radix-ui"
   ],
   "registryDependencies": [
-    "@dataservices/radio-group",
-    "@dataservices/theme-base"
+    "@dataservices/radio-group"
   ],
   "files": [
     {
@@ -19,5 +18,13 @@
       "type": "registry:ui"
     }
   ],
+  "cssVars": {
+    "theme": {
+      "color-on-image": "var(--on-image)"
+    },
+    "light": {
+      "on-image": "#ffffff"
+    }
+  },
   "type": "registry:ui"
 }

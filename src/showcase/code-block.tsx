@@ -3,6 +3,7 @@ import { CheckIcon, CopyIcon } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
+import type { CodeLang } from "@/showcase/highlight"
 
 /** A copyable code block. Highlights with Shiki once it loads, and shows
  *  plain text until then. */
@@ -11,7 +12,7 @@ export function CodeBlock({
   lang = "tsx",
   className,
   ...props
-}: { code: string; lang?: "tsx" | "bash" } & React.ComponentProps<"div">) {
+}: { code: string; lang?: CodeLang } & React.ComponentProps<"div">) {
   const [html, setHtml] = React.useState<string>()
   React.useEffect(() => {
     let cancelled = false

@@ -5,9 +5,11 @@
   "description": "Shared design-system CSS: imports, dark variant, fonts, type steps, @theme inline token mappings, radius scale and base type styles. Sets no colors; add a theme too.",
   "dependencies": [
     "@fontsource-variable/outfit",
-    "@fontsource-variable/public-sans",
-    "tw-animate-css",
-    "shadcn@~4.20.1"
+    "@fontsource-variable/public-sans"
+  ],
+  "devDependencies": [
+    "shadcn",
+    "tw-animate-css"
   ],
   "registryDependencies": [
     "@dataservices/utils"
@@ -172,6 +174,6 @@
       }
     }
   },
-  "docs": "The CLI merged the design system's base CSS into your CSS entry. It sets no colors, so the app also needs a theme such as @dataservices/theme-ocotillo. See THEMING.md in the DataServices design system.",
+  "docs": "The CLI merged the design system's base CSS into your CSS entry. It sets no colors, so the app also needs a theme such as @dataservices/theme-ocotillo. It defines the dark variant as (&:is(.dark *)), like shadcn's templates; if your CSS already had a different @custom-variant dark, delete one of the two. See THEMING.md in the DataServices design system.",
   "type": "registry:style"
 }

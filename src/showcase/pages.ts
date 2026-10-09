@@ -157,9 +157,10 @@ export const PAGES: ShowcasePage[] = [
     title: "Accordion",
     group: "Core",
     description: "Stacked headings that each expand to reveal a section of content.",
-    origin: "shadcn",
+    origin: "extended",
     registry: ["accordion"],
     upstream: "accordion",
+    additions: ["An open item doesn't clip overflowing content, such as a suggestion dropdown"],
     component: page(() => import("./pages/accordion")),
   },
   {

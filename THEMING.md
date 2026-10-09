@@ -17,6 +17,16 @@ the `theme-base` and `theme-<name>` items, and `shadcn add` merges those
 into the app's own CSS entry, as it does for any shadcn theme. `pnpm lint`
 fails if `registry.json` is out of date.
 
+`theme-base` is a `registry:style`, installed once with a theme (or by
+`base` at init). Components don't depend on it: the CLI merges a style's
+`css` (base type styles, the `dark` variant) again on every add, which
+would undo an app's edits. Instead, the script gives each component the
+DS-only tokens its classes use (`success-soft`, `tone-1-strong`,
+`on-image`…) as its own `cssVars`: the `@theme inline` mapping plus the
+Ocotillo values as a fallback. `shadcn add` only fills in variables the
+app doesn't have yet, so in a DS app the theme's values stay, and in a
+plain shadcn app a success badge still has a background.
+
 Themes today:
 
 | Theme | `data-theme` | Used by |

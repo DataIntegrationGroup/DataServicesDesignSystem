@@ -50,7 +50,13 @@ const css = ([r, g, b, a]: Rgba) => `rgba(${r}, ${g}, ${b}, ${+a.toFixed(3)})`
 function mix(a: string, b: string, amount: number) {
   const x = toRgba(a)
   const y = toRgba(b)
-  return css(x.map((v, i) => Math.round(v + (y[i] - v) * amount)) as Rgba)
+  // Channels are 0–255 and rounded; alpha (index 3) is 0–1, so it isn't.
+  return css(
+    x.map((v, i) => {
+      const m = v + (y[i] - v) * amount
+      return i === 3 ? m : Math.round(m)
+    }) as Rgba
+  )
 }
 
 function withAlpha(color: string, alpha: number) {

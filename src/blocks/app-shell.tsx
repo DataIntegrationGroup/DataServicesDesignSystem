@@ -639,13 +639,15 @@ function SidePanel({
     target.setPointerCapture(event.pointerId)
     setDragging(true)
     const onMove = (move: PointerEvent) => setWidth(clamp(startWidth + startX - move.clientX))
-    const onUp = () => {
+    // Capture ends on pointerup, and also when the browser cancels the drag
+    // (a touch scroll taking over), which sends no pointerup.
+    const onEnd = () => {
       setDragging(false)
       target.removeEventListener("pointermove", onMove)
-      target.removeEventListener("pointerup", onUp)
+      target.removeEventListener("lostpointercapture", onEnd)
     }
     target.addEventListener("pointermove", onMove)
-    target.addEventListener("pointerup", onUp)
+    target.addEventListener("lostpointercapture", onEnd)
   }
 
   const body = (

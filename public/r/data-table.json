@@ -4,7 +4,7 @@
   "title": "Data Table",
   "description": "Generic client-side table over @tanstack/react-table — sortable headers (DataTableColumnHeader), column filter, column visibility, and pagination built in.",
   "dependencies": [
-    "@tanstack/react-table",
+    "@tanstack/react-table@^8.21.3",
     "lucide-react"
   ],
   "registryDependencies": [

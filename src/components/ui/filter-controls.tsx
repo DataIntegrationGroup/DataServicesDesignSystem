@@ -8,6 +8,7 @@ import { Switch } from "@/components/ui/switch"
 import {
   Tooltip,
   TooltipContent,
+  TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip"
 
@@ -65,24 +66,27 @@ export function FilterControls({ bbox, q, onBboxChange, onQueryChange }: FilterC
         value={text}
         onChange={(e) => onType(e.target.value)}
       />
-      <Tooltip>
-        <TooltipTrigger asChild>
-          <Button
-            variant="ghost"
-            size="icon-xs"
-            aria-label="About filtering"
-            data-testid="filter-info"
-            className="text-muted-foreground"
-          >
-            <Info />
-          </Button>
-        </TooltipTrigger>
-        <TooltipContent side="bottom" className="max-w-64">
-          <strong>Filter to map view</strong> limits data to the current map
-          extent. The text box matches feature attributes — type to narrow what’s
-          shown.
-        </TooltipContent>
-      </Tooltip>
+      {/* Its own provider, so it works without one at the app root. */}
+      <TooltipProvider>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Button
+              variant="ghost"
+              size="icon-xs"
+              aria-label="About filtering"
+              data-testid="filter-info"
+              className="text-muted-foreground"
+            >
+              <Info />
+            </Button>
+          </TooltipTrigger>
+          <TooltipContent side="bottom" className="max-w-64">
+            <strong>Filter to map view</strong> limits data to the current map
+            extent. The text box matches feature attributes — type to narrow what’s
+            shown.
+          </TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
     </div>
   )
 }
