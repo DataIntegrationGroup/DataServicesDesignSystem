@@ -401,6 +401,112 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "data-table",
+      "type": "registry:ui",
+      "title": "Data Table",
+      "description": "A client-side table on TanStack Table v9 with sorting, a text filter, column visibility and pagination. Exports its feature set (DataTableFeatures) for createColumnHelper, and a sortable DataTableColumnHeader.",
+      "dependencies": [
+        "cn",
+        "lucide-react",
+        "@tanstack/react-table@^9"
+      ],
+      "registryDependencies": [
+        "button",
+        "dropdown-menu",
+        "input",
+        "table"
+      ],
+      "files": [
+        {
+          "path": "src/registry/base-nova/ui/data-table.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "date-picker",
+      "type": "registry:ui",
+      "title": "Date Picker",
+      "description": "DatePicker and DateRangePicker: a Popover with a Calendar, opening on the selected month. Controlled with value and onValueChange.",
+      "dependencies": [
+        "cn",
+        "lucide-react",
+        "date-fns",
+        "react-day-picker"
+      ],
+      "registryDependencies": [
+        "button",
+        "calendar",
+        "popover"
+      ],
+      "files": [
+        {
+          "path": "src/registry/base-nova/ui/date-picker.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "filter-controls",
+      "type": "registry:ui",
+      "title": "Filter Controls",
+      "description": "A filter-to-map-view switch and a debounced text filter for map features, with an info tooltip.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "field",
+        "input",
+        "switch",
+        "tooltip"
+      ],
+      "files": [
+        {
+          "path": "src/registry/base-nova/ui/filter-controls.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "field-value",
+      "type": "registry:ui",
+      "title": "Field Value",
+      "description": "Renders a feature attribute value: URLs as links, \"CODE: Label\" values as a code badge and label, and Approved/Provisional as a success or warning badge.",
+      "dependencies": [
+        "cn"
+      ],
+      "registryDependencies": [
+        "badge"
+      ],
+      "cssVars": {
+        "theme": {
+          "color-success": "var(--success)",
+          "color-success-foreground": "var(--success-foreground)",
+          "color-warning": "var(--warning)",
+          "color-warning-foreground": "var(--warning-foreground)"
+        },
+        "light": {
+          "success": "#007a55",
+          "success-foreground": "#ffffff",
+          "warning": "#fa7005",
+          "warning-foreground": "#ffffff"
+        },
+        "dark": {
+          "success": "#5ee9b5",
+          "success-foreground": "#181818",
+          "warning": "#ffb86a",
+          "warning-foreground": "#181818"
+        }
+      },
+      "files": [
+        {
+          "path": "src/registry/base-nova/ui/field-value.tsx",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }

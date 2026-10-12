@@ -1,7 +1,7 @@
 import { THEMES } from "./theme-items"
 
 // Every color token the themes define, in the order of theme-ocotillo.
-const TOKENS = Object.keys(THEMES[0].cssVars?.light ?? {}).filter(
+const TOKENS = Object.keys(THEMES[0].cssVars.light).filter(
   (token) => token !== "radius"
 )
 

@@ -2,9 +2,15 @@ import { useCallback, useState } from "react"
 
 import registry from "../../registry.json"
 
+type ThemeItem = {
+  name: string
+  title: string
+  cssVars: { light: Record<string, string>; dark: Record<string, string> }
+}
+
 export const THEMES = registry.items.filter(
   (item) => item.type === "registry:theme"
-)
+) as ThemeItem[]
 
 export const THEME_STORAGE_KEY = "showcase-theme"
 
@@ -24,8 +30,8 @@ export function applyTheme(name: string | null) {
     document.head.append(style)
   }
   style.textContent = [
-    block(":root", item.cssVars?.light),
-    block(".dark", item.cssVars?.dark),
+    block(":root", item.cssVars.light),
+    block(".dark", item.cssVars.dark),
   ].join("\n")
 }
 
