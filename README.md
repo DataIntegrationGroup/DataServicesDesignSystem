@@ -1,71 +1,125 @@
 # DataServices Design System
 
-Shared UI primitives for DataServices projects, themed to match the OcotilloUI
-(NMBGMRDataManager) production theme. Built on Vite + React + TypeScript +
-Tailwind v4 + shadcn/ui.
+A [shadcn](https://ui.shadcn.com) registry for DataServices apps, plus a
+showcase of everything an app can install from it.
 
-The repo is **both** a live showcase (`pnpm dev`) and a **shadcn registry** —
-other projects install components straight from it with `npx shadcn add`, no npm
-publish required.
+## How it's built
 
-## Consume in another project
+The registry follows shadcn's
+[registry docs](https://ui.shadcn.com/docs/registry): publish only what
+upstream doesn't have, and depend on upstream for the rest.
 
-The consuming app must already be a shadcn/ui project (`npx shadcn init`).
+- **Registered here:** the two brand themes (Ocotillo, Weaver), a base item
+  for new apps, and the components we built (app shell, maps, charts,
+  tables). Nothing else goes in `registry.json`.
+- **Not registered:** upstream components. Our items list them by name
+  (`"button"`), so each app gets upstream's current version for its own
+  style, along with upstream's fixes. We don't plan to fork an upstream file to add
+  a variant; we'd wrap it in a new item instead.
+- **Themes** are `registry:theme` items shaped like the docs' theme
+  example: CSS variables only, so every upstream component picks them up
+  with no changes.
 
-1. Register the `@dataservices` namespace in the app's `components.json`:
+The showcase is separate from the registry. Its upstream components are
+installed with `shadcn add`, and its demos for them are the example items
+shadcn publishes alongside each component in the base-nova registry
+(`button-example` and so on), also installed with `shadcn add`. Both are
+committed unedited. The only hand-written demos are for our items and for
+the few upstream examples that need Next.js or the AI SDK.
 
-   ```jsonc
-   {
-     "registries": {
-       "@dataservices": "https://raw.githubusercontent.com/DataIntegrationGroup/DataServicesDesignSystem/main/public/r/{name}.json"
-     }
-   }
-   ```
+Everything is built on base-nova (Base UI), shadcn's default for new
+projects.
 
-2. Add the theme first (palette + fonts), then the components you need:
-
-   ```bash
-   npx shadcn add @dataservices/theme
-   npx shadcn add @dataservices/navbar @dataservices/page @dataservices/map
-   npx shadcn add @dataservices/mode-toggle   # pulls theme-provider + button
-   ```
-
-Each item carries its own npm dependencies (e.g. `map` → `react-map-gl`,
-`maplibre-gl`) and registry dependencies, which the CLI installs automatically.
-
-### Published items
-
-| Item             | Type      | What                                                          |
-| ---------------- | --------- | ------------------------------------------------------------- |
-| `theme`          | theme     | OcotilloUI palette + Outfit/Public Sans tokens (light + dark) |
-| `theme-provider` | component | Light/dark/system context, localStorage-persisted             |
-| `mode-toggle`    | component | Light/dark toggle button                                      |
-| `map`            | ui        | MapLibre map, token-free CARTO basemap, NM default extent     |
-| `navbar`         | ui        | Router-agnostic top nav chrome (`asChild` link slots)         |
-| `page`           | ui        | `PageShell` + `PageBody` full-viewport layout                 |
-
-Standard shadcn primitives (button, card, dialog, table, …) come from the
-upstream shadcn registry — install those the normal way.
-
-## Develop
+## Run the showcase
 
 ```bash
 pnpm install
-pnpm dev            # showcase at localhost:5173
-pnpm build          # typecheck + production build
-pnpm lint
-pnpm registry:build # regenerate public/r/*.json from registry.json
+pnpm dev
 ```
 
-After editing any registered component or `registry.json`, run
-`pnpm registry:build` and commit the regenerated `public/r/` JSON — that is what
-consumers fetch.
+Open http://localhost:5173. There's a page for every upstream component and
+every item in this registry, each with its install command and source. The
+theme menu in the header switches between Ocotillo and Weaver.
 
-### React 19 note
+## Start a new app
 
-`pnpm install` logs unmet-peer warnings for a few libraries whose peer ranges
-predate React 19 — `@glideapps/glide-data-grid` (data-grid), `cmdk`
-(command/combobox), `react-resizable-panels` (resizable),
-`react-day-picker` (calendar/date-picker), and `recharts` (chart). All are
-verified working on React 19; the warnings are safe to ignore. (`echart` uses
-Apache ECharts, which is framework-agnostic and has no React peer.)
+```bash
+pnpm dlx shadcn@latest init https://raw.githubusercontent.com/DataIntegrationGroup/DataServicesDesignSystem/main/public/r/base.json -t vite -n my-app
+```
+
+This sets up a base-nova Vite app with the Ocotillo theme, its fonts, the
+mode toggle, and the `@dataservices` registry in `components.json`. Then add
+what you need:
+
+```bash
+pnpm dlx shadcn@latest add button card          # upstream components
+pnpm dlx shadcn@latest add @dataservices/app-shell   # ours
+```
+
+Wrap the app in next-themes' `ThemeProvider` with `attribute="class"` so
+dark mode and the mode toggle work.
+
+## Add it to an existing shadcn app
+
+Register the namespace first. Items that depend on other `@dataservices`
+items won't install without it.
+
+```bash
+pnpm dlx shadcn@latest registry add "@dataservices=https://raw.githubusercontent.com/DataIntegrationGroup/DataServicesDesignSystem/main/public/r/{name}.json"
+pnpm dlx shadcn@latest add @dataservices/theme-ocotillo
+```
+
+Use `theme-weaver` for Weaver. A theme replaces the `:root` and `.dark`
+values in your CSS file, so installing the other one switches brands. Run
+any add with `--dry-run --diff` first to see what it changes.
+
+## Items
+
+| Item | What it is |
+| --- | --- |
+| `base` | Starts a new app (see above) |
+| `theme-ocotillo`, `theme-weaver` | Brand themes. See [THEMING.md](THEMING.md) |
+| `mode-toggle` | Light, dark and system menu on next-themes |
+| `app-shell` | Frame for tool-style apps: collapsible sidebar, top bar, side panel |
+| `top-nav` | Header for content sites, with a sheet menu on small screens |
+| `map` | MapLibre map with a free CARTO basemap and a New Mexico view |
+| `basemap-selector` | Basemap thumbnails on a radio group |
+| `layer-selector` | Map layer list with legend swatches and per-layer settings |
+| `echart` | Apache ECharts wrapper themed from the chart tokens |
+| `data-grid` | Editable canvas grid (Glide Data Grid) |
+| `data-table` | TanStack Table v9 table with sorting, filtering and paging |
+| `date-picker` | Single date and date range pickers |
+| `filter-controls` | Map-extent switch and debounced text filter |
+| `field-value` | Formats a feature attribute (links, codes, approval status) |
+| `use-css-vars` | Hook that reads token values for canvas renderers |
+
+Two items need one-time setup, and the CLI prints it on install:
+
+- `map`: maplibre-gl 6 needs its worker URL set once per app. The map page
+  in the showcase shows the Vite version.
+- `data-grid`: Glide Data Grid lists React 16 to 18 as peers. It works on
+  React 19, but npm apps need an `overrides` entry.
+
+## Change the registry
+
+- Our sources live in `src/registry/base-nova/`, grouped by type (`ui`,
+  `blocks`, `components`, `hooks`). Import other items through
+  `@/registry/base-nova/...` and the CLI rewrites the paths on install.
+- Each item is listed in `registry.json`. List upstream components it uses
+  in `registryDependencies` by bare name (`"button"`), our own as
+  `"@dataservices/<name>"`, and every npm import in `dependencies`.
+- Each item needs a demo in `src/showcase/demos/<name>.tsx`, or
+  `src/showcase/frames/<name>.tsx` for full-screen blocks.
+- `src/components/ui/` and the `*-example.tsx` files are upstream CLI
+  output. Don't edit them. Re-pull with `pnpm dlx shadcn@latest add <name> --overwrite`.
+
+Then rebuild and check:
+
+```bash
+pnpm registry:build
+pnpm lint
+```
+
+`pnpm lint` fails if `public/r` is stale, if `registry.json` doesn't
+validate, or if a component or item has no demo. Commit `public/r`, since
+that's what apps install from.

@@ -6,7 +6,7 @@ import tseslint from 'typescript-eslint'
 import { defineConfig, globalIgnores } from 'eslint/config'
 
 export default defineConfig([
-  globalIgnores(['dist']),
+  globalIgnores(['dist', 'src/components/ui', 'src/components/example.tsx', 'src/components/*-example.tsx', 'src/hooks/use-mobile.ts']),
   {
     files: ['**/*.{ts,tsx}'],
     extends: [
@@ -18,5 +18,11 @@ export default defineConfig([
     languageOptions: {
       globals: globals.browser,
     },
+  },
+  {
+    // Registry files export helpers next to components, as upstream ui
+    // files do (buttonVariants); fast refresh only matters in the showcase.
+    files: ['src/registry/**/*.{ts,tsx}'],
+    rules: { 'react-refresh/only-export-components': 'off' },
   },
 ])

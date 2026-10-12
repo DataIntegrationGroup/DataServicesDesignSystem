@@ -1,0 +1,12 @@
+/* Upstream's *-example files are built to fill a screen (shadcn/create).
+   In a showcase preview, let them hug their content instead. Unlayered,
+   so these win over the Tailwind utilities on the upstream elements. */
+[data-showcase-preview] [data-slot="example-wrapper"] {
+  min-height: auto;
+  align-content: start;
+  padding: 1.5rem;
+}
+
+[data-showcase-preview] [data-slot="example-content"] {
+  padding: 1.5rem;
+}

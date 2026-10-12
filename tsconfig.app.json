@@ -6,17 +6,20 @@
     "module": "esnext",
     "types": ["vite/client"],
     "skipLibCheck": true,
+    "allowArbitraryExtensions": true,
 
     /* Bundler mode */
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
     "verbatimModuleSyntax": true,
     "moduleDetection": "force",
+    "resolveJsonModule": true,
     "noEmit": true,
     "jsx": "react-jsx",
 
     /* Linting */
-    "noUnusedLocals": true,
+    "strict": true,
+    "noUnusedLocals": false,
     "noUnusedParameters": true,
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true,

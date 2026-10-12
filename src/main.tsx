@@ -1,17 +1,20 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
+import { ThemeProvider } from 'next-themes'
 import './index.css'
-import App from './App.tsx'
-import { ThemeProvider } from './components/theme-provider.tsx'
-import { TooltipProvider } from './components/ui/tooltip.tsx'
+import { App } from './showcase/app.tsx'
+import { FrameRoot } from './showcase/frame.tsx'
 import { Toaster } from './components/ui/sonner.tsx'
+import { TooltipProvider } from './components/ui/tooltip.tsx'
+
+const frame = new URLSearchParams(window.location.search).get('frame')
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <ThemeProvider defaultTheme="system" storageKey="dsds-theme">
+    <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
       <TooltipProvider>
-        <App />
-        <Toaster richColors closeButton />
+        {frame ? <FrameRoot name={frame} /> : <App />}
+        <Toaster />
       </TooltipProvider>
     </ThemeProvider>
   </StrictMode>,

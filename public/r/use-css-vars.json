@@ -1,0 +1,14 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "use-css-vars",
+  "title": "useCssVars",
+  "description": "Reads design-token values (CSS custom properties) off <html> and re-reads them when the light/dark class changes. For canvas renderers that can't use CSS variables directly.",
+  "files": [
+    {
+      "path": "src/registry/base-nova/hooks/use-css-vars.ts",
+      "content": "import * as React from \"react\"\n\n/** Changes whenever <html> switches between light and dark (its class). */\nfunction subscribe(cb: () => void) {\n  const observer = new MutationObserver(cb)\n  observer.observe(document.documentElement, {\n    attributes: true,\n    attributeFilter: [\"class\"],\n  })\n  return () => observer.disconnect()\n}\n\nfunction getSnapshot() {\n  return document.documentElement.className\n}\n\n/**\n * Read design-token values (CSS custom properties) off <html>, re-read when\n * the light/dark class changes. For components that can't use CSS variables\n * directly, like canvas renderers.\n *\n * Pass token names without the leading dashes:\n * `const { primary, border } = useCssVars([\"primary\", \"border\"])`.\n * Keep the array stable (a module constant) so values are only re-read on a\n * mode change.\n */\nexport function useCssVars<const T extends string>(\n  names: readonly T[]\n): Record<T, string> {\n  const key = React.useSyncExternalStore(subscribe, getSnapshot, () => \"\")\n  return React.useMemo(() => {\n    const values = {} as Record<T, string>\n    if (typeof document === \"undefined\") {\n      for (const name of names) values[name] = \"\"\n      return values\n    }\n    const style = getComputedStyle(document.documentElement)\n    for (const name of names) {\n      values[name] = style.getPropertyValue(`--${name}`).trim()\n    }\n    return values\n    // `key` is the mode signal: re-read when it changes.\n    // eslint-disable-next-line react-hooks/exhaustive-deps\n  }, [key, names])\n}\n",
+      "type": "registry:hook"
+    }
+  ],
+  "type": "registry:hook"
+}
