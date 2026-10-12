@@ -1,9 +1,30 @@
 # DataServices Design System
 
-A [shadcn](https://ui.shadcn.com) registry for DataServices apps. It ships
-two brand themes and the components we built ourselves. Everything else
-comes straight from upstream shadcn (base-nova, on Base UI), so apps install
-those by name and get upstream updates directly.
+A [shadcn](https://ui.shadcn.com) registry for DataServices apps, plus a
+showcase of everything an app can install from it.
+
+## How it's built
+
+It follows shadcn's
+[registry docs](https://ui.shadcn.com/docs/registry): publish only what
+upstream doesn't have, and depend on upstream for the rest.
+
+- **Registered here:** the two brand themes (Ocotillo, Weaver), a base item
+  for new apps, and the components we built (app shell, maps, charts,
+  tables). Nothing else goes in `registry.json`.
+- **Not registered:** upstream components. Our items list them by name
+  (`"button"`), so each app gets upstream's current version for its own
+  style, along with upstream's fixes. We don't plan to fork an upstream file to add
+  a variant; we'd wrap it in a new item instead.
+- **Showcase:** the upstream components and their examples are pulled in
+  with the shadcn CLI and committed unedited, so the showcase shows what an
+  app actually installs. The only hand-written demos are for our items and
+  for the few upstream examples that need Next.js or the AI SDK.
+- **Themes** are standard `registry:theme` items: CSS variables only, so
+  every upstream component picks them up with no changes.
+
+Everything is built on base-nova (Base UI), shadcn's default for new
+projects.
 
 ## Run the showcase
 

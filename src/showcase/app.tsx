@@ -2,6 +2,7 @@ import type { ReactNode } from "react"
 
 import { ColorsPage } from "./colors-page"
 import { ComponentPage } from "./component-page"
+import { IntroductionPage } from "./introduction-page"
 import { GROUPS, PAGES } from "./pages"
 import { useSlug } from "./router"
 import { useShowcaseTheme } from "./theme-items"
@@ -22,6 +23,7 @@ const NAV: AppShellNavGroup[] = GROUPS.map((group) => ({
 }))
 
 const FOUNDATIONS: Record<string, ReactNode> = {
+  introduction: <IntroductionPage />,
   colors: <ColorsPage />,
   typography: <TypographyPage />,
 }

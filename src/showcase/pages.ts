@@ -88,6 +88,13 @@ const components: Page[] = Object.keys(upstream)
 
 export const PAGES: Page[] = [
   {
+    slug: "introduction",
+    title: "Introduction",
+    group: "Foundations",
+    description:
+      "A shadcn registry for DataServices apps, and a showcase of everything an app can install from it.",
+  },
+  {
     slug: "colors",
     title: "Colors",
     group: "Foundations",
