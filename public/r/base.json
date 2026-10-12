@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "base",
+  "title": "Data Services Base",
+  "description": "Starts a new app on the Data Services design system: base-nova components, the Ocotillo theme and a mode toggle, with the @dataservices registry configured.",
+  "registryDependencies": [
+    "@dataservices/theme-ocotillo",
+    "@dataservices/mode-toggle"
+  ],
+  "type": "registry:base",
+  "config": {
+    "style": "base-nova",
+    "tailwind": {
+      "baseColor": "neutral"
+    },
+    "iconLibrary": "lucide",
+    "registries": {
+      "@dataservices": "https://raw.githubusercontent.com/DataIntegrationGroup/DataServicesDesignSystem/main/public/r/{name}.json"
+    }
+  }
+}

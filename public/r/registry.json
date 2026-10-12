@@ -200,6 +200,47 @@
           "info-foreground": "#0d2236"
         }
       }
+    },
+    {
+      "name": "mode-toggle",
+      "type": "registry:component",
+      "title": "Mode Toggle",
+      "description": "A light, dark and system mode menu built on next-themes.",
+      "dependencies": [
+        "next-themes",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "dropdown-menu"
+      ],
+      "docs": "Wrap your app in next-themes' ThemeProvider with attribute=\"class\" so the toggle can set the .dark class.",
+      "files": [
+        {
+          "path": "src/registry/base-nova/mode-toggle/mode-toggle.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "base",
+      "type": "registry:base",
+      "title": "Data Services Base",
+      "description": "Starts a new app on the Data Services design system: base-nova components, the Ocotillo theme and a mode toggle, with the @dataservices registry configured.",
+      "config": {
+        "style": "base-nova",
+        "iconLibrary": "lucide",
+        "tailwind": {
+          "baseColor": "neutral"
+        },
+        "registries": {
+          "@dataservices": "https://raw.githubusercontent.com/DataIntegrationGroup/DataServicesDesignSystem/main/public/r/{name}.json"
+        }
+      },
+      "registryDependencies": [
+        "@dataservices/theme-ocotillo",
+        "@dataservices/mode-toggle"
+      ]
     }
   ]
 }
