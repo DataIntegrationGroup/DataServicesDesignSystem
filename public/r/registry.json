@@ -263,6 +263,27 @@
           "type": "registry:component"
         }
       ]
+    },
+    {
+      "name": "top-nav",
+      "type": "registry:block",
+      "title": "Top Nav",
+      "description": "The navigation bar for content sites: the brand on the left, links in a NavigationMenu on the right, and a Sheet menu below the md breakpoint. Router-agnostic through pathname and renderLink.",
+      "dependencies": [
+        "cn",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "navigation-menu",
+        "sheet"
+      ],
+      "files": [
+        {
+          "path": "src/registry/base-nova/top-nav/top-nav.tsx",
+          "type": "registry:component"
+        }
+      ]
     }
   ]
 }
