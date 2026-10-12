@@ -1,11 +1,13 @@
 # Theming
 
-Each brand is a `registry:theme` item in `registry.json`. Installing one
-writes its values into the app's CSS file, the same way any shadcn theme
-does:
+Each brand is a `registry:theme` item in `registry.json`, shaped like the
+theme example in shadcn's
+[registry docs](https://ui.shadcn.com/docs/registry/examples). Installing
+one writes its values into the app's CSS file:
 
 - `cssVars.light` goes into `:root`, `cssVars.dark` into `.dark`.
-- `cssVars.theme` goes into `@theme inline`, which is how Tailwind gets
+- For a color the app doesn't have yet (`success`, `warning`, `info`), the
+  CLI also adds the `@theme inline` mapping, which is how Tailwind gets
   utilities like `bg-success`.
 - `registryDependencies` pulls in upstream's `font-public-sans` (body) and
   `font-heading-outfit` (headings).
