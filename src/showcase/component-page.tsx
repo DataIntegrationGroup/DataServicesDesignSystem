@@ -1,5 +1,7 @@
 import { Suspense, useEffect, useState } from "react"
 
+import "./showcase.css"
+
 import type { Page } from "./pages"
 import { Skeleton } from "@/components/ui/skeleton"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
@@ -49,7 +51,11 @@ export function ComponentPage({ page }: { page: Page }) {
             <TabsTrigger value="preview">Preview</TabsTrigger>
             <TabsTrigger value="code">Code</TabsTrigger>
           </TabsList>
-          <TabsContent value="preview" className="overflow-hidden rounded-lg border">
+          <TabsContent
+            value="preview"
+            data-showcase-preview
+            className="overflow-hidden rounded-lg border"
+          >
             <Suspense fallback={<Skeleton className="h-64" />}>
               <Demo />
             </Suspense>
