@@ -241,6 +241,28 @@
         "@dataservices/theme-ocotillo",
         "@dataservices/mode-toggle"
       ]
+    },
+    {
+      "name": "app-shell",
+      "type": "registry:block",
+      "title": "App Shell",
+      "description": "The frame for tool-style apps: a sidebar that collapses to an icon rail, a top bar with search and actions, a content area that scrolls on its own, and an optional resizable side panel. Router-agnostic through pathname and renderLink.",
+      "dependencies": [
+        "cn",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "collapsible",
+        "kbd",
+        "sidebar"
+      ],
+      "files": [
+        {
+          "path": "src/registry/base-nova/app-shell/app-shell.tsx",
+          "type": "registry:component"
+        }
+      ]
     }
   ]
 }

@@ -1,6 +1,7 @@
-import { lazy, type ComponentType } from "react"
+import { createElement, lazy, type ComponentType } from "react"
 
 import registry from "../../registry.json"
+import { Frame } from "./frame"
 
 type Module = { default: ComponentType }
 
@@ -29,6 +30,11 @@ const demoSources = import.meta.glob<string>("./demos/*.tsx", {
   query: "?raw",
   import: "default",
 })
+// Full-screen demos, shown in an iframe.
+const frameSources = import.meta.glob<string>("./frames/*.tsx", {
+  query: "?raw",
+  import: "default",
+})
 
 const ACRONYMS: Record<string, string> = { otp: "OTP" }
 
@@ -44,6 +50,12 @@ function fileName(path: string) {
 }
 
 function demoFor(name: string) {
+  const frame = `./frames/${name}.tsx`
+  if (frameSources[frame])
+    return {
+      Demo: () => createElement(Frame, { name }),
+      source: frameSources[frame],
+    }
   const own = `./demos/${name}.tsx`
   if (demos[own]) return { Demo: lazy(demos[own]), source: demoSources[own] }
   const example = `/src/components/${name}-example.tsx`
