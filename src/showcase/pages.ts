@@ -8,7 +8,7 @@ type Module = { default: ComponentType }
 export type Page = {
   slug: string
   title: string
-  group: "Foundations" | "Data Services" | "Components"
+  group: "Foundations" | "Data Services Registry" | "shadcn/ui Registry"
   description?: string
   install?: string
   docs?: string
@@ -69,7 +69,7 @@ const dataServices: Page[] = registry.items
   .map((item) => ({
     slug: item.name,
     title: item.title,
-    group: "Data Services",
+    group: "Data Services Registry",
     description: item.description,
     install: `pnpm dlx shadcn@latest add @dataservices/${item.name}`,
     ...demoFor(item.name),
@@ -80,7 +80,7 @@ const components: Page[] = Object.keys(upstream)
   .map((name) => ({
     slug: name,
     title: titleCase(name),
-    group: "Components",
+    group: "shadcn/ui Registry",
     install: `pnpm dlx shadcn@latest add ${name}`,
     docs: `https://ui.shadcn.com/docs/components/base/${name}`,
     ...demoFor(name),
@@ -94,8 +94,15 @@ export const PAGES: Page[] = [
     description:
       "The theme's tokens. Use the theme menu in the header to compare Ocotillo and Weaver.",
   },
+  {
+    slug: "typography",
+    title: "Typography",
+    group: "Foundations",
+    description:
+      "The theme's fonts, and the class recipes from shadcn's Typography docs.",
+  },
   ...dataServices.sort((a, b) => a.title.localeCompare(b.title)),
   ...components.sort((a, b) => a.title.localeCompare(b.title)),
 ]
 
-export const GROUPS = ["Foundations", "Data Services", "Components"] as const
+export const GROUPS = ["Foundations", "Data Services Registry", "shadcn/ui Registry"] as const

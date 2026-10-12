@@ -1,9 +1,12 @@
+import type { ReactNode } from "react"
+
 import { ColorsPage } from "./colors-page"
 import { ComponentPage } from "./component-page"
 import { GROUPS, PAGES } from "./pages"
 import { useSlug } from "./router"
 import { useShowcaseTheme } from "./theme-items"
 import { ThemeSelect } from "./themes"
+import { TypographyPage } from "./typography-page"
 import {
   AppShell,
   type AppShellNavGroup,
@@ -17,6 +20,11 @@ const NAV: AppShellNavGroup[] = GROUPS.map((group) => ({
     href: `/${p.slug}`,
   })),
 }))
+
+const FOUNDATIONS: Record<string, ReactNode> = {
+  colors: <ColorsPage />,
+  typography: <TypographyPage />,
+}
 
 export function App() {
   const slug = useSlug()
@@ -43,10 +51,8 @@ export function App() {
           useCssVars only watches the light/dark class. */}
       <main key={theme} className="p-6 lg:p-10">
         <ComponentPage key={page.slug} page={page} />
-        {page.slug === "colors" && (
-          <div className="mt-6">
-            <ColorsPage />
-          </div>
+        {FOUNDATIONS[page.slug] && (
+          <div className="mt-6">{FOUNDATIONS[page.slug]}</div>
         )}
       </main>
     </AppShell>
