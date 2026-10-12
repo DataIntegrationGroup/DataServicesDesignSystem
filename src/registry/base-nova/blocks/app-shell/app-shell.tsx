@@ -1,3 +1,5 @@
+"use client"
+
 import * as React from "react"
 import {
   ChevronRightIcon,
@@ -130,6 +132,24 @@ const defaultLink = (props: LinkProps) => <a {...props} />
 
 const STORAGE_PREFIX = "app-shell-sidebar:"
 
+// Storage is missing during server rendering and throws when the browser
+// blocks it; either way the sidebar just isn't remembered.
+function readStoredOpen(key: string) {
+  try {
+    return localStorage.getItem(key) !== "false"
+  } catch {
+    return true
+  }
+}
+
+function storeOpen(key: string, open: boolean) {
+  try {
+    localStorage.setItem(key, String(open))
+  } catch {
+    // Not remembered; see readStoredOpen.
+  }
+}
+
 /**
  * AppShell block — the frame for tool-style apps: a sidebar that collapses
  * to an icon rail, a top bar, a content area that scrolls on its own (so a
@@ -151,7 +171,8 @@ const STORAGE_PREFIX = "app-shell-sidebar:"
  *   </AppShell>
  *
  * Filter `nav` by the user's roles before passing it in. The sidebar's open
- * state is saved in localStorage under `storageKey`.
+ * state is saved in localStorage under `storageKey`; pass `defaultOpen` when
+ * server rendering.
  */
 export function AppShell({
   brand,
@@ -168,6 +189,7 @@ export function AppShell({
   panel,
   panelTitle,
   storageKey = "app",
+  defaultOpen,
   collapsible = "icon",
   beforeNav,
   children,
@@ -194,6 +216,10 @@ export function AppShell({
   panel?: React.ReactNode
   panelTitle?: React.ReactNode
   storageKey?: string
+  /** Initial sidebar state; overrides the stored one. Pass it when server
+   *  rendering, where localStorage can't be read, to avoid a hydration
+   *  mismatch. */
+  defaultOpen?: boolean
   /** `icon` collapses to an icon rail; `offcanvas` hides the sidebar, for
    *  navs without icons. */
   collapsible?: "icon" | "offcanvas"
@@ -202,7 +228,7 @@ export function AppShell({
   children: React.ReactNode
 }) {
   const key = STORAGE_PREFIX + storageKey
-  const [open, setOpen] = React.useState(() => localStorage.getItem(key) !== "false")
+  const [open, setOpen] = React.useState(() => defaultOpen ?? readStoredOpen(key))
   const [panelOpen, setPanelOpen] = React.useState(false)
   const sidebarWasOpen = React.useRef(open)
   const [content, setContent] = React.useState<HTMLDivElement | null>(null)
@@ -210,7 +236,7 @@ export function AppShell({
   // Changes the user makes (toggle buttons, ⌘B) are saved; changes the shell
   // makes for the panel or a page aren't.
   const onOpenChange = (next: boolean) => {
-    localStorage.setItem(key, String(next))
+    storeOpen(key, next)
     setOpen(next)
   }
 

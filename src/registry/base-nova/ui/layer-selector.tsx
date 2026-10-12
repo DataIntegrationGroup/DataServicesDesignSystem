@@ -1,3 +1,5 @@
+"use client"
+
 import * as React from "react"
 import { Settings } from "lucide-react"
 
@@ -273,7 +275,6 @@ function LayerSelector({
     <TooltipProvider delay={200}>
       <ul
         data-slot="layer-selector"
-        role="group"
         aria-label="Map layers"
         className={cn("space-y-2", className)}
         {...props}

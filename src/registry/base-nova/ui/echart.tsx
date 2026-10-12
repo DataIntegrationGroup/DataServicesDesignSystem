@@ -160,8 +160,11 @@ export function EChart({
     for (const [name, handler] of Object.entries(onEvents)) {
       chart.on(name, handler)
     }
+    // Remove only these handlers, not ones added through onInit.
     return () => {
-      for (const name of Object.keys(onEvents)) chart.off(name)
+      for (const [name, handler] of Object.entries(onEvents)) {
+        chart.off(name, handler)
+      }
     }
   }, [onEvents])
 

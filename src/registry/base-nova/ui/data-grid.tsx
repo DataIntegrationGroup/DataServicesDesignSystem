@@ -1,3 +1,5 @@
+"use client"
+
 import * as React from "react"
 import {
   DataEditor,
@@ -125,6 +127,11 @@ export interface DataGridColumn<T> {
   title: string
   /** Pixel width (default: 150). */
   width?: number
+  /**
+   * Cell type (default: "text"). Edits write back values of this type, so
+   * set it on number and boolean fields; text columns always write strings.
+   */
+  kind?: "text" | "number" | "boolean"
 }
 
 export interface DataGridProps<T>
@@ -147,6 +154,7 @@ export interface DataGridProps<T>
  * DataGrid — a canvas-based, editable spreadsheet grid (Glide Data Grid) with
  * a row-object API, themed from the design tokens. Define `columns` keyed to fields on
  * your row type and pass `rows`; provide `onRowsChange` to make cells editable.
+ * Set `kind` on number and boolean columns so edits keep their type.
  *
  *   <DataGrid columns={cols} rows={rows} onRowsChange={setRows} />
  */
@@ -170,13 +178,32 @@ export function DataGrid<T extends Record<string, unknown>>({
     ([col, row]: Item): GridCell => {
       const column = columns[col]
       const value = rows[row]?.[column.id]
+      const readonly = onRowsChange == null
+      if (column.kind === "number") {
+        const data = typeof value === "number" ? value : undefined
+        return {
+          kind: GridCellKind.Number,
+          data,
+          displayData: data == null ? "" : String(data),
+          allowOverlay: !readonly,
+          readonly,
+        }
+      }
+      if (column.kind === "boolean") {
+        return {
+          kind: GridCellKind.Boolean,
+          data: value === true,
+          allowOverlay: false,
+          readonly,
+        }
+      }
       const text = value == null ? "" : String(value)
       return {
         kind: GridCellKind.Text,
         data: text,
         displayData: text,
-        allowOverlay: onRowsChange != null,
-        readonly: onRowsChange == null,
+        allowOverlay: !readonly,
+        readonly,
       }
     },
     [columns, rows, onRowsChange]
@@ -184,7 +211,13 @@ export function DataGrid<T extends Record<string, unknown>>({
 
   const onCellEdited = React.useCallback(
     ([col, row]: Item, newValue: EditableGridCell) => {
-      if (!onRowsChange || newValue.kind !== GridCellKind.Text) return
+      if (
+        !onRowsChange ||
+        (newValue.kind !== GridCellKind.Text &&
+          newValue.kind !== GridCellKind.Number &&
+          newValue.kind !== GridCellKind.Boolean)
+      )
+        return
       const column = columns[col]
       const next = rows.map((r, i) =>
         i === row ? { ...r, [column.id]: newValue.data } : r
