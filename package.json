@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "lint": "eslint . && pnpm registry:check",
+    "lint": "eslint . && node scripts/check-showcase.mjs && pnpm registry:check",
     "preview": "vite preview",
     "registry:build": "shadcn build",
     "registry:check": "shadcn registry validate && rm -rf node_modules/.cache/registry && shadcn build -o node_modules/.cache/registry && diff -r public/r node_modules/.cache/registry"
