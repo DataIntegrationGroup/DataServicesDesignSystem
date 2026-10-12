@@ -82,7 +82,6 @@ export type AppShellContextValue = {
 const AppShellContext = React.createContext<AppShellContextValue | null>(null)
 
 /** Controls for the shell's side panel and sidebar, for use inside AppShell. */
-// eslint-disable-next-line react-refresh/only-export-components
 export function useAppShell() {
   const context = React.useContext(AppShellContext)
   if (!context) throw new Error("useAppShell must be used within an AppShell")
@@ -94,7 +93,6 @@ export function useAppShell() {
  * it on unmount if it was open. Use it on pages that need the width, such as
  * a full-screen map.
  */
-// eslint-disable-next-line react-refresh/only-export-components
 export function useAutoCollapseSidebar(enabled = true) {
   const { open } = useSidebar()
   const { setSidebarOpenTemporarily } = useAppShell()

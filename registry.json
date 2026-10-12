@@ -284,6 +284,72 @@
           "type": "registry:component"
         }
       ]
+    },
+    {
+      "name": "map",
+      "type": "registry:ui",
+      "title": "Map",
+      "description": "A MapLibre map (react-map-gl) with a token-free CARTO basemap, a New Mexico default view, and zoom and scale controls. Re-exports Marker, Popup, Source, Layer and other react-map-gl primitives.",
+      "dependencies": [
+        "cn",
+        "maplibre-gl@^6",
+        "react-map-gl@^8"
+      ],
+      "files": [
+        {
+          "path": "src/registry/base-nova/map/map.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "maplibre-gl 6 needs its worker URL set once per app, before the first map renders. With Vite: import { setWorkerUrl } from \"maplibre-gl\"; import workerUrl from \"maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url\"; setWorkerUrl(workerUrl). Other bundlers: https://maplibre.org/maplibre-gl-js/docs/#installation"
+    },
+    {
+      "name": "basemap-selector",
+      "type": "registry:ui",
+      "title": "Basemap Selector",
+      "description": "A grid of basemap thumbnails on a radio group. Map-library agnostic: the app owns the style list and applies the chosen id to its map.",
+      "dependencies": [
+        "cn",
+        "lucide-react",
+        "@base-ui/react",
+        "maplibre-gl@^6"
+      ],
+      "registryDependencies": [
+        "radio-group"
+      ],
+      "files": [
+        {
+          "path": "src/registry/base-nova/basemap-selector/basemap-selector.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "layer-selector",
+      "type": "registry:ui",
+      "title": "Layer Selector",
+      "description": "A list of map layers with legend swatches, visibility switches, loading state, and a settings popover for opacity, filters, facets, clustering, bubble sizing and value ranges.",
+      "dependencies": [
+        "cn",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "field",
+        "input",
+        "popover",
+        "slider",
+        "spinner",
+        "switch",
+        "toggle-group",
+        "tooltip"
+      ],
+      "files": [
+        {
+          "path": "src/registry/base-nova/layer-selector/layer-selector.tsx",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }

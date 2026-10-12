@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "map",
+  "title": "Map",
+  "description": "A MapLibre map (react-map-gl) with a token-free CARTO basemap, a New Mexico default view, and zoom and scale controls. Re-exports Marker, Popup, Source, Layer and other react-map-gl primitives.",
+  "dependencies": [
+    "cn",
+    "maplibre-gl@^6",
+    "react-map-gl@^8"
+  ],
+  "files": [
+    {
+      "path": "src/registry/base-nova/map/map.tsx",
+      "content": "import * as React from \"react\"\nimport {\n  Map as MapLibreMap,\n  NavigationControl,\n  ScaleControl,\n  type MapProps as MapLibreMapProps,\n  type MapRef,\n} from \"react-map-gl/maplibre\"\n\nimport \"maplibre-gl/dist/maplibre-gl.css\"\n\nimport { cn } from \"cn\"\n\n/**\n * Token-free open basemap (CARTO Positron). Requires no API key, which fits\n * public, no-key Data Services apps. Override via the `mapStyle` prop.\n */\nexport const DEFAULT_MAP_STYLE =\n  \"https://basemaps.cartocdn.com/gl/positron-gl-style/style.json\"\n\n/** Rough bounding box of New Mexico — sensible default extent. */\nexport const NEW_MEXICO_VIEW = {\n  longitude: -106.1,\n  latitude: 34.4,\n  zoom: 5.5,\n} as const\n\nexport type MapProps = MapLibreMapProps & {\n  ref?: React.Ref<MapRef>\n  /** Container className. The MapLibre canvas fills this box. */\n  className?: string\n  /** Show the zoom/compass control (default: true). */\n  showNavigation?: boolean\n  /** Show the scale bar (default: true). */\n  showScale?: boolean\n  /** Corner for the built-in controls (default: \"top-right\"). */\n  controlPosition?: \"top-left\" | \"top-right\" | \"bottom-left\" | \"bottom-right\"\n}\n\n/**\n * Map — thin wrapper over react-map-gl's MapLibre map with a token-free\n * basemap, New Mexico default extent, and nav/scale controls. Pass layers,\n * markers, popups, and other react-map-gl children directly.\n */\nfunction Map({\n  ref,\n  className,\n  children,\n  showNavigation = true,\n  showScale = true,\n  controlPosition = \"top-right\",\n  mapStyle = DEFAULT_MAP_STYLE,\n  initialViewState,\n  ...props\n}: MapProps) {\n  return (\n    <div\n      data-slot=\"map\"\n      className={cn(\"relative h-full w-full overflow-hidden\", className)}\n    >\n      <MapLibreMap\n        ref={ref}\n        mapStyle={mapStyle}\n        initialViewState={initialViewState ?? NEW_MEXICO_VIEW}\n        style={{ width: \"100%\", height: \"100%\" }}\n        {...props}\n      >\n        {showNavigation && <NavigationControl position={controlPosition} />}\n        {showScale && <ScaleControl position=\"bottom-left\" />}\n        {children}\n      </MapLibreMap>\n    </div>\n  )\n}\n\nexport { Map }\n\n// Re-export the react-map-gl/maplibre primitives consumers need so they can\n// build layers without a direct react-map-gl dependency.\nexport {\n  Marker,\n  Popup,\n  Source,\n  Layer,\n  NavigationControl,\n  ScaleControl,\n  FullscreenControl,\n  GeolocateControl,\n  useMap,\n  type MapRef,\n  type LayerProps,\n  type MapLayerMouseEvent,\n} from \"react-map-gl/maplibre\"\n",
+      "type": "registry:ui"
+    }
+  ],
+  "docs": "maplibre-gl 6 needs its worker URL set once per app, before the first map renders. With Vite: import { setWorkerUrl } from \"maplibre-gl\"; import workerUrl from \"maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url\"; setWorkerUrl(workerUrl). Other bundlers: https://maplibre.org/maplibre-gl-js/docs/#installation",
+  "type": "registry:ui"
+}

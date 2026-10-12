@@ -19,4 +19,10 @@ export default defineConfig([
       globals: globals.browser,
     },
   },
+  {
+    // Registry files export helpers next to components, as upstream ui
+    // files do (buttonVariants); fast refresh only matters in the showcase.
+    files: ['src/registry/**/*.{ts,tsx}'],
+    rules: { 'react-refresh/only-export-components': 'off' },
+  },
 ])
