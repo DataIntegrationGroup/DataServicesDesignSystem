@@ -1,3 +1,5 @@
+import { useCallback, useState } from "react"
+
 import registry from "../../registry.json"
 
 export const THEMES = registry.items.filter(
@@ -25,4 +27,20 @@ export function applyTheme(name: string | null) {
     block(":root", item.cssVars?.light),
     block(".dark", item.cssVars?.dark),
   ].join("\n")
+}
+
+/** The previewed theme, kept in localStorage. It's applied before React
+ *  renders with it, so canvas demos read the new values when they remount. */
+export function useShowcaseTheme() {
+  const [theme, setTheme] = useState(() => {
+    const stored = localStorage.getItem(THEME_STORAGE_KEY) ?? THEMES[0].name
+    applyTheme(stored)
+    return stored
+  })
+  const choose = useCallback((next: string) => {
+    localStorage.setItem(THEME_STORAGE_KEY, next)
+    applyTheme(next)
+    setTheme(next)
+  }, [])
+  return [theme, choose] as const
 }

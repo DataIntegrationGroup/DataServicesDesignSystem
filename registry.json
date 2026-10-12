@@ -350,6 +350,57 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "use-css-vars",
+      "type": "registry:hook",
+      "title": "useCssVars",
+      "description": "Reads design-token values (CSS custom properties) off <html> and re-reads them when the light/dark class changes. For canvas renderers that can't use CSS variables directly.",
+      "files": [
+        {
+          "path": "src/registry/base-nova/hooks/use-css-vars.ts",
+          "type": "registry:hook"
+        }
+      ]
+    },
+    {
+      "name": "echart",
+      "type": "registry:ui",
+      "title": "EChart",
+      "description": "An Apache ECharts wrapper for heavy or interactive charts (large series, dataZoom, brush, geo, heatmap). Resizes and disposes itself, and builds its theme from the --chart-1..5 and surface tokens, re-theming when the mode changes.",
+      "dependencies": [
+        "cn",
+        "echarts@^6"
+      ],
+      "registryDependencies": [
+        "@dataservices/use-css-vars"
+      ],
+      "files": [
+        {
+          "path": "src/registry/base-nova/ui/echart.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "data-grid",
+      "type": "registry:ui",
+      "title": "Data Grid",
+      "description": "A canvas-based, editable spreadsheet grid (Glide Data Grid) with a row-object API, themed from the design tokens. Pass columns keyed to row fields and rows; add onRowsChange to make cells editable.",
+      "dependencies": [
+        "cn",
+        "@glideapps/glide-data-grid@~6.0.3"
+      ],
+      "registryDependencies": [
+        "@dataservices/use-css-vars"
+      ],
+      "docs": "Glide Data Grid 6.0.3 declares React 16-18 as peers. It runs on React 19, but npm refuses the install; add \"overrides\": { \"@glideapps/glide-data-grid\": { \"react\": \"$react\", \"react-dom\": \"$react-dom\" } } to package.json and run the add again. pnpm and yarn only warn.",
+      "files": [
+        {
+          "path": "src/registry/base-nova/ui/data-grid.tsx",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }

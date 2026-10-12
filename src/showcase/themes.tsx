@@ -1,6 +1,4 @@
-import { useEffect, useState } from "react"
-
-import { applyTheme, THEME_STORAGE_KEY, THEMES } from "./theme-items"
+import { THEMES } from "./theme-items"
 import {
   Select,
   SelectContent,
@@ -9,21 +7,18 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 
-export function ThemeSelect() {
-  const [theme, setTheme] = useState(
-    () => localStorage.getItem(THEME_STORAGE_KEY) ?? THEMES[0].name
-  )
-
-  useEffect(() => {
-    localStorage.setItem(THEME_STORAGE_KEY, theme)
-    applyTheme(theme)
-  }, [theme])
-
+export function ThemeSelect({
+  value,
+  onValueChange,
+}: {
+  value: string
+  onValueChange: (theme: string) => void
+}) {
   return (
     <Select
       items={THEMES.map((t) => ({ value: t.name, label: t.title }))}
-      value={theme}
-      onValueChange={(value) => value && setTheme(value)}
+      value={value}
+      onValueChange={(next) => next && onValueChange(next)}
     >
       <SelectTrigger size="sm" aria-label="Theme">
         <SelectValue />

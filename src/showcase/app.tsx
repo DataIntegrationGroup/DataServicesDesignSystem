@@ -2,6 +2,7 @@ import { ColorsPage } from "./colors-page"
 import { ComponentPage } from "./component-page"
 import { GROUPS, PAGES } from "./pages"
 import { useSlug } from "./router"
+import { useShowcaseTheme } from "./theme-items"
 import { ThemeSelect } from "./themes"
 import {
   AppShell,
@@ -20,6 +21,7 @@ const NAV: AppShellNavGroup[] = GROUPS.map((group) => ({
 export function App() {
   const slug = useSlug()
   const page = PAGES.find((p) => p.slug === slug) ?? PAGES[0]
+  const [theme, setTheme] = useShowcaseTheme()
 
   return (
     <AppShell
@@ -32,12 +34,14 @@ export function App() {
       storageKey="showcase"
       actions={
         <>
-          <ThemeSelect />
+          <ThemeSelect value={theme} onValueChange={setTheme} />
           <ModeToggle />
         </>
       }
     >
-      <main className="p-6 lg:p-10">
+      {/* Remount on a theme change so canvas demos re-read the tokens;
+          useCssVars only watches the light/dark class. */}
+      <main key={theme} className="p-6 lg:p-10">
         <ComponentPage key={page.slug} page={page} />
         {page.slug === "colors" && (
           <div className="mt-6">
