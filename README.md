@@ -5,7 +5,7 @@ showcase of everything an app can install from it.
 
 ## How it's built
 
-It follows shadcn's
+The registry follows shadcn's
 [registry docs](https://ui.shadcn.com/docs/registry): publish only what
 upstream doesn't have, and depend on upstream for the rest.
 
@@ -16,12 +16,16 @@ upstream doesn't have, and depend on upstream for the rest.
   (`"button"`), so each app gets upstream's current version for its own
   style, along with upstream's fixes. We don't plan to fork an upstream file to add
   a variant; we'd wrap it in a new item instead.
-- **Showcase:** the upstream components and their examples are pulled in
-  with the shadcn CLI and committed unedited, so the showcase shows what an
-  app actually installs. The only hand-written demos are for our items and
-  for the few upstream examples that need Next.js or the AI SDK.
-- **Themes** are standard `registry:theme` items: CSS variables only, so
-  every upstream component picks them up with no changes.
+- **Themes** are `registry:theme` items shaped like the docs' theme
+  example: CSS variables only, so every upstream component picks them up
+  with no changes.
+
+The showcase is separate from the registry. Its upstream components are
+installed with `shadcn add`, and its demos for them are the example items
+shadcn publishes alongside each component in the base-nova registry
+(`button-example` and so on), also installed with `shadcn add`. Both are
+committed unedited. The only hand-written demos are for our items and for
+the few upstream examples that need Next.js or the AI SDK.
 
 Everything is built on base-nova (Base UI), shadcn's default for new
 projects.

@@ -27,22 +27,12 @@ const POINTS: { title: string; body: ReactNode }[] = [
     ),
   },
   {
-    title: "Showcase",
-    body: (
-      <>
-        The upstream components and their examples are pulled in with the
-        shadcn CLI and committed unedited, so this site shows what an app
-        actually installs. The only hand-written demos are for our items and
-        for the few upstream examples that need Next.js or the AI SDK.
-      </>
-    ),
-  },
-  {
     title: "Themes",
     body: (
       <>
-        Standard <Code>registry:theme</Code> items: CSS variables only, so
-        every upstream component picks them up with no changes.
+        <Code>registry:theme</Code> items shaped like the docs' theme example:
+        CSS variables only, so every upstream component picks them up with no
+        changes.
       </>
     ),
   },
@@ -70,7 +60,7 @@ export function IntroductionPage() {
       <section className="flex flex-col gap-3">
         <h2 className="font-heading text-xl font-semibold">How it's built</h2>
         <p className="leading-7">
-          It follows shadcn's{" "}
+          The registry follows shadcn's{" "}
           <a
             className="font-medium text-primary underline underline-offset-4"
             href="https://ui.shadcn.com/docs/registry"
@@ -91,6 +81,15 @@ export function IntroductionPage() {
             </div>
           ))}
         </dl>
+        <p className="leading-7">
+          This showcase is separate from the registry. Its upstream components
+          are installed with <Code>shadcn add</Code>, and its demos for them
+          are the example items shadcn publishes alongside each component in
+          the base-nova registry (<Code>button-example</Code> and so on), also
+          installed with <Code>shadcn add</Code>. Both are committed unedited.
+          The only hand-written demos are for our items and for the few
+          upstream examples that need Next.js or the AI SDK.
+        </p>
       </section>
 
       <section className="flex flex-col gap-3">
