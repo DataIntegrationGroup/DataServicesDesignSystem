@@ -6,8 +6,8 @@ import { ThemeSelect } from "./themes"
 import {
   AppShell,
   type AppShellNavGroup,
-} from "@/registry/base-nova/app-shell/app-shell"
-import { ModeToggle } from "@/registry/base-nova/mode-toggle/mode-toggle"
+} from "@/registry/base-nova/blocks/app-shell/app-shell"
+import { ModeToggle } from "@/registry/base-nova/components/mode-toggle"
 
 const NAV: AppShellNavGroup[] = GROUPS.map((group) => ({
   label: group,

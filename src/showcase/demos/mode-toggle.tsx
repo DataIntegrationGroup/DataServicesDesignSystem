@@ -1,5 +1,5 @@
 import { Example, ExampleWrapper } from "@/components/example"
-import { ModeToggle } from "@/registry/base-nova/mode-toggle/mode-toggle"
+import { ModeToggle } from "@/registry/base-nova/components/mode-toggle"
 
 export default function ModeToggleDemo() {
   return (

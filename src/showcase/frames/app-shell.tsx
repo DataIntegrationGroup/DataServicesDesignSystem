@@ -19,7 +19,7 @@ import {
   useAppShell,
   useAutoCollapseSidebar,
   type AppShellNavGroup,
-} from "@/registry/base-nova/app-shell/app-shell"
+} from "@/registry/base-nova/blocks/app-shell/app-shell"
 
 // In an app, use your router's location and Link instead of the hash.
 function usePathname() {

@@ -4,7 +4,7 @@ import { Example, ExampleWrapper } from "@/components/example"
 import {
   LayerSelector,
   type LayerOption,
-} from "@/registry/base-nova/layer-selector/layer-selector"
+} from "@/registry/base-nova/ui/layer-selector"
 
 const LAYERS: LayerOption[] = [
   {

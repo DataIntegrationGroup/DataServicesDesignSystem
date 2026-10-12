@@ -4,8 +4,8 @@ import { Example, ExampleWrapper } from "@/components/example"
 import {
   BasemapSelector,
   type BasemapOption,
-} from "@/registry/base-nova/basemap-selector/basemap-selector"
-import { DEFAULT_MAP_STYLE } from "@/registry/base-nova/map/map"
+} from "@/registry/base-nova/ui/basemap-selector"
+import { DEFAULT_MAP_STYLE } from "@/registry/base-nova/ui/map"
 
 const BASEMAPS: BasemapOption[] = [
   { id: DEFAULT_MAP_STYLE, title: "Positron" },

@@ -1,4 +1,4 @@
-import { TopNav } from "@/registry/base-nova/top-nav/top-nav"
+import { TopNav } from "@/registry/base-nova/blocks/top-nav/top-nav"
 
 const LINKS = [
   { label: "Datasets", href: "#/datasets" },

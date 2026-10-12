@@ -7,12 +7,12 @@ import { Card } from "@/components/ui/card"
 import {
   BasemapSelector,
   type BasemapOption,
-} from "@/registry/base-nova/basemap-selector/basemap-selector"
+} from "@/registry/base-nova/ui/basemap-selector"
 import {
   LayerSelector,
   type LayerOption,
-} from "@/registry/base-nova/layer-selector/layer-selector"
-import { DEFAULT_MAP_STYLE, Map, Marker } from "@/registry/base-nova/map/map"
+} from "@/registry/base-nova/ui/layer-selector"
+import { DEFAULT_MAP_STYLE, Map, Marker } from "@/registry/base-nova/ui/map"
 
 // Once per app, before the first map renders: maplibre-gl 6 can't find its
 // worker inside a bundle on its own. This is the Vite form.

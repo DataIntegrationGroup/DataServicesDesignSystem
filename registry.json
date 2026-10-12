@@ -217,7 +217,7 @@
       "docs": "Wrap your app in next-themes' ThemeProvider with attribute=\"class\" so the toggle can set the .dark class.",
       "files": [
         {
-          "path": "src/registry/base-nova/mode-toggle/mode-toggle.tsx",
+          "path": "src/registry/base-nova/components/mode-toggle.tsx",
           "type": "registry:component"
         }
       ]
@@ -259,7 +259,7 @@
       ],
       "files": [
         {
-          "path": "src/registry/base-nova/app-shell/app-shell.tsx",
+          "path": "src/registry/base-nova/blocks/app-shell/app-shell.tsx",
           "type": "registry:component"
         }
       ]
@@ -280,7 +280,7 @@
       ],
       "files": [
         {
-          "path": "src/registry/base-nova/top-nav/top-nav.tsx",
+          "path": "src/registry/base-nova/blocks/top-nav/top-nav.tsx",
           "type": "registry:component"
         }
       ]
@@ -297,7 +297,7 @@
       ],
       "files": [
         {
-          "path": "src/registry/base-nova/map/map.tsx",
+          "path": "src/registry/base-nova/ui/map.tsx",
           "type": "registry:ui"
         }
       ],
@@ -319,7 +319,7 @@
       ],
       "files": [
         {
-          "path": "src/registry/base-nova/basemap-selector/basemap-selector.tsx",
+          "path": "src/registry/base-nova/ui/basemap-selector.tsx",
           "type": "registry:ui"
         }
       ]
@@ -346,7 +346,7 @@
       ],
       "files": [
         {
-          "path": "src/registry/base-nova/layer-selector/layer-selector.tsx",
+          "path": "src/registry/base-nova/ui/layer-selector.tsx",
           "type": "registry:ui"
         }
       ]
