@@ -1,0 +1,26 @@
+name: Propose a customization
+description: Suggest moving a change from your app into the registry
+title: "[Proposal]: "
+body:
+  - type: input
+    id: source
+    attributes:
+      label: App PR
+      description: Link to the PR in your app with the change
+    validations:
+      required: true
+  - type: input
+    id: component
+    attributes:
+      label: Component
+      description: Registry item, shadcn component, or theme it touches
+      placeholder: data-table, button, theme-ocotillo
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: What changed and why
+      description: What it does, why you needed it, and which other apps could use it. Add a screenshot if it's visual.
+    validations:
+      required: true
